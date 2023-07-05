@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "2.8.8"
+    "@types/lodash": "4.14.195",
+    "prettier": "2.8.8",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "lodash": "4.17.21"
   }
 }
