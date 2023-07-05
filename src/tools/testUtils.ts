@@ -55,7 +55,7 @@ type FollowingStep = {
 export const makeTestCase =
   ({ makeExercise }: MakeCaseDependencies) =>
   (label: string, steps: [FirstStep, ...Array<FollowingStep>]) =>
-    it(testDescription(label, steps), async () => {
+    it.concurrent(testDescription(label, steps), async () => {
       const { exercise, promiseManager } = setup({ makeExercise });
 
       const exercisePromise = exercise();
@@ -83,8 +83,9 @@ export const makeTestCase =
           promiseManager.reject(rejected);
         }
 
-        // Wait for the next tick
-        await Promise.resolve();
+        // Make sure all promises callbacks (microtasks)
+        // have been dealt with
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
         created.forEach((label) => {
           expect(promiseManager.has(label)).toBe(true);
