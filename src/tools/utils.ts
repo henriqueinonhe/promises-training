@@ -1,9 +1,12 @@
-import { random } from "lodash";
+export type PromiseRecord = {
+  resolve: () => void;
+  reject: () => void;
+};
 
-export const createPromise = (label: string) =>
-  new Promise((resolve) =>
-    setTimeout(() => {
-      console.log(`Resolved: ${label}`);
-      resolve(undefined);
-    }, 300 + random(200))
-  );
+export const promisesRecords = new Map<string, PromiseRecord>();
+
+export const createPromise = (label: string) => {
+  return new Promise<void>((resolve, reject) => {
+    promisesRecords.set(label, { resolve, reject });
+  });
+};
