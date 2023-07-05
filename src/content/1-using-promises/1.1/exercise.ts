@@ -1,8 +1,9 @@
-import { createPromise } from "../../../tools/utils";
+import { Context } from "../../../tools/Context";
 
-export default async () => {
-  await createPromise("A");
-  await createPromise("B");
-  await createPromise("C");
-  await createPromise("D");
-};
+export default ({ createPromise }: Context) =>
+  async () => {
+    await createPromise("A");
+    await createPromise("B");
+    await createPromise("C");
+    await createPromise("D");
+  };
