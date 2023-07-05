@@ -1,7 +1,8 @@
 import { MakeExercise } from "./Exercise";
 import { makeCreatePromise } from "./createPromise";
 import { it, expect } from "vitest";
-import { createPromiseManager } from "./PromiseManager";
+import { PromiseManager, createPromiseManager } from "./PromiseManager";
+import { difference } from "lodash";
 
 type SetupParams = {
   makeExercise: MakeExercise;
@@ -30,14 +31,14 @@ const testDescription = (label: string, steps: Array<Step>) => {
     })
     .filter(Boolean);
 
-  return `${label} - [${stepsSegment.join(", ")}]`;
+  return `${label} - ${stepsSegment.join(" -> ")}`;
 };
 
 type MakeCaseDependencies = {
   makeExercise: MakeExercise;
 };
 
-type Step = FirstStep | FollowingStep;
+export type Step = FirstStep | FollowingStep;
 
 type FirstStep = {
   created: Array<string>;
@@ -52,6 +53,65 @@ type FollowingStep = {
   | { resolved?: undefined; rejected: string }
 );
 
+export const isFirstStep = (step: Step): step is FirstStep =>
+  step?.rejected === undefined && step?.resolved === undefined;
+
+type TestFirstStepParams = {
+  firstStep: FirstStep;
+  promiseManager: PromiseManager;
+};
+
+const testFirstStep = ({ firstStep, promiseManager }: TestFirstStepParams) => {
+  const promisesExpectedToBeCreatedLabels = [...firstStep.created];
+  const promisesThatWereActuallyCreatedLabels = promiseManager.keys();
+
+  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreated(
+    promisesExpectedToBeCreatedLabels
+  );
+
+  return {
+    promisesCreatedAtFirstStepLabels: promisesThatWereActuallyCreatedLabels,
+  };
+};
+
+type TestFollowingStepParams = {
+  followingStep: FollowingStep;
+  promiseManager: PromiseManager;
+  promisesCreatedSoFarLabels: Array<string>;
+};
+
+const testFollowingStep = async ({
+  followingStep,
+  promiseManager,
+  promisesCreatedSoFarLabels,
+}: TestFollowingStepParams) => {
+  const { created, resolved, rejected } = followingStep;
+
+  if (resolved !== undefined) {
+    promiseManager.resolve(resolved);
+  } else if (rejected !== undefined) {
+    promiseManager.reject(rejected);
+  }
+
+  // Make sure all promises callbacks (microtasks)
+  // have been dealt with
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  const promisesExpectedToBeCreatedLabels = [...created];
+  const promisesThatWereActuallyCreatedLabels = difference(
+    promiseManager.keys(),
+    promisesCreatedSoFarLabels
+  );
+
+  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreated(
+    promisesExpectedToBeCreatedLabels
+  );
+
+  return {
+    promisesCreatedAtFollowingStepLabels: promisesThatWereActuallyCreatedLabels,
+  };
+};
+
 export const makeTestCase =
   ({ makeExercise }: MakeCaseDependencies) =>
   (label: string, steps: [FirstStep, ...Array<FollowingStep>]) =>
@@ -62,49 +122,37 @@ export const makeTestCase =
 
       const [firstStep, ...followingSteps] = steps;
 
-      const { created } = firstStep;
-      created.forEach((label) => {
-        expect(promiseManager.has(label)).toBe(true);
+      const promisesThatWereActuallyCreatedLabels = [];
+
+      const { promisesCreatedAtFirstStepLabels } = testFirstStep({
+        firstStep,
+        promiseManager,
       });
 
-      // This way we know that we only created
-      // precisely the promises we expected to create
-      // and no more
-      const promiseCount = promiseManager.count();
-      expect(promiseCount).toBe(created.length);
+      promisesThatWereActuallyCreatedLabels.push(
+        ...promisesCreatedAtFirstStepLabels
+      );
 
       for (const step of followingSteps) {
-        const promiseCount = promiseManager.count();
-        const { created, resolved, rejected } = step;
+        const { promisesCreatedAtFollowingStepLabels } =
+          await testFollowingStep({
+            followingStep: step,
+            promiseManager,
+            promisesCreatedSoFarLabels: promisesThatWereActuallyCreatedLabels,
+          });
 
-        if (resolved !== undefined) {
-          promiseManager.resolve(resolved);
-        } else if (rejected !== undefined) {
-          promiseManager.reject(rejected);
-        }
-
-        // Make sure all promises callbacks (microtasks)
-        // have been dealt with
-        await new Promise((resolve) => setTimeout(resolve, 0));
-
-        created.forEach((label) => {
-          expect(promiseManager.has(label)).toBe(true);
-        });
-
-        // This way we know that we only created
-        // precisely the promises we expected to create
-        // and no more
-        const newPromiseCount = promiseManager.count();
-        expect(newPromiseCount).toBe(promiseCount + created.length);
+        promisesThatWereActuallyCreatedLabels.push(
+          ...promisesCreatedAtFollowingStepLabels
+        );
       }
-
-      const finalPromiseCount = promiseManager.count();
 
       // Making sure there are no pending promises
       await exercisePromise;
 
-      const promiseCountAfterExerciseEnded = promiseManager.count();
-
       // Making sure we didn't create any more promises
-      expect(finalPromiseCount).toBe(promiseCountAfterExerciseEnded);
+      const promisesCreatedAfterExerciseFinished = difference(
+        promiseManager.keys(),
+        promisesThatWereActuallyCreatedLabels
+      );
+      expect(promisesCreatedAfterExerciseFinished).toHaveBeenCreated([]);
     });

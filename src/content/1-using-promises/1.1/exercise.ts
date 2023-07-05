@@ -5,5 +5,5 @@ export default ({ createPromise }: Context) =>
     await createPromise("A");
     await createPromise("B");
     await createPromise("C");
-    await createPromise("D");
+    // await createPromise("D");
   };
