@@ -1,14 +1,14 @@
-import { PromisesRecords } from "./createPromisesRecords";
+import { PromiseManager } from "./PromiseManager";
 
 type Dependencies = {
-  promisesRecords: PromisesRecords;
+  promiseManager: PromiseManager;
 };
 
 export const makeCreatePromise =
-  ({ promisesRecords }: Dependencies) =>
+  ({ promiseManager }: Dependencies) =>
   (label: string) => {
     return new Promise<void>((resolve, reject) => {
-      promisesRecords.set(label, { resolve, reject });
+      promiseManager.register(label, resolve, reject);
     });
   };
 
