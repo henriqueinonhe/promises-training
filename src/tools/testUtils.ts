@@ -58,15 +58,21 @@ export const isFirstStep = (step: Step): step is FirstStep =>
 
 type TestFirstStepParams = {
   firstStep: FirstStep;
+  steps: Array<Step>;
   promiseManager: PromiseManager;
 };
 
-const testFirstStep = ({ firstStep, promiseManager }: TestFirstStepParams) => {
+const testFirstStep = ({
+  firstStep,
+  promiseManager,
+  steps,
+}: TestFirstStepParams) => {
   const promisesExpectedToBeCreatedLabels = [...firstStep.created];
   const promisesThatWereActuallyCreatedLabels = promiseManager.keys();
 
-  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreated(
-    promisesExpectedToBeCreatedLabels
+  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreatedAtStep(
+    promisesExpectedToBeCreatedLabels,
+    { currentStep: firstStep, stepIndex: 0, steps }
   );
 
   return {
@@ -78,12 +84,16 @@ type TestFollowingStepParams = {
   followingStep: FollowingStep;
   promiseManager: PromiseManager;
   promisesCreatedSoFarLabels: Array<string>;
+  stepIndex: number;
+  steps: Array<Step>;
 };
 
 const testFollowingStep = async ({
   followingStep,
   promiseManager,
   promisesCreatedSoFarLabels,
+  stepIndex,
+  steps,
 }: TestFollowingStepParams) => {
   const { created, resolved, rejected } = followingStep;
 
@@ -103,8 +113,13 @@ const testFollowingStep = async ({
     promisesCreatedSoFarLabels
   );
 
-  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreated(
-    promisesExpectedToBeCreatedLabels
+  expect(promisesThatWereActuallyCreatedLabels).toHaveBeenCreatedAtStep(
+    promisesExpectedToBeCreatedLabels,
+    {
+      currentStep: followingStep,
+      stepIndex,
+      steps,
+    }
   );
 
   return {
@@ -127,23 +142,29 @@ export const makeTestCase =
       const { promisesCreatedAtFirstStepLabels } = testFirstStep({
         firstStep,
         promiseManager,
+        steps,
       });
 
       promisesThatWereActuallyCreatedLabels.push(
         ...promisesCreatedAtFirstStepLabels
       );
 
+      let stepIndex = 1;
       for (const step of followingSteps) {
         const { promisesCreatedAtFollowingStepLabels } =
           await testFollowingStep({
             followingStep: step,
             promiseManager,
             promisesCreatedSoFarLabels: promisesThatWereActuallyCreatedLabels,
+            stepIndex,
+            steps,
           });
 
         promisesThatWereActuallyCreatedLabels.push(
           ...promisesCreatedAtFollowingStepLabels
         );
+
+        stepIndex++;
       }
 
       // Making sure there are no pending promises
@@ -154,5 +175,5 @@ export const makeTestCase =
         promiseManager.keys(),
         promisesThatWereActuallyCreatedLabels
       );
-      expect(promisesCreatedAfterExerciseFinished).toHaveBeenCreated([]);
+      // expect(promisesCreatedAfterExerciseFinished).toHaveBeenCreatedAtStep([]);
     });

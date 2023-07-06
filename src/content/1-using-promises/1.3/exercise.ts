@@ -1,6 +1,6 @@
-import { Context } from "../../../tools/Context";
+import { ExerciseContext } from "../../../tools/Exercise";
 
-export default ({ createPromise }: Context) =>
+export default ({ createPromise }: ExerciseContext) =>
   async () => {
     await Promise.all([createPromise("A"), createPromise("B")]);
     await createPromise("C");

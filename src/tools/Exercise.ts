@@ -1,5 +1,9 @@
-import { Context } from "./Context";
+import { CreatePromise } from "./createPromise";
 
-export type MakeExercise = (context: Context) => () => Promise<void>;
+export type MakeExercise = (context: ExerciseContext) => Exercise;
+
+export type ExerciseContext = {
+  createPromise: CreatePromise;
+};
 
 export type Exercise = () => Promise<void>;
