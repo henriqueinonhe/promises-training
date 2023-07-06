@@ -1,4 +1,4 @@
-import { ExerciseContext } from "../../../tools/Exercise";
+import { ExerciseContext } from "../../../lib/Exercise";
 
 export default ({ createPromise }: ExerciseContext) =>
   async () => {

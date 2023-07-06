@@ -1,3 +1,3 @@
-import { extendMatchers } from "./src/tools/extendMatchers";
+import { extendMatchers } from "./src/lib/extendMatchers";
 
 extendMatchers();

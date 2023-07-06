@@ -1,5 +1,5 @@
 import makeExercise from "../../../content/1-using-promises/1.3/exercise";
-import { makeTestCase } from "../../../tools/testUtils";
+import { makeTestCase } from "../../../lib/testUtils";
 
 const testCase = makeTestCase({ makeExercise });
 
