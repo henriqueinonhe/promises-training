@@ -1,49 +1,18 @@
 import { ExerciseContext } from "../../../lib/Exercise";
 
-type Ref<T> = { current: Promise<T> | undefined };
-
-const createRef = <T>(): Ref<T> => ({ current: undefined });
-
 export default ({ createPromise }: ExerciseContext) =>
   async () => {
-    const promiseDRef = createRef();
-    const promiseB = createPromise("B");
-
-    const promiseFRef = createRef();
-    const promiseERef = createRef();
-    const promiseC = createPromise("C");
-
     const first = async () => {
-      await promiseB;
-      promiseERef.current = createPromise("E");
-      await promiseERef.current;
+      await createPromise("A");
+      await Promise.all([createPromise("B"), createPromise("C")]);
+      await createPromise("D");
     };
 
     const second = async () => {
-      await createPromise("A");
-      promiseDRef.current = createPromise("D");
-      await promiseDRef.current;
-    };
-
-    const firstPromise = first();
-    const secondPromise = second();
-
-    const third = async () => {
-      await secondPromise;
-      await createPromise("F");
-    };
-
-    const fourth = async () => {
-      await Promise.all([firstPromise, secondPromise, third()]);
-      await Promise.all([promiseFRef.current, promiseERef.current, promiseC]);
-      await createPromise("G");
-    };
-
-    const fifth = async () => {
-      await secondPromise;
-      await Promise.all([promiseDRef.current, promiseB, promiseC]);
+      await createPromise("E");
+      await Promise.all([createPromise("F"), createPromise("G")]);
       await createPromise("H");
     };
 
-    await Promise.all([fourth(), fifth()]);
+    await Promise.all([first(), second()]);
   };

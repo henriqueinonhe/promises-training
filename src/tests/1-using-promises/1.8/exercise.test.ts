@@ -3,38 +3,50 @@ import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerc
 
 const graphExerciseTestCase = makeGraphExerciseTestCase({ makeExercise });
 
-graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F"] },
+graphExerciseTestCase("1.8", [
+  { created: ["A", "E"] },
+  { resolved: "A", created: ["B", "C"] },
+  { resolved: "B", created: [] },
+  { resolved: "C", created: ["D"] },
+  { resolved: "D", created: [] },
+  { resolved: "E", created: ["F", "G"] },
   { resolved: "F", created: [] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "E", created: [] },
-  { resolved: "C", created: ["G", "H"] },
-  { resolved: "G", created: [] },
+  { resolved: "G", created: ["H"] },
   { resolved: "H", created: [] },
 ]);
 
-graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "B", created: ["E"] },
+graphExerciseTestCase("1.8", [
+  { created: ["A", "E"] },
+  { resolved: "E", created: ["F", "G"] },
+  { resolved: "F", created: [] },
+  { resolved: "G", created: ["H"] },
+  { resolved: "H", created: [] },
+  { resolved: "A", created: ["B", "C"] },
+  { resolved: "B", created: [] },
+  { resolved: "C", created: ["D"] },
+  { resolved: "D", created: [] },
+]);
+
+graphExerciseTestCase("1.8", [
+  { created: ["A", "E"] },
+  { resolved: "A", created: ["B", "C"] },
+  { resolved: "E", created: ["F", "G"] },
   { resolved: "C", created: [] },
-  { resolved: "E", created: [] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F", "H"] },
-  { resolved: "F", created: ["G"] },
   { resolved: "G", created: [] },
+  { resolved: "B", created: ["D"] },
+  { resolved: "F", created: ["H"] },
   { resolved: "H", created: [] },
+  { resolved: "D", created: [] },
 ]);
 
-graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "C", created: ["H"] },
-  { resolved: "E", created: [] },
-  { resolved: "F", created: ["G"] },
+graphExerciseTestCase("1.8", [
+  { created: ["A", "E"] },
+  { resolved: "A", created: ["B", "C"] },
+  { resolved: "E", created: ["F", "G"] },
   { resolved: "G", created: [] },
+  { resolved: "C", created: [] },
+  { resolved: "F", created: ["H"] },
+  { resolved: "B", created: ["D"] },
+  { resolved: "D", created: [] },
   { resolved: "H", created: [] },
 ]);
