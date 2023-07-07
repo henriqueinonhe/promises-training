@@ -4,37 +4,37 @@ import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerc
 const graphExerciseTestCase = makeGraphExerciseTestCase({ makeExercise });
 
 graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "F", created: [] },
-  { resolved: "B", created: ["E"] },
+  { created: ["A", "B"] },
+  { resolved: "A", created: ["C"] },
+  { resolved: "B", created: ["D"] },
+  { resolved: "C", created: ["E"] },
+  { resolved: "D", created: [] },
   { resolved: "E", created: [] },
-  { resolved: "C", created: ["G", "H"] },
-  { resolved: "G", created: [] },
-  { resolved: "H", created: [] },
 ]);
 
 graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "C", created: [] },
+  { created: ["A", "B"] },
+  { resolved: "B", created: [] },
+  { resolved: "A", created: ["C", "D"] },
+  { resolved: "D", created: [] },
+  { resolved: "C", created: ["E"] },
   { resolved: "E", created: [] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F", "H"] },
-  { resolved: "F", created: ["G"] },
-  { resolved: "G", created: [] },
-  { resolved: "H", created: [] },
 ]);
 
 graphExerciseTestCase("1.7", [
-  { created: ["A", "B", "C"] },
-  { resolved: "A", created: ["D"] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "C", created: ["H"] },
+  { created: ["A", "B"] },
+  { resolved: "B", created: [] },
+  { resolved: "A", created: ["C", "D"] },
+  { resolved: "D", created: [] },
+  { resolved: "C", created: ["E"] },
   { resolved: "E", created: [] },
-  { resolved: "F", created: ["G"] },
-  { resolved: "G", created: [] },
-  { resolved: "H", created: [] },
+]);
+
+graphExerciseTestCase("1.7", [
+  { created: ["A", "B"] },
+  { resolved: "B", created: [] },
+  { resolved: "A", created: ["C", "D"] },
+  { resolved: "C", created: ["E"] },
+  { resolved: "D", created: [] },
+  { resolved: "E", created: [] },
 ]);
