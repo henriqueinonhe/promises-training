@@ -1,4 +1,4 @@
-import { Exercise, MakeExercise } from "../Exercise";
+import { MakeExercise } from "../Exercise";
 import { PromiseManager } from "../PromiseManager";
 import { it, expect } from "vitest";
 import {

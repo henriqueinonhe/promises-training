@@ -1,9 +1,29 @@
 import { expect } from "vitest";
 import { difference } from "lodash";
 import {
+  GraphExerciseFirstStep,
+  GraphExerciseFollowingStep,
   GraphExerciseStep,
   isGraphExerciseFirstStep,
 } from "./graphExercise/graphExerciseStep";
+
+type ToHaveBeenCreatedAtStepParams = {
+  steps: [GraphExerciseFirstStep, ...Array<GraphExerciseFollowingStep>];
+  currentStep: GraphExerciseStep;
+  stepIndex: number;
+};
+
+interface CustomMatchers<R = unknown> {
+  toHaveBeenCreatedAtStep(
+    promisesCreatedLabels: Array<string>,
+    params: ToHaveBeenCreatedAtStepParams
+  ): R;
+}
+
+declare module "vitest" {
+  interface Assertion<T = any> extends CustomMatchers<T> {}
+  interface AsymmetricMatchersContaining extends CustomMatchers {}
+}
 
 export const extendMatchers = () => {
   expect.extend({
@@ -22,71 +42,102 @@ export const extendMatchers = () => {
 
       const pass = difference(expected, actual).length === 0;
 
+      const formattedExpectedPromises = formatPromiseList(expected, bold);
+      const formattedReceivedPromises = formatPromiseList(actual, bold);
+      const baseMessage = [
+        expectedColor(`${formattedExpectedPromises} to have been created, but`),
+        receivedColor(
+          `${formattedReceivedPromises} ${wasWere(
+            actual.length
+          )} created instead.`
+        ),
+      ].join("\n");
+
       if (isGraphExerciseFirstStep(currentStep)) {
         const message = () =>
-          [
-            `At the ${bold("first step")} we expected`,
-            `${expected.join(", ")}`,
-            `to have been created, but`,
-            `${actual.join(", ")} were created instead.`,
-          ].join("\n");
+          [`When the exercise started, we expected`, baseMessage].join("\n");
 
         return {
           pass,
           message,
-          actual,
-          expected,
         };
       }
 
       const [, ...followingSteps] = steps;
+      const stepsSegment = formatStepsSegment({
+        bold,
+        invertedColor,
+        stepIndex,
+        steps: followingSteps,
+      });
       // To account for the first step
       const followingStepNumber = stepIndex;
-      const stepsSegment = followingSteps
-        .map((step, index) => {
-          const baseString = step.resolved
-            ? step.resolved
-            : `!${step.rejected}`;
 
-          if (index === stepIndex) {
-            return bold(baseString);
-          }
-
-          return baseString;
-        })
-        .join(" -> ");
       const message = () =>
         [
-          `At the step ${followingStepNumber} (${stepsSegment}) we expected`,
-          `${expected.join(", ")}`,
-          `to have been created, but`,
-          `${actual.join(", ")} were created instead.`,
+          `At step ${followingStepNumber} (${stepsSegment}) we expected`,
+          baseMessage,
         ].join("\n");
 
       return {
-        pass: difference(expected, actual).length === 0,
+        pass,
         message,
-        actual,
-        expected,
       };
     },
   });
 };
 
-type ToHaveBeenCreatedAtStepParams = {
-  steps: Array<GraphExerciseStep>;
-  currentStep: GraphExerciseStep;
-  stepIndex: number;
+const formatPromiseList = (
+  list: Array<string>,
+  bold: (string: string) => string
+) => {
+  if (list.length === 0) {
+    return bold("no promises");
+  }
+
+  return `${promisePromises(list.length)} ${bold(list.join(", "))}`;
 };
 
-interface CustomMatchers<R = unknown> {
-  toHaveBeenCreatedAtStep(
-    promisesCreatedLabels: Array<string>,
-    params: ToHaveBeenCreatedAtStepParams
-  ): R;
-}
+const wasWere = (length: number) => {
+  if (length === 1) {
+    return "was";
+  }
 
-declare module "vitest" {
-  interface Assertion<T = any> extends CustomMatchers<T> {}
-  interface AsymmetricMatchersContaining extends CustomMatchers {}
-}
+  return "were";
+};
+
+const promisePromises = (length: number) => {
+  if (length === 1) {
+    return "promise";
+  }
+
+  return "promises";
+};
+
+type StepsSegmentParams = {
+  steps: Array<GraphExerciseFollowingStep>;
+  stepIndex: number;
+  invertedColor: (string: string) => string;
+  bold: (string: string) => string;
+};
+
+const formatStepsSegment = ({
+  bold,
+  invertedColor,
+  stepIndex,
+  steps,
+}: StepsSegmentParams) => {
+  const stepsSegment = steps
+    .map((step, index) => {
+      const baseString = step.resolved ? step.resolved : `!${step.rejected}`;
+
+      if (index === stepIndex - 1) {
+        return invertedColor(bold(baseString));
+      }
+
+      return baseString;
+    })
+    .join(" -> ");
+
+  return stepsSegment;
+};
