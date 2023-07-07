@@ -1,13 +1,13 @@
 import { PromiseManager } from "./PromiseManager";
 
-type Dependencies = {
-  promiseManager: PromiseManager;
+type Dependencies<T> = {
+  promiseManager: PromiseManager<T>;
 };
 
 export const makeCreatePromise =
-  ({ promiseManager }: Dependencies) =>
+  <T>({ promiseManager }: Dependencies<T>) =>
   (label: string) => {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       promiseManager.register(label, resolve, reject);
     });
   };

@@ -4,12 +4,13 @@ import { it, expect } from "vitest";
 import {
   GraphExerciseFirstStep,
   GraphExerciseFollowingStep,
-  GraphExerciseStep,
-} from "./graphExerciseStep";
+  GraphExerciseStepSequence,
+} from "./GraphExerciseStep";
 import { graphExerciseTestDescription } from "./graphExerciseTestDescription";
 import { difference } from "lodash";
 import { reduceArrayAsync } from "../reduceArrayAsync";
-import { createContainer } from "../container";
+import { createGraphExerciseContainer } from "./graphExerciseContainer";
+import { waitForPromises } from "../waitForPromises";
 
 type Dependencies = {
   makeExercise: MakeExercise;
@@ -17,11 +18,10 @@ type Dependencies = {
 
 export const makeGraphExerciseTestCase =
   ({ makeExercise }: Dependencies) =>
-  (
-    label: string,
-    steps: [GraphExerciseFirstStep, ...Array<GraphExerciseFollowingStep>]
-  ) => {
-    const { exercise, promiseManager } = createContainer({ makeExercise });
+  (label: string, steps: GraphExerciseStepSequence) => {
+    const { exercise, promiseManager } = createGraphExerciseContainer({
+      makeExercise,
+    });
 
     const description = graphExerciseTestDescription(label, steps);
 
@@ -73,7 +73,7 @@ export const makeGraphExerciseTestCase =
 
 type TestFirstStepParams = {
   firstStep: GraphExerciseFirstStep;
-  steps: Array<GraphExerciseStep>;
+  steps: GraphExerciseStepSequence;
   promiseManager: PromiseManager;
 };
 
@@ -100,7 +100,7 @@ type TestFollowingStepParams = {
   promiseManager: PromiseManager;
   promisesCreatedSoFarLabels: Array<string>;
   stepIndex: number;
-  steps: Array<GraphExerciseStep>;
+  steps: GraphExerciseStepSequence;
 };
 
 const testFollowingStep = async ({
@@ -118,9 +118,7 @@ const testFollowingStep = async ({
     promiseManager.reject(rejected);
   }
 
-  // Make sure all promises callbacks (microtasks)
-  // have been dealt with
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await waitForPromises();
 
   const promisesExpectedToBeCreatedLabels = [...created];
   const promisesCreatedAtFollowingStepLabels = difference(

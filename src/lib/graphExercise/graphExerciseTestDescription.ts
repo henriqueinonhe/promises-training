@@ -1,4 +1,4 @@
-import { GraphExerciseStep } from "./graphExerciseStep";
+import { GraphExerciseStep } from "./GraphExerciseStep";
 
 export const graphExerciseTestDescription = (
   label: string,

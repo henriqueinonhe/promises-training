@@ -1,14 +1,14 @@
 import { expect } from "vitest";
 import { xor } from "lodash";
 import {
-  GraphExerciseFirstStep,
   GraphExerciseFollowingStep,
   GraphExerciseStep,
+  GraphExerciseStepSequence,
   isGraphExerciseFirstStep,
-} from "./graphExercise/graphExerciseStep";
+} from "./graphExercise/GraphExerciseStep";
 
 type ToHaveBeenCreatedAtStepParams = {
-  steps: [GraphExerciseFirstStep, ...Array<GraphExerciseFollowingStep>];
+  steps: GraphExerciseStepSequence;
   currentStep: GraphExerciseStep;
   stepIndex: number;
 };

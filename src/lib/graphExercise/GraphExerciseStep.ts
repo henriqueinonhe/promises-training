@@ -15,6 +15,11 @@ export type GraphExerciseFollowingStep = {
   | { resolved?: undefined; rejected: string }
 );
 
+export type GraphExerciseStepSequence = [
+  GraphExerciseFirstStep,
+  ...Array<GraphExerciseFollowingStep>
+];
+
 export const isGraphExerciseFirstStep = (
   step: GraphExerciseStep
 ): step is GraphExerciseFirstStep =>

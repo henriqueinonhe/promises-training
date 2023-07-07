@@ -1,12 +1,16 @@
-export type PromiseRecord = {
-  resolve: () => void;
-  reject: () => void;
+export type PromiseRecord<T> = {
+  resolve: (value: T) => void;
+  reject: (reason: unknown) => void;
 };
 
-export const createPromiseManager = () => {
-  const records = new Map<string, PromiseRecord>();
+export const createPromiseManager = <T = undefined>() => {
+  const records = new Map<string, PromiseRecord<T>>();
 
-  const register = (label: string, resolve: () => void, reject: () => void) => {
+  const register = (
+    label: string,
+    resolve: (value: T) => void,
+    reject: (reason: unknown) => void
+  ) => {
     if (has(label)) {
       throw new Error(`Promise with label "${label}" already exists`);
     }
@@ -17,24 +21,28 @@ export const createPromiseManager = () => {
     });
   };
 
-  const resolve = (label: string) => {
+  type ResolveParams = T extends undefined
+    ? [label: string]
+    : [label: string, value: T];
+  const resolve = (...params: ResolveParams) => {
+    const [label, value] = params;
     const record = records.get(label);
 
     if (!record) {
       throw new Error(`Promise with label "${label}" not found`);
     }
 
-    record.resolve();
+    record.resolve(value as T);
   };
 
-  const reject = (label: string) => {
+  const reject = (label: string, reason?: unknown) => {
     const record = records.get(label);
 
     if (!record) {
       throw new Error(`Promise with label "${label}" not found`);
     }
 
-    record.reject();
+    record.reject(reason);
   };
 
   const has = (label: string) => records.has(label);
@@ -53,4 +61,6 @@ export const createPromiseManager = () => {
   };
 };
 
-export type PromiseManager = ReturnType<typeof createPromiseManager>;
+export type PromiseManager<T = undefined> = ReturnType<
+  typeof createPromiseManager<T>
+>;
