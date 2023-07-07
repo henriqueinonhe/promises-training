@@ -1,5 +1,5 @@
 import { expect } from "vitest";
-import { difference } from "lodash";
+import { xor } from "lodash";
 import {
   GraphExerciseFirstStep,
   GraphExerciseFollowingStep,
@@ -40,7 +40,7 @@ export const extendMatchers = () => {
         RECEIVED_COLOR: receivedColor,
       } = this.utils;
 
-      const pass = difference(expected, actual).length === 0;
+      const pass = xor(actual, expected).length === 0;
 
       const formattedExpectedPromises = formatPromiseList(expected, bold);
       const formattedReceivedPromises = formatPromiseList(actual, bold);

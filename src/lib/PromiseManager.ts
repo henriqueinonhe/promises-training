@@ -7,6 +7,10 @@ export const createPromiseManager = () => {
   const records = new Map<string, PromiseRecord>();
 
   const register = (label: string, resolve: () => void, reject: () => void) => {
+    if (has(label)) {
+      throw new Error(`Promise with label "${label}" already exists`);
+    }
+
     records.set(label, {
       resolve,
       reject,
