@@ -1,9 +1,9 @@
 import makeExercise from "../../../content/1-using-promises/1.1/exercise";
-import { makeTestCase } from "../../../lib/testUtils";
+import { createContainer } from "../../../lib/container";
 
-const testCase = makeTestCase({ makeExercise });
+const { graphExerciseTestCase } = createContainer({ makeExercise });
 
-testCase("1.1", [
+graphExerciseTestCase("1.1", [
   { created: ["A"] },
   { resolved: "A", created: ["B"] },
   { resolved: "B", created: ["C"] },

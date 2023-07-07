@@ -1,6 +1,9 @@
 import { expect } from "vitest";
 import { difference } from "lodash";
-import { isFirstStep, Step } from "./testUtils";
+import {
+  GraphExerciseStep,
+  isGraphExerciseFirstStep,
+} from "./graphExercise/graphExerciseStep";
 
 export const extendMatchers = () => {
   expect.extend({
@@ -19,7 +22,7 @@ export const extendMatchers = () => {
 
       const pass = difference(expected, actual).length === 0;
 
-      if (isFirstStep(currentStep)) {
+      if (isGraphExerciseFirstStep(currentStep)) {
         const message = () =>
           [
             `At the ${bold("first step")} we expected`,
@@ -68,8 +71,8 @@ export const extendMatchers = () => {
 };
 
 type ToHaveBeenCreatedAtStepParams = {
-  steps: Array<Step>;
-  currentStep: Step;
+  steps: Array<GraphExerciseStep>;
+  currentStep: GraphExerciseStep;
   stepIndex: number;
 };
 
