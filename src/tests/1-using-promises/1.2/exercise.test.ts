@@ -1,9 +1,9 @@
 import makeExercise from "../../../content/1-using-promises/1.2/exercise";
-import { makeTestCase } from "../../../tools/testUtils";
+import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerciseTestCase";
 
-const testCase = makeTestCase({ makeExercise });
+const graphExerciseTestCase = makeGraphExerciseTestCase({ makeExercise });
 
-testCase("1.2", [
+graphExerciseTestCase("1.2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "B", created: ["C"] },
@@ -13,7 +13,7 @@ testCase("1.2", [
   { resolved: "F", created: [] },
 ]);
 
-testCase("1.2", [
+graphExerciseTestCase("1.2", [
   { created: ["A", "D"] },
   { resolved: "D", created: ["E"] },
   { resolved: "E", created: ["F"] },
@@ -23,7 +23,7 @@ testCase("1.2", [
   { resolved: "C", created: [] },
 ]);
 
-testCase("1.2", [
+graphExerciseTestCase("1.2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "D", created: ["E"] },
@@ -33,7 +33,7 @@ testCase("1.2", [
   { resolved: "F", created: [] },
 ]);
 
-testCase("1.2", [
+graphExerciseTestCase("1.2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "D", created: ["E"] },

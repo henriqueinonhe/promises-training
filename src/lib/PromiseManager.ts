@@ -37,12 +37,15 @@ export const createPromiseManager = () => {
 
   const count = () => records.size;
 
+  const keys = () => Array.from(records.keys());
+
   return {
     register,
     resolve,
     reject,
     has,
     count,
+    keys,
   };
 };
 
