@@ -1,4 +1,4 @@
-import { Exercise } from "../Exercise";
+import { Exercise, MakeExercise } from "../Exercise";
 import { PromiseManager } from "../PromiseManager";
 import { it, expect } from "vitest";
 import {
@@ -9,18 +9,20 @@ import {
 import { graphExerciseTestDescription } from "./graphExerciseTestDescription";
 import { difference } from "lodash";
 import { reduceArrayAsync } from "../reduceArrayAsync";
+import { createContainer } from "../container";
 
 type Dependencies = {
-  exercise: Exercise;
-  promiseManager: PromiseManager;
+  makeExercise: MakeExercise;
 };
 
 export const makeGraphExerciseTestCase =
-  ({ exercise, promiseManager }: Dependencies) =>
+  ({ makeExercise }: Dependencies) =>
   (
     label: string,
     steps: [GraphExerciseFirstStep, ...Array<GraphExerciseFollowingStep>]
   ) => {
+    const { exercise, promiseManager } = createContainer({ makeExercise });
+
     const description = graphExerciseTestDescription(label, steps);
 
     it.concurrent(description, async () => {

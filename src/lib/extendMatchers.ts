@@ -40,10 +40,13 @@ export const extendMatchers = () => {
       }
 
       const [, ...followingSteps] = steps;
-      const stepNumber = stepIndex + 1;
+      // To account for the first step
+      const followingStepNumber = stepIndex;
       const stepsSegment = followingSteps
         .map((step, index) => {
-          const baseString = step.resolved ? step.resolved : `${step.rejected}`;
+          const baseString = step.resolved
+            ? step.resolved
+            : `!${step.rejected}`;
 
           if (index === stepIndex) {
             return bold(baseString);
@@ -54,7 +57,7 @@ export const extendMatchers = () => {
         .join(" -> ");
       const message = () =>
         [
-          `At the step ${stepNumber} (${stepsSegment}) we expected`,
+          `At the step ${followingStepNumber} (${stepsSegment}) we expected`,
           `${expected.join(", ")}`,
           `to have been created, but`,
           `${actual.join(", ")} were created instead.`,
