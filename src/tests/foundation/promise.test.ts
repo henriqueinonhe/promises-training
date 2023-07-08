@@ -1,0 +1,419 @@
+import { describe, it, expect, vi } from "vitest";
+import MyPromise from "../../content/foundation/promise";
+import { waitForPromises } from "../../lib/waitForPromises";
+
+type SetupParams = {};
+
+const setup = ({}: SetupParams) => {
+  let resolver: (value: number) => void;
+  let rejecter: (reason: unknown) => void;
+
+  const executor = vi.fn().mockImplementation((resolve, reject) => {
+    resolver = resolve;
+    rejecter = reject;
+  });
+  const promise = new MyPromise<number>(executor);
+
+  return {
+    promise,
+    executor,
+    resolver: resolver!,
+    rejecter: rejecter!,
+  };
+};
+
+describe("When promise is created", () => {
+  const secondSetup = () => setup({});
+
+  it("Calls executor synchronously (immediately) once", () => {
+    const { executor } = secondSetup();
+
+    expect(executor).toHaveBeenCalledOnce();
+  });
+});
+
+describe("When calling `.then`", () => {
+  type SecondSetupParams = {
+    status: "fulfilled" | "rejected" | "pending";
+    resolvedValue?: number;
+    rejectedReason?: unknown;
+  };
+
+  const secondSetup = ({
+    status,
+    rejectedReason = "Error",
+    resolvedValue = 10,
+  }: SecondSetupParams) => {
+    const { promise, rejecter, resolver } = setup({});
+
+    const onFulfilled = vi.fn().mockReturnValue(20);
+    const onRejected = vi.fn().mockReturnValue("Error");
+
+    if (status === "fulfilled") {
+      resolver(resolvedValue);
+    }
+
+    if (status === "rejected") {
+      rejecter(rejectedReason);
+    }
+
+    const nextPromise = promise.then(onFulfilled, onRejected);
+
+    return {
+      promise,
+      nextPromise,
+      onFulfilled,
+      onRejected,
+      resolvedValue,
+      rejectedReason,
+    };
+  };
+
+  it("Returns a new promise that is different from the original", () => {
+    const { nextPromise, promise } = secondSetup({
+      status: "pending",
+    });
+
+    expect(nextPromise).not.toBe(promise);
+  });
+
+  describe("And the promise didn't finish yet", () => {
+    const thirdSetup = () => secondSetup({ status: "pending" });
+
+    it("`.then` handlers do not get called", () => {
+      const { onFulfilled, onRejected } = thirdSetup();
+
+      expect(onFulfilled).not.toHaveBeenCalled();
+      expect(onRejected).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("And the promise is already fulfilled", () => {
+    const thirdSetup = () => secondSetup({ status: "fulfilled" });
+
+    it("`.then` onFulfilled gets called with resolved value", () => {
+      const { onFulfilled, resolvedValue } = thirdSetup();
+
+      expect(onFulfilled).toHaveBeenCalledTimes(1);
+      expect(onFulfilled).toHaveBeenCalledWith(resolvedValue);
+    });
+
+    it("`.then` onRejected does not get called", () => {
+      const { onRejected } = thirdSetup();
+
+      expect(onRejected).not.toHaveBeenCalled();
+    });
+
+    it("New promise resolves to the result of onFulfilled", () =>
+      new Promise((done) => {
+        const { nextPromise, onFulfilled, resolvedValue } = thirdSetup();
+
+        nextPromise.then((value) => {
+          expect(value).toBe(onFulfilled(resolvedValue));
+          done(undefined);
+        });
+      }));
+  });
+
+  describe("And the promise is already rejected", () => {
+    const thirdSetup = () => secondSetup({ status: "rejected" });
+
+    it("`.then` onRejected gets called", () => {
+      const { onRejected, rejectedReason } = thirdSetup();
+
+      expect(onRejected).toHaveBeenCalledTimes(1);
+      expect(onRejected).toHaveBeenCalledWith(rejectedReason);
+    });
+
+    it("`.then` onFulfilled does not get called", () => {
+      const { onFulfilled } = thirdSetup();
+
+      expect(onFulfilled).not.toHaveBeenCalled();
+    });
+
+    it("New promise resolves to the result of onRejected", () =>
+      new Promise((done) => {
+        const { nextPromise, onRejected, rejectedReason } = thirdSetup();
+
+        nextPromise.then((value) => {
+          expect(value).toBe(onRejected(rejectedReason));
+          done(undefined);
+        });
+      }));
+  });
+});
+
+describe("When there are promises created with `.then`", () => {
+  type SecondSetupParams = {
+    status: "fulfilled" | "rejected" | "pending";
+    resolvedValue?: number;
+    rejectedReason?: unknown;
+  };
+
+  const secondSetup = ({
+    status,
+    rejectedReason = "Error",
+    resolvedValue = 10,
+  }: SecondSetupParams) => {
+    const { promise, rejecter, resolver } = setup({});
+
+    const onFulfilled1 = vi.fn().mockReturnValue(20);
+    const onRejected1 = vi.fn().mockReturnValue("Error1");
+    const nextPromise1 = promise.then(onFulfilled1, onRejected1);
+
+    const onFulfilled2 = vi.fn().mockReturnValue(30);
+    const onRejected2 = vi.fn().mockReturnValue("Error2");
+    const nextPromise2 = promise.then(onFulfilled2, onRejected2);
+
+    const onFulfilled3 = vi.fn().mockReturnValue(40);
+    const onRejected3 = vi.fn().mockReturnValue("Error3");
+    const nextPromise3 = promise.then(onFulfilled3, onRejected3);
+
+    if (status === "fulfilled") {
+      resolver(resolvedValue);
+    }
+
+    if (status === "rejected") {
+      rejecter(rejectedReason);
+    }
+
+    return {
+      resolver,
+      rejecter,
+      promise,
+      resolvedValue,
+      rejectedReason,
+      onFulfilled1,
+      onRejected1,
+      nextPromise1,
+      onFulfilled2,
+      onRejected2,
+      nextPromise2,
+      onFulfilled3,
+      onRejected3,
+      nextPromise3,
+    };
+  };
+
+  describe("And promise has fulfilled", () => {
+    const thirdSetup = () =>
+      secondSetup({
+        status: "fulfilled",
+      });
+
+    it("Calls all onFulfilled handlers that were passed to `.then` calls with resolved value", () => {
+      const { onFulfilled1, onFulfilled2, onFulfilled3, resolvedValue } =
+        thirdSetup();
+
+      expect(onFulfilled1).toHaveBeenCalledOnce();
+      expect(onFulfilled1).toHaveBeenCalledWith(resolvedValue);
+      expect(onFulfilled2).toHaveBeenCalledOnce();
+      expect(onFulfilled2).toHaveBeenCalledWith(resolvedValue);
+      expect(onFulfilled3).toHaveBeenCalledOnce();
+      expect(onFulfilled3).toHaveBeenCalledWith(resolvedValue);
+    });
+
+    it("Created promises resolve to the value returned by onFulfilled", () =>
+      new Promise((done) => {
+        const {
+          nextPromise1,
+          nextPromise2,
+          nextPromise3,
+          resolvedValue,
+          onFulfilled1,
+          onFulfilled2,
+          onFulfilled3,
+        } = thirdSetup();
+
+        let resolvedCount = 0;
+
+        const tryToFinish = () => {
+          resolvedCount++;
+
+          if (resolvedCount === 3) {
+            done(undefined);
+          }
+        };
+
+        nextPromise1.then((value) => {
+          expect(value).toBe(onFulfilled1(resolvedValue));
+          tryToFinish();
+        });
+
+        nextPromise2.then((value) => {
+          expect(value).toBe(onFulfilled2(resolvedValue));
+          tryToFinish();
+        });
+
+        nextPromise3.then((value) => {
+          expect(value).toBe(onFulfilled3(resolvedValue));
+          tryToFinish();
+        });
+      }));
+
+    describe("And then it tries to be fulfilled once again (calling resolve more than once)", () => {
+      it("Handlers are not called again", async () => {
+        const {
+          onFulfilled1,
+          onFulfilled2,
+          onFulfilled3,
+          onRejected1,
+          onRejected2,
+          onRejected3,
+          resolver,
+        } = thirdSetup();
+
+        resolver(300);
+        await waitForPromises();
+
+        expect(onFulfilled1).toHaveBeenCalledOnce();
+        expect(onFulfilled2).toHaveBeenCalledOnce();
+        expect(onFulfilled3).toHaveBeenCalledOnce();
+        expect(onRejected1).not.toHaveBeenCalled();
+        expect(onRejected2).not.toHaveBeenCalled();
+        expect(onRejected3).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("And then it tries to be rejected", () => {
+      it("Handlers are not called again", async () => {
+        const {
+          onFulfilled1,
+          onFulfilled2,
+          onFulfilled3,
+          onRejected1,
+          onRejected2,
+          onRejected3,
+          rejecter,
+        } = thirdSetup();
+
+        rejecter(300);
+        await waitForPromises();
+
+        expect(onFulfilled1).toHaveBeenCalledOnce();
+        expect(onFulfilled2).toHaveBeenCalledOnce();
+        expect(onFulfilled3).toHaveBeenCalledOnce();
+        expect(onRejected1).not.toHaveBeenCalled();
+        expect(onRejected2).not.toHaveBeenCalled();
+        expect(onRejected3).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("And promise has rejected", () => {
+    const thirdSetup = () => {
+      const secondSetupReturnValue = secondSetup({
+        status: "rejected",
+      });
+
+      const { promise } = secondSetupReturnValue;
+
+      const nextPromiseWithoutRejectHandlerOnFulfilled = vi.fn();
+      const nextPromiseWithoutRejectHandler = promise.then(
+        nextPromiseWithoutRejectHandlerOnFulfilled
+      );
+
+      return {
+        ...secondSetupReturnValue,
+        nextPromiseWithoutRejectHandlerOnFulfilled,
+        nextPromiseWithoutRejectHandler,
+      };
+    };
+
+    it("Created promises resolve to the value returned by onRejected when it is defined and reject to the original promise rejected reason when undefined", () =>
+      new Promise((done) => {
+        const {
+          nextPromise1,
+          nextPromise2,
+          nextPromise3,
+          nextPromiseWithoutRejectHandler,
+          rejectedReason,
+          onRejected1,
+          onRejected2,
+          onRejected3,
+          nextPromiseWithoutRejectHandlerOnFulfilled,
+        } = thirdSetup();
+
+        let finishedCount = 0;
+        const tryToFinish = () => {
+          finishedCount++;
+
+          if (finishedCount === 4) {
+            done(undefined);
+          }
+        };
+
+        nextPromise1.then((value) => {
+          expect(value).toBe(onRejected1(value));
+          tryToFinish();
+        });
+
+        nextPromise2.then((value) => {
+          expect(value).toBe(onRejected2(value));
+          tryToFinish();
+        });
+
+        nextPromise3.then((value) => {
+          expect(value).toBe(onRejected3(value));
+          tryToFinish();
+        });
+
+        nextPromiseWithoutRejectHandler.catch((reason) => {
+          expect(reason).toBe(rejectedReason);
+          tryToFinish();
+        });
+
+        expect(
+          nextPromiseWithoutRejectHandlerOnFulfilled
+        ).not.toHaveBeenCalled();
+      }));
+
+    describe("And then it tries to be fulfilled once again (calling resolve more than once)", () => {
+      it("Handlers are not called again", async () => {
+        const {
+          onFulfilled1,
+          onFulfilled2,
+          onFulfilled3,
+          onRejected1,
+          onRejected2,
+          onRejected3,
+          resolver,
+        } = thirdSetup();
+
+        resolver(300);
+        await waitForPromises();
+
+        expect(onFulfilled1).not.toHaveBeenCalled();
+        expect(onFulfilled2).not.toHaveBeenCalled();
+        expect(onFulfilled3).not.toHaveBeenCalled();
+        expect(onRejected1).toHaveBeenCalledOnce();
+        expect(onRejected2).toHaveBeenCalledOnce();
+        expect(onRejected3).toHaveBeenCalledOnce();
+      });
+    });
+
+    describe("And then it tries to be rejected", () => {
+      it("Handlers are not called again", async () => {
+        const {
+          onFulfilled1,
+          onFulfilled2,
+          onFulfilled3,
+          onRejected1,
+          onRejected2,
+          onRejected3,
+          rejecter,
+        } = thirdSetup();
+
+        rejecter(300);
+        await waitForPromises();
+
+        expect(onFulfilled1).not.toHaveBeenCalled();
+        expect(onFulfilled2).not.toHaveBeenCalled();
+        expect(onFulfilled3).not.toHaveBeenCalled();
+        expect(onRejected1).toHaveBeenCalledOnce();
+        expect(onRejected2).toHaveBeenCalledOnce();
+        expect(onRejected3).toHaveBeenCalledOnce();
+      });
+    });
+  });
+});
