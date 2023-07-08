@@ -50,30 +50,37 @@ export default class MyPromise<T = undefined> {
     let nextPromiseReject: (reason: unknown) => void;
     const promise = new MyPromise<U | Q>((resolve, reject) => {
       nextPromiseResolve = (value: T) => {
-        const newValue = onFulfilled(value);
+        queueMicrotask(() => {
+          const newValue = onFulfilled(value);
 
-        if (MyPromise.isPromise<U>(newValue)) {
-          newValue.then(resolve, reject);
-          return;
-        }
+          if (MyPromise.isPromise<U>(newValue)) {
+            newValue.then(resolve, reject);
+            return;
+          }
 
-        resolve(newValue);
+          resolve(newValue);
+        });
       };
 
       nextPromiseReject = (reason: unknown) => {
         if (!onRejected) {
-          reject(reason);
+          queueMicrotask(() => {
+            reject(reason);
+          });
+
           return;
         }
 
-        const newValue = onRejected(reason);
+        queueMicrotask(() => {
+          const newValue = onRejected(reason);
 
-        if (MyPromise.isPromise<Q>(newValue)) {
-          newValue.then(resolve, reject);
-          return;
-        }
+          if (MyPromise.isPromise<Q>(newValue)) {
+            newValue.then(resolve, reject);
+            return;
+          }
 
-        resolve(newValue);
+          resolve(newValue);
+        });
       };
 
       this.resultHandlers.push({

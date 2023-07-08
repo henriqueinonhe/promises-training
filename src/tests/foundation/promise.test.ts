@@ -39,7 +39,7 @@ describe("When calling `.then`", () => {
     rejectedReason?: unknown;
   };
 
-  const secondSetup = ({
+  const secondSetup = async ({
     outcome,
     rejectedReason = "Error",
     resolvedValue = 10,
@@ -57,6 +57,7 @@ describe("When calling `.then`", () => {
       rejecter(rejectedReason);
     }
 
+    await waitForPromises();
     const nextPromise = promise.then(onFulfilled, onRejected);
 
     return {
@@ -69,8 +70,8 @@ describe("When calling `.then`", () => {
     };
   };
 
-  it("Returns a new promise that is different from the original", () => {
-    const { nextPromise, promise } = secondSetup({
+  it("Returns a new promise that is different from the original", async () => {
+    const { nextPromise, promise } = await secondSetup({
       outcome: "pending",
     });
 
@@ -80,8 +81,8 @@ describe("When calling `.then`", () => {
   describe("And the promise didn't finish yet", () => {
     const thirdSetup = () => secondSetup({ outcome: "pending" });
 
-    it("`.then` handlers do not get called", () => {
-      const { onFulfilled, onRejected } = thirdSetup();
+    it("`.then` handlers do not get called", async () => {
+      const { onFulfilled, onRejected } = await thirdSetup();
 
       expect(onFulfilled).not.toHaveBeenCalled();
       expect(onRejected).not.toHaveBeenCalled();
@@ -91,22 +92,22 @@ describe("When calling `.then`", () => {
   describe("And the promise is already fulfilled", () => {
     const thirdSetup = () => secondSetup({ outcome: "fulfilled" });
 
-    it("`.then` onFulfilled gets called with resolved value", () => {
-      const { onFulfilled, resolvedValue } = thirdSetup();
+    it("`.then` onFulfilled gets called with resolved value", async () => {
+      const { onFulfilled, resolvedValue } = await thirdSetup();
 
       expect(onFulfilled).toHaveBeenCalledTimes(1);
       expect(onFulfilled).toHaveBeenCalledWith(resolvedValue);
     });
 
-    it("`.then` onRejected does not get called", () => {
-      const { onRejected } = thirdSetup();
+    it("`.then` onRejected does not get called", async () => {
+      const { onRejected } = await thirdSetup();
 
       expect(onRejected).not.toHaveBeenCalled();
     });
 
     it("New promise resolves to the result of onFulfilled", () =>
-      new Promise((done) => {
-        const { nextPromise, onFulfilled, resolvedValue } = thirdSetup();
+      new Promise(async (done) => {
+        const { nextPromise, onFulfilled, resolvedValue } = await thirdSetup();
 
         nextPromise.then((value) => {
           expect(value).toBe(onFulfilled(resolvedValue));
@@ -118,22 +119,22 @@ describe("When calling `.then`", () => {
   describe("And the promise is already rejected", () => {
     const thirdSetup = () => secondSetup({ outcome: "rejected" });
 
-    it("`.then` onRejected gets called", () => {
-      const { onRejected, rejectedReason } = thirdSetup();
+    it("`.then` onRejected gets called", async () => {
+      const { onRejected, rejectedReason } = await thirdSetup();
 
       expect(onRejected).toHaveBeenCalledTimes(1);
       expect(onRejected).toHaveBeenCalledWith(rejectedReason);
     });
 
-    it("`.then` onFulfilled does not get called", () => {
-      const { onFulfilled } = thirdSetup();
+    it("`.then` onFulfilled does not get called", async () => {
+      const { onFulfilled } = await thirdSetup();
 
       expect(onFulfilled).not.toHaveBeenCalled();
     });
 
     it("New promise resolves to the result of onRejected", () =>
-      new Promise((done) => {
-        const { nextPromise, onRejected, rejectedReason } = thirdSetup();
+      new Promise(async (done) => {
+        const { nextPromise, onRejected, rejectedReason } = await thirdSetup();
 
         nextPromise.then((value) => {
           expect(value).toBe(onRejected(rejectedReason));
@@ -145,13 +146,13 @@ describe("When calling `.then`", () => {
 
 describe("When there are promises created with `.then`", () => {
   type SecondSetupParams = {
-    status: "fulfilled" | "rejected" | "pending";
+    outcome: "fulfilled" | "rejected" | "pending";
     resolvedValue?: number;
     rejectedReason?: unknown;
   };
 
-  const secondSetup = ({
-    status,
+  const secondSetup = async ({
+    outcome,
     rejectedReason = "Error",
     resolvedValue = 10,
   }: SecondSetupParams) => {
@@ -169,13 +170,15 @@ describe("When there are promises created with `.then`", () => {
     const onRejected3 = vi.fn().mockReturnValue("Error3");
     const nextPromise3 = promise.then(onFulfilled3, onRejected3);
 
-    if (status === "fulfilled") {
+    if (outcome === "fulfilled") {
       resolver(resolvedValue);
     }
 
-    if (status === "rejected") {
+    if (outcome === "rejected") {
       rejecter(rejectedReason);
     }
+
+    await waitForPromises();
 
     return {
       resolver,
@@ -198,12 +201,12 @@ describe("When there are promises created with `.then`", () => {
   describe("And promise has fulfilled", () => {
     const thirdSetup = () =>
       secondSetup({
-        status: "fulfilled",
+        outcome: "fulfilled",
       });
 
-    it("Calls all onFulfilled handlers that were passed to `.then` calls with resolved value", () => {
+    it("Calls all onFulfilled handlers that were passed to `.then` calls with resolved value", async () => {
       const { onFulfilled1, onFulfilled2, onFulfilled3, resolvedValue } =
-        thirdSetup();
+        await thirdSetup();
 
       expect(onFulfilled1).toHaveBeenCalledOnce();
       expect(onFulfilled1).toHaveBeenCalledWith(resolvedValue);
@@ -214,7 +217,7 @@ describe("When there are promises created with `.then`", () => {
     });
 
     it("Created promises resolve to the value returned by onFulfilled", () =>
-      new Promise((done) => {
+      new Promise(async (done) => {
         const {
           nextPromise1,
           nextPromise2,
@@ -223,7 +226,7 @@ describe("When there are promises created with `.then`", () => {
           onFulfilled1,
           onFulfilled2,
           onFulfilled3,
-        } = thirdSetup();
+        } = await thirdSetup();
 
         let resolvedCount = 0;
 
@@ -252,6 +255,17 @@ describe("When there are promises created with `.then`", () => {
       }));
 
     describe("And then it tries to be fulfilled once again (calling resolve more than once)", () => {
+      const fourthSetup = async () => {
+        const thirdSetupReturnValue = await thirdSetup();
+
+        const { resolver } = thirdSetupReturnValue;
+
+        resolver(300);
+        await waitForPromises();
+
+        return thirdSetupReturnValue;
+      };
+
       it("Handlers are not called again", async () => {
         const {
           onFulfilled1,
@@ -260,11 +274,7 @@ describe("When there are promises created with `.then`", () => {
           onRejected1,
           onRejected2,
           onRejected3,
-          resolver,
-        } = thirdSetup();
-
-        resolver(300);
-        await waitForPromises();
+        } = await fourthSetup();
 
         expect(onFulfilled1).toHaveBeenCalledOnce();
         expect(onFulfilled2).toHaveBeenCalledOnce();
@@ -276,6 +286,17 @@ describe("When there are promises created with `.then`", () => {
     });
 
     describe("And then it tries to be rejected", () => {
+      const fourthSetup = async () => {
+        const thirdSetupReturnValue = await thirdSetup();
+
+        const { rejecter } = thirdSetupReturnValue;
+
+        rejecter(300);
+        await waitForPromises();
+
+        return thirdSetupReturnValue;
+      };
+
       it("Handlers are not called again", async () => {
         const {
           onFulfilled1,
@@ -284,11 +305,7 @@ describe("When there are promises created with `.then`", () => {
           onRejected1,
           onRejected2,
           onRejected3,
-          rejecter,
-        } = thirdSetup();
-
-        rejecter(300);
-        await waitForPromises();
+        } = await fourthSetup();
 
         expect(onFulfilled1).toHaveBeenCalledOnce();
         expect(onFulfilled2).toHaveBeenCalledOnce();
@@ -301,9 +318,9 @@ describe("When there are promises created with `.then`", () => {
   });
 
   describe("And promise has rejected", () => {
-    const thirdSetup = () => {
-      const secondSetupReturnValue = secondSetup({
-        status: "rejected",
+    const thirdSetup = async () => {
+      const secondSetupReturnValue = await secondSetup({
+        outcome: "rejected",
       });
 
       const { promise } = secondSetupReturnValue;
@@ -321,7 +338,7 @@ describe("When there are promises created with `.then`", () => {
     };
 
     it("Created promises resolve to the value returned by onRejected when it is defined and reject to the original promise rejected reason when undefined", () =>
-      new Promise((done) => {
+      new Promise(async (done) => {
         const {
           nextPromise1,
           nextPromise2,
@@ -332,7 +349,7 @@ describe("When there are promises created with `.then`", () => {
           onRejected2,
           onRejected3,
           nextPromiseWithoutRejectHandlerOnFulfilled,
-        } = thirdSetup();
+        } = await thirdSetup();
 
         let finishedCount = 0;
         const tryToFinish = () => {
@@ -378,7 +395,7 @@ describe("When there are promises created with `.then`", () => {
           onRejected2,
           onRejected3,
           resolver,
-        } = thirdSetup();
+        } = await thirdSetup();
 
         resolver(300);
         await waitForPromises();
@@ -402,7 +419,7 @@ describe("When there are promises created with `.then`", () => {
           onRejected2,
           onRejected3,
           rejecter,
-        } = thirdSetup();
+        } = await thirdSetup();
 
         rejecter(300);
         await waitForPromises();
@@ -551,6 +568,95 @@ describe("`.then` is called with an onFulfilled/onRejected that returns a promis
           );
           done(undefined);
         }));
+    });
+  });
+});
+
+describe("When promise resolves synchronously", () => {
+  const secondSetup = () => {
+    const { promise, resolver } = setup({});
+
+    const onFulfilled = vi.fn();
+    promise.then(onFulfilled);
+
+    resolver(10);
+
+    return {
+      onFulfilled,
+    };
+  };
+
+  it("onFulfilled DOES NOT get called synchronously", () => {
+    const { onFulfilled } = secondSetup();
+
+    expect(onFulfilled).not.toHaveBeenCalled();
+  });
+});
+
+describe("When we attach handlers to a promise that has already settled", () => {
+  type SecondSetupParams = {
+    outcome: "fulfilled" | "rejected";
+  };
+
+  const secondSetup = async ({ outcome }: SecondSetupParams) => {
+    const { promise, resolver, rejecter } = setup({});
+
+    if (outcome === "fulfilled") {
+      resolver(10);
+    }
+
+    if (outcome === "rejected") {
+      rejecter("Error");
+    }
+
+    await waitForPromises();
+
+    return {
+      promise,
+    };
+  };
+
+  describe("And the promise has fulfilled", () => {
+    const thirdSetup = () => secondSetup({ outcome: "fulfilled" });
+
+    it("onFulfilled handler is NOT called synchronously", async () => {
+      // We have to do the setup within the it
+      // block because as there is an await
+      // it messes with the microtask queue
+      const { promise } = await thirdSetup();
+
+      const onFulfilled = vi.fn();
+      const onRejected = vi.fn();
+
+      promise.then(onFulfilled, onRejected);
+
+      expect(onFulfilled).not.toHaveBeenCalled();
+
+      await waitForPromises();
+
+      expect(onFulfilled).toHaveBeenCalled();
+    });
+  });
+
+  describe("And the promise has rejected", () => {
+    const thirdSetup = () => secondSetup({ outcome: "rejected" });
+
+    it("onRejected handler is NOT called synchronously", async () => {
+      // We have to do the setup within the it
+      // block because as there is an await
+      // it messes with the microtask queue
+      const { promise } = await thirdSetup();
+
+      const onFulfilled = vi.fn();
+      const onRejected = vi.fn();
+
+      promise.then(onFulfilled, onRejected);
+
+      expect(onRejected).not.toHaveBeenCalled();
+
+      await waitForPromises();
+
+      expect(onRejected).toHaveBeenCalled();
     });
   });
 });
