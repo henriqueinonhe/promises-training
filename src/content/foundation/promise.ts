@@ -1,3 +1,5 @@
+import promiseAll from "./promiseAll";
+
 type PromiseStatus = "fulfilled" | "rejected" | "pending";
 
 type Executor<T> = (
@@ -5,9 +7,9 @@ type Executor<T> = (
   reject: (reason: unknown) => void
 ) => void;
 
-type ResultHandler<T, U, Q> = {
-  onFulfilled: OnFulfilled<T, U>;
-  onRejected: OnRejected<Q>;
+type NextPromiseHandlers<T> = {
+  resolve: (value: T) => void;
+  reject: (reason: unknown) => void;
 };
 
 type OnFulfilled<T, U> = (value: T) => U | MyPromise<U>;
@@ -17,26 +19,34 @@ type OnRejected<T> = (reason: unknown) => T | MyPromise<T>;
 export default class MyPromise<T = undefined> {
   constructor(executor: Executor<T>) {
     this.status = "pending";
-    this.resultHandlers = [];
+    this.nextPromiseHandlers = [];
 
     const resolve = (value: T) => {
+      // If the promise has already settled, do nothing
+      // so additional calls to resolve/reject are no-op
       if (this.status !== "pending") {
         return;
       }
 
       this.status = "fulfilled";
       this.resolvedValue = value;
-      this.resultHandlers.forEach(({ onFulfilled }) => onFulfilled(value));
+      this.nextPromiseHandlers.forEach(({ resolve: nextPromiseResolve }) =>
+        nextPromiseResolve(value)
+      );
     };
 
     const reject = (reason: unknown) => {
+      // If the promise has already settled, do nothing
+      // so additional calls to resolve/reject are no-op
       if (this.status !== "pending") {
         return;
       }
 
       this.status = "rejected";
       this.rejectedReason = reason;
-      this.resultHandlers.forEach(({ onRejected }) => onRejected(reason));
+      this.nextPromiseHandlers.forEach(({ reject: nextPromiseReject }) =>
+        nextPromiseReject(reason)
+      );
     };
 
     executor(resolve, reject);
@@ -48,7 +58,8 @@ export default class MyPromise<T = undefined> {
   ) {
     let nextPromiseResolve: (value: T) => void;
     let nextPromiseReject: (reason: unknown) => void;
-    const promise = new MyPromise<U | Q>((resolve, reject) => {
+
+    const nextPromise = new MyPromise<U | Q>((resolve, reject) => {
       nextPromiseResolve = (value: T) => {
         queueMicrotask(() => {
           const newValue = onFulfilled(value);
@@ -63,15 +74,13 @@ export default class MyPromise<T = undefined> {
       };
 
       nextPromiseReject = (reason: unknown) => {
-        if (!onRejected) {
-          queueMicrotask(() => {
-            reject(reason);
-          });
-
-          return;
-        }
-
         queueMicrotask(() => {
+          if (!onRejected) {
+            reject(reason);
+
+            return;
+          }
+
           const newValue = onRejected(reason);
 
           if (MyPromise.isPromise<Q>(newValue)) {
@@ -83,9 +92,13 @@ export default class MyPromise<T = undefined> {
         });
       };
 
-      this.resultHandlers.push({
-        onFulfilled: nextPromiseResolve,
-        onRejected: nextPromiseReject,
+      // It's okay to push handlers to this array
+      // even when the promise has already settled,
+      // because in this case handlers from
+      // this array won't be called
+      this.nextPromiseHandlers.push({
+        resolve: nextPromiseResolve,
+        reject: nextPromiseReject,
       });
     });
 
@@ -99,7 +112,7 @@ export default class MyPromise<T = undefined> {
       nextPromiseReject!(rejectedReason);
     }
 
-    return promise;
+    return nextPromise;
   }
 
   public catch<Q>(onRejected: OnRejected<Q>) {
@@ -118,13 +131,13 @@ export default class MyPromise<T = undefined> {
     return new MyPromise<U>((_, reject) => reject(reason));
   }
 
-  // In reality this checks for thenables
+  // In reality this should check for thenables
   private static isPromise<U>(value: unknown): value is MyPromise<U> {
     return value instanceof MyPromise;
   }
 
   private status: PromiseStatus;
-  private resultHandlers: Array<ResultHandler<T, unknown, unknown>>;
+  private nextPromiseHandlers: Array<NextPromiseHandlers<T>>;
   private resolvedValue: T | undefined;
   private rejectedReason: unknown | undefined;
 }
