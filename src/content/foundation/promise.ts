@@ -10,9 +10,9 @@ type ResultHandler<T, U, Q> = {
   onRejected: OnRejected<Q>;
 };
 
-type OnFulfilled<T, U> = (value: T) => U;
+type OnFulfilled<T, U> = (value: T) => U | MyPromise<U>;
 
-type OnRejected<T> = (reason: unknown) => T;
+type OnRejected<T> = (reason: unknown) => T | MyPromise<T>;
 
 export default class MyPromise<T = undefined> {
   constructor(executor: Executor<T>) {
@@ -51,6 +51,12 @@ export default class MyPromise<T = undefined> {
     const promise = new MyPromise<U | Q>((resolve, reject) => {
       nextPromiseResolve = (value: T) => {
         const newValue = onFulfilled(value);
+
+        if (MyPromise.isPromise<U>(newValue)) {
+          newValue.then(resolve, reject);
+          return;
+        }
+
         resolve(newValue);
       };
 
@@ -61,6 +67,12 @@ export default class MyPromise<T = undefined> {
         }
 
         const newValue = onRejected(reason);
+
+        if (MyPromise.isPromise<Q>(newValue)) {
+          newValue.then(resolve, reject);
+          return;
+        }
+
         resolve(newValue);
       };
 
@@ -90,6 +102,19 @@ export default class MyPromise<T = undefined> {
   // public finally(onFinally: () => void) {
 
   // }
+
+  public static resolve<U>(value: U) {
+    return new MyPromise<U>((resolve) => resolve(value));
+  }
+
+  public static reject<U>(reason: unknown) {
+    return new MyPromise<U>((_, reject) => reject(reason));
+  }
+
+  // In reality this checks for thenables
+  private static isPromise<U>(value: unknown): value is MyPromise<U> {
+    return value instanceof MyPromise;
+  }
 
   private status: PromiseStatus;
   private resultHandlers: Array<ResultHandler<T, unknown, unknown>>;

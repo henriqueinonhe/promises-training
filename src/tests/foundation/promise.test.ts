@@ -34,13 +34,13 @@ describe("When promise is created", () => {
 
 describe("When calling `.then`", () => {
   type SecondSetupParams = {
-    status: "fulfilled" | "rejected" | "pending";
+    outcome: "fulfilled" | "rejected" | "pending";
     resolvedValue?: number;
     rejectedReason?: unknown;
   };
 
   const secondSetup = ({
-    status,
+    outcome,
     rejectedReason = "Error",
     resolvedValue = 10,
   }: SecondSetupParams) => {
@@ -49,11 +49,11 @@ describe("When calling `.then`", () => {
     const onFulfilled = vi.fn().mockReturnValue(20);
     const onRejected = vi.fn().mockReturnValue("Error");
 
-    if (status === "fulfilled") {
+    if (outcome === "fulfilled") {
       resolver(resolvedValue);
     }
 
-    if (status === "rejected") {
+    if (outcome === "rejected") {
       rejecter(rejectedReason);
     }
 
@@ -71,14 +71,14 @@ describe("When calling `.then`", () => {
 
   it("Returns a new promise that is different from the original", () => {
     const { nextPromise, promise } = secondSetup({
-      status: "pending",
+      outcome: "pending",
     });
 
     expect(nextPromise).not.toBe(promise);
   });
 
   describe("And the promise didn't finish yet", () => {
-    const thirdSetup = () => secondSetup({ status: "pending" });
+    const thirdSetup = () => secondSetup({ outcome: "pending" });
 
     it("`.then` handlers do not get called", () => {
       const { onFulfilled, onRejected } = thirdSetup();
@@ -89,7 +89,7 @@ describe("When calling `.then`", () => {
   });
 
   describe("And the promise is already fulfilled", () => {
-    const thirdSetup = () => secondSetup({ status: "fulfilled" });
+    const thirdSetup = () => secondSetup({ outcome: "fulfilled" });
 
     it("`.then` onFulfilled gets called with resolved value", () => {
       const { onFulfilled, resolvedValue } = thirdSetup();
@@ -116,7 +116,7 @@ describe("When calling `.then`", () => {
   });
 
   describe("And the promise is already rejected", () => {
-    const thirdSetup = () => secondSetup({ status: "rejected" });
+    const thirdSetup = () => secondSetup({ outcome: "rejected" });
 
     it("`.then` onRejected gets called", () => {
       const { onRejected, rejectedReason } = thirdSetup();
@@ -414,6 +414,143 @@ describe("When there are promises created with `.then`", () => {
         expect(onRejected2).toHaveBeenCalledOnce();
         expect(onRejected3).toHaveBeenCalledOnce();
       });
+    });
+  });
+});
+
+describe("`.then` is called with an onFulfilled/onRejected that returns a promise", () => {
+  type SecondSetupParams = {
+    outcome: "fulfilled" | "rejected" | "pending";
+    nextPromiseOutcome: "fulfilled" | "rejected";
+  };
+
+  const secondSetup = ({ outcome, nextPromiseOutcome }: SecondSetupParams) => {
+    const setupReturnValue = setup({});
+
+    const { promise, rejecter, resolver } = setupReturnValue;
+
+    const resolvedValue = 10;
+    const rejectedReason = "Error";
+
+    if (outcome === "fulfilled") {
+      resolver(resolvedValue);
+    }
+
+    if (outcome === "rejected") {
+      rejecter(rejectedReason);
+    }
+
+    const onFulfilledResolvedValue = 20;
+    const onFulfilledRejectedReason = "Error2";
+    const onFulfilled = () =>
+      nextPromiseOutcome === "fulfilled"
+        ? MyPromise.resolve(20)
+        : MyPromise.reject<number>("Error2");
+
+    const onRejectedResolvedValue = 30;
+    const onRejectedRejectedReason = "Error3";
+    const onRejected = () =>
+      nextPromiseOutcome === "fulfilled"
+        ? MyPromise.resolve(30)
+        : MyPromise.reject("Error3");
+
+    const nextPromise = promise.then(onFulfilled, onRejected);
+
+    return {
+      ...setupReturnValue,
+      resolvedValue,
+      rejectedReason,
+      nextPromise,
+      onFulfilled,
+      onRejected,
+      onFulfilledResolvedValue,
+      onFulfilledRejectedReason,
+      onRejectedResolvedValue,
+      onRejectedRejectedReason,
+    };
+  };
+
+  describe("And the initial promise fulfills", () => {
+    type ThirdSetupParams = {
+      nextPromiseOutcome: "fulfilled" | "rejected";
+    };
+
+    const thirdSetup = ({ nextPromiseOutcome }: ThirdSetupParams) =>
+      secondSetup({ outcome: "fulfilled", nextPromiseOutcome });
+
+    describe("And the promise returned by onFulfilled fulfills", () => {
+      const fourthSetup = () => thirdSetup({ nextPromiseOutcome: "fulfilled" });
+
+      it("The new promise created by `.then` resolves with the onFulfilled's promise resolved value", () =>
+        new Promise((done) => {
+          const { nextPromise, onFulfilledResolvedValue } = fourthSetup();
+
+          nextPromise.then((value) => {
+            expect(value).toBe(onFulfilledResolvedValue);
+            done(undefined);
+          });
+        }));
+    });
+
+    describe("And the promise returned by onFulfilled rejects", () => {
+      const fourthSetup = () => thirdSetup({ nextPromiseOutcome: "rejected" });
+
+      it("The new promise created by `.then` reject with the onFulfilled's promise reject reason", () =>
+        new Promise((done) => {
+          const { nextPromise, onFulfilledRejectedReason } = fourthSetup();
+
+          nextPromise.then(
+            () => {
+              // No op, not gonna be called anyways
+            },
+            (reason) => {
+              expect(reason).toBe(onFulfilledRejectedReason);
+              done(undefined);
+            }
+          );
+        }));
+    });
+  });
+
+  describe("And the initial promise rejects", () => {
+    type ThirdSetupParams = {
+      nextPromiseOutcome: "fulfilled" | "rejected";
+    };
+
+    const thirdSetup = ({ nextPromiseOutcome }: ThirdSetupParams) =>
+      secondSetup({ outcome: "rejected", nextPromiseOutcome });
+
+    describe("And the promise returned by onRejected fulfills", () => {
+      const fourthSetup = () => thirdSetup({ nextPromiseOutcome: "fulfilled" });
+
+      it("The new promise created by `.then` resolves with the onRejected's promise resolved value", () =>
+        new Promise((done) => {
+          const { nextPromise, onRejectedResolvedValue } = fourthSetup();
+
+          nextPromise.then((value) => {
+            expect(value).toBe(onRejectedResolvedValue);
+          });
+          done(undefined);
+        }));
+    });
+
+    describe("And the promise returned by onRejected rejects", () => {
+      const fourthSetup = () => thirdSetup({ nextPromiseOutcome: "rejected" });
+
+      it("The new promise created by `.then` reject with the onRejected's promise reject reason", () =>
+        new Promise((done) => {
+          const { nextPromise, onRejectedRejectedReason } = fourthSetup();
+
+          nextPromise.then(
+            () => {
+              // No op, not gonna be called anyways
+            },
+            (reason) => {
+              expect(reason).toBe(onRejectedRejectedReason);
+            }
+          );
+          done(undefined);
+        }));
     });
   });
 });
