@@ -110,23 +110,6 @@ describe("When request fails a few times and then suceeds", () => {
   });
 });
 
-describe("When request fails more times than allowed", () => {
-  const secondSetup = () => setup({ failures: 4 });
-
-  it("postData is called that number of times", async () => {
-    const { postDataInput, postData } = await secondSetup();
-
-    expect(postData).toHaveBeenCalledTimes(4);
-    expect(postData).toHaveBeenCalledWith(postDataInput);
-  });
-
-  it("Rejects to postData thrown aggregated errors", async () => {
-    const { errors, retryThrownError } = await secondSetup();
-
-    expect(retryThrownError).toEqual(errors);
-  });
-});
-
 describe("When request times out while retrying", () => {
   const secondSetup = () => setup({ failures: 2, timeoutOnRetry: 1 });
 

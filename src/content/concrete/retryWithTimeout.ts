@@ -17,7 +17,7 @@ export default ({ postData, now }: Context) =>
       } catch (error) {
         errors.push(error);
 
-        if (retries === 3 || elapsedTime > 2000) {
+        if (elapsedTime > 2000) {
           throw errors;
         }
 
