@@ -32,13 +32,13 @@ const setup = () => {
     .mockReturnValueOnce(promise3)
     .mockReturnValueOnce(promise4);
 
-  const parallelCollectErrors = serialCollectErrorsExercise({
+  const serialCollectErrors = serialCollectErrorsExercise({
     postData,
   });
 
   const parameters = ["Data1", "Data2", "Data3", "Data4"];
 
-  const promise = parallelCollectErrors(parameters);
+  const promise = serialCollectErrors(parameters);
 
   return {
     postData,
@@ -50,7 +50,7 @@ const setup = () => {
     rejecter3,
     resolver4,
     rejecter4,
-    parallelCollectErrors,
+    serialCollectErrors,
     promise,
     parameters,
   };

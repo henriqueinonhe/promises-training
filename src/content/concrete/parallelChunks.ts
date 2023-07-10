@@ -8,9 +8,15 @@ export default ({ postData }: Context) =>
   async (list: Array<string>) => {
     const subLists = chunk(list, 5);
 
-    const result = await Promise.all(
-      subLists.map((subList) => Promise.all(subList.map(postData)))
-    );
+    const result = await subLists.reduce((promise, subList) => {
+      return promise.then(async (previousResults) => {
+        const newResults = await Promise.all(
+          subList.map((data) => postData(data))
+        );
 
-    return result.flat();
+        return [...previousResults, ...newResults];
+      });
+    }, Promise.resolve<Array<string>>([]));
+
+    return result;
   };
