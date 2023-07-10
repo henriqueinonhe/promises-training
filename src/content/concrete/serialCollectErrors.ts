@@ -2,34 +2,22 @@ type Context = {
   postData: (data: string) => Promise<string>;
 };
 
-type Result =
-  | {
-      status: "fulfilled";
-      value: string;
-    }
-  | {
-      status: "rejected";
-      reason: unknown;
-    };
-
 export default ({ postData }: Context) =>
   async (list: Array<string>) => {
-    const results: Array<Result> = [];
+    const successes: Array<string> = [];
+    const errors: Array<unknown> = [];
 
     for (const data of list) {
       try {
         const value = await postData(data);
-        results.push({
-          status: "fulfilled",
-          value,
-        });
+        successes.push(value);
       } catch (error) {
-        results.push({
-          status: "rejected",
-          reason: error,
-        });
+        errors.push(error);
       }
     }
 
-    return results;
+    return {
+      successes,
+      errors,
+    };
   };
