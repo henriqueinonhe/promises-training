@@ -1,20 +1,40 @@
-import { chunk } from "lodash";
-
 type Context = {
   postData: (data: string) => Promise<string>;
 };
 
 export default ({ postData }: Context) =>
-  async (list: Array<string>) => {
-    const initial = list.slice(0, 5);
-    let nextDataIndex = 5;
+  (list: Array<string>) => {
+    const resolvers: Array<() => void> = [];
 
-    const wrapped = async (data: string) => {
-      const result = await postData(data);
+    let nextPromiseIndex = 0;
 
-      nextDataIndex++;
-      wrapped(list[nextDataIndex]);
+    const run = async (data: string, index: number) => {
+      const { promise, resolver } = promiseWithResolvers();
+      resolvers[index] = resolver;
 
-      return result;
+      await promise;
+
+      const value = await postData(data);
+      resolvers[nextPromiseIndex]();
+      nextPromiseIndex++;
+
+      return value;
     };
+
+    const promise = Promise.all(list.map(run));
+    resolvers.slice(0, 5).forEach((resolver) => resolver());
+
+    return promise;
   };
+
+const promiseWithResolvers = () => {
+  let resolver!: () => void;
+  let rejecter!: () => void;
+
+  const promise = new Promise<void>((resolve, reject) => {
+    resolver = resolve;
+    rejecter = reject;
+  });
+
+  return { promise, resolver, rejecter };
+};

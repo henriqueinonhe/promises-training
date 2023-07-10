@@ -7,17 +7,23 @@ export default ({ postData, now }: Context) =>
   async (data: string) => {
     let retries = 0;
     let elapsedTime = 0;
+    const errors: Array<unknown> = [];
+
+    const start = now();
 
     while (true) {
       try {
         return await postData(data);
       } catch (error) {
+        errors.push(error);
+
         if (retries === 3 || elapsedTime > 2000) {
-          throw error;
+          throw errors;
         }
 
         retries++;
-        elapsedTime = now() - elapsedTime;
+        const delta = now() - start;
+        elapsedTime += delta;
       }
     }
   };
