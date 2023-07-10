@@ -1,9 +1,10 @@
 type Context = {
   postData: (data: string) => Promise<string>;
   now: () => number;
+  wait: (ms: number) => Promise<void>;
 };
 
-export default ({ postData, now }: Context) =>
+export default ({ postData, now, wait }: Context) =>
   async (data: string) => {
     let retries = 0;
     let elapsedTime = 0;
@@ -17,6 +18,9 @@ export default ({ postData, now }: Context) =>
         }
 
         retries++;
+
+        await wait(Math.pow(2, retries) * 100);
+
         elapsedTime = now() - elapsedTime;
       }
     }
