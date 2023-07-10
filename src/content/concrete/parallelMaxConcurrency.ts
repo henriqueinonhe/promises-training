@@ -8,7 +8,7 @@ export default ({ postData }: Context) =>
   (list: Array<string>) => {
     const resolvers: Array<() => void> = [];
 
-    let nextPromiseIndex = 0;
+    let nextPromiseIndex = 5;
 
     const run = async (data: string, index: number) => {
       const { promise, resolver } = promiseWithResolvers();
@@ -17,13 +17,15 @@ export default ({ postData }: Context) =>
       await promise;
 
       const value = await postData(data);
-      resolvers[nextPromiseIndex]();
+
+      const nextPromiseResolver = resolvers[nextPromiseIndex];
+      nextPromiseResolver?.();
       nextPromiseIndex++;
 
       return value;
     };
 
-    const promise = Promise.all(list.map(run));
+    const promise = Promise.all(list.map((data, index) => run(data, index)));
     resolvers.slice(0, 5).forEach((resolver) => resolver());
 
     return promise;

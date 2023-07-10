@@ -32,7 +32,7 @@ const setup = () => {
 };
 
 it("Requests are made in chunks", async () => {
-  const { handlers, postData, parameters, promise } = setup();
+  const { handlers, postData, parameters } = setup();
 
   type InferArray<T> = T extends Array<infer U> ? U : never;
 
