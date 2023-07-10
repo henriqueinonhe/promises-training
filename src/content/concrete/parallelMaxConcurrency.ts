@@ -1,3 +1,5 @@
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
+
 type Context = {
   postData: (data: string) => Promise<string>;
 };
@@ -26,15 +28,3 @@ export default ({ postData }: Context) =>
 
     return promise;
   };
-
-const promiseWithResolvers = () => {
-  let resolver!: () => void;
-  let rejecter!: () => void;
-
-  const promise = new Promise<void>((resolve, reject) => {
-    resolver = resolve;
-    rejecter = reject;
-  });
-
-  return { promise, resolver, rejecter };
-};
