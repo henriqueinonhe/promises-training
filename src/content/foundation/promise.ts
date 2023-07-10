@@ -1,5 +1,3 @@
-import promiseAll from "./promiseAll";
-
 type PromiseStatus = "fulfilled" | "rejected" | "pending";
 
 type Executor<T> = (
