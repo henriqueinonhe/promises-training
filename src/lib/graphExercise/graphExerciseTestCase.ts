@@ -1,6 +1,6 @@
 import { MakeExercise } from "../Exercise";
 import { PromiseManager } from "../PromiseManager";
-import { it, expect } from "vitest";
+import { it, expect, describe } from "vitest";
 import {
   GraphExerciseFirstStep,
   GraphExerciseFollowingStep,
@@ -13,19 +13,55 @@ import { createGraphExerciseContainer } from "./graphExerciseContainer";
 import { waitForPromises } from "../waitForPromises";
 
 type Dependencies = {
-  makeExercise: MakeExercise;
+  makeThenCatchExercise: MakeExercise;
+  makeAsyncAwaitExercise: MakeExercise;
+  makeMixedExercise: MakeExercise;
 };
 
 export const makeGraphExerciseTestCase =
-  ({ makeExercise }: Dependencies) =>
+  ({
+    makeAsyncAwaitExercise,
+    makeMixedExercise,
+    makeThenCatchExercise,
+  }: Dependencies) =>
   (label: string, steps: GraphExerciseStepSequence) => {
-    const { exercise, promiseManager } = createGraphExerciseContainer({
-      makeExercise,
+    describe(label, () => {
+      test({
+        steps,
+        type: "mixed",
+        makeExercise: makeMixedExercise,
+      });
+
+      test({
+        steps,
+        type: "async/await",
+        makeExercise: makeAsyncAwaitExercise,
+      });
+
+      test({
+        steps,
+        type: "then",
+        makeExercise: makeThenCatchExercise,
+      });
     });
+  };
 
-    const description = graphExerciseTestDescription(label, steps);
+type TestParams = {
+  type: "then" | "async/await" | "mixed";
+  steps: GraphExerciseStepSequence;
+  makeExercise: MakeExercise;
+};
 
-    it.concurrent(description, async () => {
+const test = ({ type, steps, makeExercise }: TestParams) => {
+  const { exercise, promiseManager } = createGraphExerciseContainer({
+    makeExercise,
+  });
+
+  const description = graphExerciseTestDescription(type, steps);
+
+  it.skipIf(makeExercise.skipExerciseSymbol).concurrent(
+    description,
+    async () => {
       const exercisePromise = exercise();
 
       const [firstStep, ...followingSteps] = steps;
@@ -68,8 +104,9 @@ export const makeGraphExerciseTestCase =
         allPromisesCreatedLabels
       );
       expect(promisesCreatedAfterExerciseFinished).toHaveFinished();
-    });
-  };
+    }
+  );
+};
 
 type TestFirstStepParams = {
   firstStep: GraphExerciseFirstStep;

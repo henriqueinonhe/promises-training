@@ -1,7 +1,7 @@
-import makeExercise from "../../../content/1-using-promises/1.6/exercise";
+import makeExercises from "../../../content/1-using-promises/1.6/exercise";
 import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerciseTestCase";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase({ makeExercise });
+const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
 
 graphExerciseTestCase("1.6", [
   { created: ["A"] },

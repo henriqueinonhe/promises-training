@@ -14,5 +14,8 @@ export const createGraphExerciseContainer = ({
   const createPromise = makeCreatePromise({ promiseManager });
   const exercise = makeExercise({ createPromise, ref });
 
-  return { exercise, promiseManager };
+  return {
+    exercise,
+    promiseManager,
+  };
 };

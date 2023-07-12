@@ -5,11 +5,11 @@ type Dependencies<T> = {
 };
 
 export const makeCreatePromise =
-  <T>({ promiseManager }: Dependencies<T>) =>
+  <T = void>({ promiseManager }: Dependencies<T>) =>
   (label: string) => {
     return new Promise<T>((resolve, reject) => {
       promiseManager.register(label, resolve, reject);
     });
   };
 
-export type CreatePromise = ReturnType<typeof makeCreatePromise>;
+export type CreatePromise<T = void> = ReturnType<typeof makeCreatePromise<T>>;

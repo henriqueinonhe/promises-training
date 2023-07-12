@@ -1,6 +1,8 @@
 import { ExerciseContext } from "../../../lib/Exercise";
+import { skipExercise } from "../../../lib/skipExercise";
 
-export default ({ createPromise }: ExerciseContext) =>
+export const mixed =
+  ({ createPromise }: ExerciseContext) =>
   async () => {
     await createPromise("A");
     const promiseD = createPromise("D");
@@ -8,3 +10,17 @@ export default ({ createPromise }: ExerciseContext) =>
     await createPromise("E");
     await promiseD;
   };
+
+const asyncAwait =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {};
+
+const thenCatch =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {};
+
+export default {
+  makeMixedExercise: mixed,
+  makeAsyncAwaitExercise: skipExercise(asyncAwait),
+  makeThenCatchExercise: skipExercise(thenCatch),
+};

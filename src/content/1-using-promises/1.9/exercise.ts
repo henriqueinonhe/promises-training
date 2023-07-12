@@ -1,10 +1,12 @@
 import { ExerciseContext } from "../../../lib/Exercise";
+import { skipExercise } from "../../../lib/skipExercise";
 
 type Ref<T> = { current: Promise<T> | undefined };
 
 const createRef = <T>(): Ref<T> => ({ current: undefined });
 
-export default ({ createPromise }: ExerciseContext) =>
+export const mixed =
+  ({ createPromise }: ExerciseContext) =>
   async () => {
     const promiseDRef = createRef();
     const promiseB = createPromise("B");
@@ -47,3 +49,17 @@ export default ({ createPromise }: ExerciseContext) =>
 
     await Promise.all([fourth(), fifth()]);
   };
+
+const asyncAwait =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {};
+
+const thenCatch =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {};
+
+export default {
+  makeMixedExercise: mixed,
+  makeAsyncAwaitExercise: skipExercise(asyncAwait),
+  makeThenCatchExercise: skipExercise(thenCatch),
+};
