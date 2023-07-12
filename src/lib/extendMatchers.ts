@@ -18,6 +18,8 @@ interface CustomMatchers<R = unknown> {
     promisesCreatedLabels: Array<string>,
     params: ToHaveBeenCreatedAtStepParams
   ): R;
+
+  toHaveFinished(): R;
 }
 
 declare module "vitest" {
@@ -34,7 +36,6 @@ export const extendMatchers = () => {
     ) {
       const {
         BOLD_WEIGHT: bold,
-        DIM_COLOR: dimColor,
         EXPECTED_COLOR: expectedColor,
         INVERTED_COLOR: invertedColor,
         RECEIVED_COLOR: receivedColor,
@@ -82,6 +83,23 @@ export const extendMatchers = () => {
       return {
         pass,
         message,
+      };
+    },
+
+    toHaveFinished: function (actual) {
+      const { BOLD_WEIGHT: boldColor, RECEIVED_COLOR: receivedColor } =
+        this.utils;
+
+      const message = [
+        `We expected no promises to be created after the exercise finished,`,
+        `but ${receivedColor(
+          formatPromiseList(actual, boldColor)
+        )} were created instead.`,
+      ].join();
+
+      return {
+        pass: actual.length === 0,
+        message: () => message,
       };
     },
   });

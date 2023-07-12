@@ -67,7 +67,7 @@ export const makeGraphExerciseTestCase =
         promiseManager.keys(),
         allPromisesCreatedLabels
       );
-      // expect(promisesCreatedAfterExerciseFinished).toHaveBeenCreatedAtStep([]);
+      expect(promisesCreatedAfterExerciseFinished).toHaveFinished();
     });
   };
 
