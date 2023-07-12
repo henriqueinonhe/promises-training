@@ -4,86 +4,80 @@ import { createFoundationExerciseContainer } from "../../lib/foundationExercise/
 import { waitForPromises } from "../../lib/waitForPromises";
 
 describe("When some promise resolves", () => {
-  it.concurrent(
-    "Returns a promise that resolves to the first resolved value",
-    async () => {
-      const { createPromise, promiseManager } =
-        createFoundationExerciseContainer<string>();
+  it("Returns a promise that resolves to the first resolved value", async () => {
+    const { createPromise, promiseManager } =
+      createFoundationExerciseContainer<string>();
 
-      const resolve = vi.fn();
-      const reject = vi.fn();
+    const resolve = vi.fn();
+    const reject = vi.fn();
 
-      const promise = promiseAny([
-        createPromise("A"),
-        createPromise("B"),
-        createPromise("C"),
-        createPromise("D"),
-      ]).then(resolve, reject);
+    const promise = promiseAny([
+      createPromise("A"),
+      createPromise("B"),
+      createPromise("C"),
+      createPromise("D"),
+    ]).then(resolve, reject);
 
-      promiseManager.reject("B", "B");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.reject("B", "B");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.reject("C", "C");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.reject("C", "C");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.resolve("A", "A");
-      await waitForPromises();
-      expect(resolve).toHaveBeenCalledWith("A");
-      expect(resolve).toHaveBeenCalledTimes(1);
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.resolve("A", "A");
+    await waitForPromises();
+    expect(resolve).toHaveBeenCalledWith("A");
+    expect(resolve).toHaveBeenCalledTimes(1);
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.resolve("D", "D");
-      await waitForPromises();
-      expect(resolve).toHaveBeenCalledTimes(1);
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.resolve("D", "D");
+    await waitForPromises();
+    expect(resolve).toHaveBeenCalledTimes(1);
+    expect(reject).not.toHaveBeenCalled();
 
-      await promise;
-    }
-  );
+    await promise;
+  });
 });
 
 describe("When all promises reject", () => {
-  it.concurrent(
-    "Returns a promise that rejects with an array of rejected reasons in the same order as the input array",
-    async () => {
-      const { createPromise, promiseManager } =
-        createFoundationExerciseContainer<string>();
+  it("Returns a promise that rejects with an array of rejected reasons in the same order as the input array", async () => {
+    const { createPromise, promiseManager } =
+      createFoundationExerciseContainer<string>();
 
-      const resolve = vi.fn();
-      const reject = vi.fn();
+    const resolve = vi.fn();
+    const reject = vi.fn();
 
-      const promise = promiseAny([
-        createPromise("A"),
-        createPromise("B"),
-        createPromise("C"),
-        createPromise("D"),
-      ]).then(resolve, reject);
+    const promise = promiseAny([
+      createPromise("A"),
+      createPromise("B"),
+      createPromise("C"),
+      createPromise("D"),
+    ]).then(resolve, reject);
 
-      promiseManager.reject("B", "B");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.reject("B", "B");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.reject("C", "C");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.reject("C", "C");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.reject("A", "A");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).not.toHaveBeenCalled();
+    promiseManager.reject("A", "A");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).not.toHaveBeenCalled();
 
-      promiseManager.reject("D", "D");
-      await waitForPromises();
-      expect(resolve).not.toHaveBeenCalled();
-      expect(reject).toHaveBeenCalledWith(["A", "B", "C", "D"]);
+    promiseManager.reject("D", "D");
+    await waitForPromises();
+    expect(resolve).not.toHaveBeenCalled();
+    expect(reject).toHaveBeenCalledWith(["A", "B", "C", "D"]);
 
-      await promise;
-    }
-  );
+    await promise;
+  });
 });
