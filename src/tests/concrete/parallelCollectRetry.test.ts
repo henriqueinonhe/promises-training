@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { it, vi } from "vitest";
 import parallelCollectRetryExercise from "../../content/concrete/parallelCollectRetry";
 
 //TODO
@@ -9,3 +9,5 @@ const setup = () => {
     postData,
   });
 };
+
+it.todo("A");

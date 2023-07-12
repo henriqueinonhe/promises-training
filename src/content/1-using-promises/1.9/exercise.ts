@@ -5,7 +5,7 @@ type Ref<T> = { current: Promise<T> | undefined };
 
 const createRef = <T>(): Ref<T> => ({ current: undefined });
 
-export const mixed =
+const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
     const promiseDRef = createRef();
@@ -53,46 +53,33 @@ export const mixed =
 const asyncAwait =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const promiseDRef = createRef();
-    const promiseB = createPromise("B");
+    const a = createPromise("A");
+    const b = createPromise("B");
+    const c = createPromise("C");
 
-    const promiseFRef = createRef();
-    const promiseERef = createRef();
-    const promiseC = createPromise("C");
+    const d = (async () => {
+      await a;
+      await createPromise("D");
+    })();
+    const e = (async () => {
+      await b;
+      await createPromise("E");
+    })();
 
-    const first = async () => {
-      await promiseB;
-      promiseERef.current = createPromise("E");
-      await promiseERef.current;
-    };
-
-    const second = async () => {
-      await createPromise("A");
-      promiseDRef.current = createPromise("D");
-      await promiseDRef.current;
-    };
-
-    const firstPromise = first();
-    const secondPromise = second();
-
-    const third = async () => {
-      await secondPromise;
+    const f = (async () => {
+      await d;
       await createPromise("F");
-    };
-
-    const fourth = async () => {
-      await Promise.all([firstPromise, secondPromise, third()]);
-      await Promise.all([promiseFRef.current, promiseERef.current, promiseC]);
+    })();
+    const g = (async () => {
+      await Promise.all([c, e, f]);
       await createPromise("G");
-    };
-
-    const fifth = async () => {
-      await secondPromise;
-      await Promise.all([promiseDRef.current, promiseB, promiseC]);
+    })();
+    const h = (async () => {
+      await Promise.all([b, c, d]);
       await createPromise("H");
-    };
+    })();
 
-    await Promise.all([fourth(), fifth()]);
+    await Promise.all([g, h]);
   };
 
 const thenCatch =
