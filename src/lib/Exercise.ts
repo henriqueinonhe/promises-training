@@ -12,4 +12,4 @@ export type ExerciseContext = {
   ref: Ref;
 };
 
-export type Exercise = () => Promise<void>;
+export type Exercise = () => Promise<unknown>;

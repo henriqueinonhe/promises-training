@@ -34,6 +34,15 @@ graphExerciseTestCase("1.4", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C", "D"] },
   { resolved: "C", created: [] },
+  { resolved: "B", created: ["E"] },
+  { resolved: "E", created: [] },
+  { resolved: "D", created: [] },
+]);
+
+graphExerciseTestCase("1.4", [
+  { created: ["A"] },
+  { resolved: "A", created: ["B", "C", "D"] },
+  { resolved: "C", created: [] },
   { resolved: "D", created: [] },
   { resolved: "B", created: ["E"] },
   { resolved: "E", created: [] },

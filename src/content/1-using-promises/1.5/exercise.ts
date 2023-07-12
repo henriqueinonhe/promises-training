@@ -6,6 +6,19 @@ export const mixed =
   async () => {
     await createPromise("A");
 
+    const first = createPromise("B").then(() => createPromise("D"));
+
+    const second = createPromise("C").then(() => createPromise("E"));
+
+    await Promise.all([first, second]);
+    await createPromise("F");
+  };
+
+const asyncAwait =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {
+    await createPromise("A");
+
     const first = async () => {
       await createPromise("B");
       await createPromise("D");
@@ -20,16 +33,21 @@ export const mixed =
     await createPromise("F");
   };
 
-const asyncAwait =
-  ({ createPromise }: ExerciseContext) =>
-  async () => {};
-
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
-  async () => {};
+  async () => {
+    createPromise("A")
+      .then(() => {
+        const first = createPromise("B").then(() => createPromise("D"));
+        const second = createPromise("C").then(() => createPromise("E"));
+
+        return Promise.all([first, second]);
+      })
+      .then(() => createPromise("F"));
+  };
 
 export default {
   makeMixedExercise: mixed,
-  makeAsyncAwaitExercise: skipExercise(asyncAwait),
-  makeThenCatchExercise: skipExercise(thenCatch),
+  makeAsyncAwaitExercise: asyncAwait,
+  makeThenCatchExercise: thenCatch,
 };

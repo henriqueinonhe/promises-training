@@ -4,6 +4,20 @@ import { skipExercise } from "../../../lib/skipExercise";
 const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
+    const first = createPromise("A")
+      .then(() => createPromise("B"))
+      .then(() => createPromise("C"));
+
+    const second = createPromise("D")
+      .then(() => createPromise("E"))
+      .then(() => createPromise("F"));
+
+    await Promise.all([first, second]);
+  };
+
+const asyncAwait =
+  ({ createPromise }: ExerciseContext) =>
+  async () => {
     const first = async () => {
       await createPromise("A");
       await createPromise("B");
@@ -20,16 +34,22 @@ const mixed =
     second();
   };
 
-const asyncAwait =
-  ({ createPromise }: ExerciseContext) =>
-  async () => {};
-
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
-  async () => {};
+  () => {
+    const first = createPromise("A")
+      .then(() => createPromise("B"))
+      .then(() => createPromise("C"));
+
+    const second = createPromise("D")
+      .then(() => createPromise("E"))
+      .then(() => createPromise("F"));
+
+    return Promise.all([first, second]);
+  };
 
 export default {
   makeMixedExercise: mixed,
-  makeAsyncAwaitExercise: skipExercise(asyncAwait),
-  makeThenCatchExercise: skipExercise(thenCatch),
+  makeAsyncAwaitExercise: asyncAwait,
+  makeThenCatchExercise: thenCatch,
 };
