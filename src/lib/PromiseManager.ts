@@ -1,6 +1,7 @@
 export type PromiseRecord<T> = {
   resolve: (value: T) => void;
   reject: (reason: unknown) => void;
+  status: "pending" | "resolved" | "rejected";
 };
 
 export const createPromiseManager = <T = undefined>() => {
@@ -18,6 +19,7 @@ export const createPromiseManager = <T = undefined>() => {
     records.set(label, {
       resolve,
       reject,
+      status: "pending",
     });
   };
 
@@ -32,7 +34,12 @@ export const createPromiseManager = <T = undefined>() => {
       throw new Error(`Promise with label "${label}" not found`);
     }
 
+    if (record.status !== "pending") {
+      throw new Error(`Promise with label "${label}" is not pending`);
+    }
+
     record.resolve(value as T);
+    record.status = "resolved";
   };
 
   const reject = (label: string, reason?: unknown) => {
@@ -42,7 +49,22 @@ export const createPromiseManager = <T = undefined>() => {
       throw new Error(`Promise with label "${label}" not found`);
     }
 
+    if (record.status !== "pending") {
+      throw new Error(`Promise with label "${label}" is not pending`);
+    }
+
     record.reject(reason);
+    record.status = "rejected";
+  };
+
+  const status = (label: string) => {
+    const record = records.get(label);
+
+    if (!record) {
+      throw new Error(`Promise with label "${label}" not found`);
+    }
+
+    return record.status;
   };
 
   const has = (label: string) => records.has(label);
@@ -58,6 +80,7 @@ export const createPromiseManager = <T = undefined>() => {
     has,
     count,
     keys,
+    status,
   };
 };
 
