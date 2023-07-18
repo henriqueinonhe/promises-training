@@ -1,6 +1,6 @@
 import { it, vi, expect } from "vitest";
 import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
-import promiseAllSettled from "../../content/foundation/promiseAllSettled";
+import promiseAllSettled from "../../exercises/foundation/promiseAllSettled";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 it("Waits for all promises to settle and resolves to array of results", async () => {

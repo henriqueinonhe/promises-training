@@ -1,6 +1,6 @@
 import { expect, it, vi } from "vitest";
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import parallelMaxConcurrencyExercise from "../../content/concrete/parallelMaxConcurrency";
+import parallelMaxConcurrencyExercise from "../../exercises/concrete/parallelMaxConcurrency";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 const setup = () => {
