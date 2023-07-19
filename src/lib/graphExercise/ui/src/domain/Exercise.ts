@@ -12,8 +12,7 @@ import { xor } from "lodash";
 const exerciseKeys = Object.keys(Exercises);
 export const exerciseIds = exerciseKeys
   .map((e) => e.replace("exercise", ""))
-  .sort((a, b) => Number(a) - Number(b))
-  .map((e) => `1.${e}`);
+  .sort((a, b) => Number(a) - Number(b));
 
 export type Exercise = {
   readonly id: string;
@@ -33,7 +32,7 @@ export type CreateExerciseParameters = {
 };
 
 export const createExercise = ({ id, variant }: CreateExerciseParameters) => {
-  const exerciseOffset = Number(id.split(".")[1]);
+  const exerciseOffset = Number(id);
   // Unorthodox but it works
   const exerciseKey = `exercise${exerciseOffset}`;
   // @ts-ignore

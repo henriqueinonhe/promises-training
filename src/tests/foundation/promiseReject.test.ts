@@ -1,5 +1,5 @@
 import { it, vi, expect } from "vitest";
-import promiseReject from "../../content/foundation/promiseReject";
+import promiseReject from "../../exercises/foundation/promiseReject";
 
 it("Wraps a value in a rejected promise", async () => {
   const resolve = vi.fn();

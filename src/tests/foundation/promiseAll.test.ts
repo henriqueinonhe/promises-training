@@ -1,6 +1,6 @@
 import { describe, it, vi, expect } from "vitest";
 import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
-import promiseAll from "../../content/foundation/promiseAll";
+import promiseAll from "../../exercises/foundation/promiseAll";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 describe("When some promise rejects", () => {

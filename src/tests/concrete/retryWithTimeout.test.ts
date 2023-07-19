@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import retryWithTimeoutExercise from "../../content/concrete/retryWithTimeout";
+import retryWithTimeoutExercise from "../../exercises/concrete/retryWithTimeout";
 
 type SetupParams = {
   failures: number;

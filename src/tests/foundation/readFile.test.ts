@@ -1,6 +1,6 @@
 import { vi, describe, expect, it } from "vitest";
 
-import readFileExercise from "../../content/foundation/readFile";
+import readFileExercise from "../../exercises/foundation/readFile";
 
 type SetupParams = {
   outcome: "success" | "failure";

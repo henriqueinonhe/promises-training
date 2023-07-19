@@ -1,4 +1,4 @@
-import makeExercises from "../../../content/1-using-promises/1.3/exercise";
+import makeExercises from "../../../exercises/graph/3/exercise";
 import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerciseTestCase";
 
 const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);

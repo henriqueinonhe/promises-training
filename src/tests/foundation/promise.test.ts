@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import MyPromise from "../../content/foundation/promise";
+import MyPromise from "../../exercises/foundation/promise";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 type SetupParams = {};
