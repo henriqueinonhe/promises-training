@@ -5,8 +5,8 @@ const main = async () => {
   const graphExercisesPath = resolve("../../../exercises/graph");
   const unsortedExercises = await readdir(graphExercisesPath);
   const exercises = unsortedExercises.sort((a, b) => {
-    const aOffset = Number(a.split(".")[1]);
-    const bOffset = Number(b.split(".")[1]);
+    const aOffset = Number(a);
+    const bOffset = Number(b);
 
     return aOffset - bOffset;
   });
@@ -22,7 +22,7 @@ const main = async () => {
 
 const generateImports = (exercises) => {
   const content = exercises.map((exercise) => {
-    const offset = exercise.split(".")[1];
+    const offset = exercise;
 
     return [
       `export { default as exercise${offset} } from "../../../../exercises/graph/${exercise}/exercise";`,
