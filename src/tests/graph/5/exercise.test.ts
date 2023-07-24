@@ -3,7 +3,7 @@ import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerc
 
 const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "B", created: ["D"] },
@@ -13,7 +13,7 @@ graphExerciseTestCase("1.5", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "B", created: ["D"] },
@@ -23,7 +23,7 @@ graphExerciseTestCase("1.5", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "C", created: ["E"] },
@@ -33,7 +33,7 @@ graphExerciseTestCase("1.5", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "C", created: ["E"] },
@@ -43,7 +43,7 @@ graphExerciseTestCase("1.5", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "B", created: ["D"] },
@@ -53,7 +53,7 @@ graphExerciseTestCase("1.5", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.5", [
+graphExerciseTestCase("5", [
   { created: ["A"] },
   { resolved: "A", created: ["B", "C"] },
   { resolved: "C", created: ["E"] },

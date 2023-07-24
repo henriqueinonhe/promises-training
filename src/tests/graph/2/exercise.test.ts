@@ -3,7 +3,7 @@ import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerc
 
 const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
 
-graphExerciseTestCase("1.2", [
+graphExerciseTestCase("2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "B", created: ["C"] },
@@ -13,7 +13,7 @@ graphExerciseTestCase("1.2", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.2", [
+graphExerciseTestCase("2", [
   { created: ["A", "D"] },
   { resolved: "D", created: ["E"] },
   { resolved: "E", created: ["F"] },
@@ -23,7 +23,7 @@ graphExerciseTestCase("1.2", [
   { resolved: "C", created: [] },
 ]);
 
-graphExerciseTestCase("1.2", [
+graphExerciseTestCase("2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "D", created: ["E"] },
@@ -33,7 +33,7 @@ graphExerciseTestCase("1.2", [
   { resolved: "F", created: [] },
 ]);
 
-graphExerciseTestCase("1.2", [
+graphExerciseTestCase("2", [
   { created: ["A", "D"] },
   { resolved: "A", created: ["B"] },
   { resolved: "D", created: ["E"] },
