@@ -2,11 +2,12 @@
 
 const { execSync } = require("node:child_process");
 const { cp, rm, rename, readdir } = require("node:fs/promises");
+const { resolve } = require("node:path");
 
 const run = (command) => execSync(command, { stdio: "inherit" });
 
 const main = async () => {
-  console.log(__dirname, process.argv);
+  console.log(resolve("."));
 
   // run(`npm install`);
   // run(`npm install`, {
