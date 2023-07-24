@@ -1,14 +1,14 @@
 {
-  "name": "promises-training",
-  "version": "1.0.0",
+  "name": "create-promises-training",
+  "version": "1.0.0-alpha",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "npx vitest"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "bin": "./bin.js",
+  "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/lodash": "4.14.195",
     "prettier": "2.8.8",
