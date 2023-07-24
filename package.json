@@ -1,12 +1,23 @@
 {
   "name": "create-promises-training",
   "version": "1.0.0-alpha",
-  "description": "",
+  "description": "Practical promises exercises.",
   "scripts": {
     "check": "npx vitest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "promises",
+    "training",
+    "learning"
+  ],
+  "author": {
+    "name": "Henrique Inonhe",
+    "email": "henriqueinonhe@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:henriqueinonhe/promises-training.git"
+  },
   "bin": "./bin.js",
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
