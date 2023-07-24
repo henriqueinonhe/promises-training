@@ -7,15 +7,18 @@ const { resolve } = require("node:path");
 const run = (command) => execSync(command, { stdio: "inherit" });
 
 const main = async () => {
-  console.log(resolve("."));
+  const sourcePath = __dirname;
+  const targetPath = resolve("./promises-training");
 
-  // run(`npm install`);
-  // run(`npm install`, {
-  //   cwd: `./src/lib/graphExercise/ui`,
-  // });
-  // await Promise.all(
-  //   ["graph", "concrete", "foundation"].map(replaceWithTemplates)
-  // );
+  await cp(sourcePath, targetPath);
+
+  run(`npm install`);
+  run(`npm install`, {
+    cwd: `./src/lib/graphExercise/ui`,
+  });
+  await Promise.all(
+    ["graph", "concrete", "foundation"].map(replaceWithTemplates)
+  );
 };
 
 const replaceWithTemplates = async (category) => {
