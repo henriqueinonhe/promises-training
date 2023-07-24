@@ -1,11 +1,11 @@
-import { Router } from "../../lib/concreteExercise/Router";
+import { Router } from "../../../lib/concreteExercise/Router";
 
 type Context = {
   router: Router;
 };
 
-export default ({ router }: Context) => {
-  return async (url: string) => {
+export default ({ router }: Context) =>
+  async (url: string) => {
     let resolve!: () => void;
     let reject!: () => void;
     let promise!: Promise<void>;
@@ -43,4 +43,3 @@ export default ({ router }: Context) => {
 
     return promise;
   };
-};

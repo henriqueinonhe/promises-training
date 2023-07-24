@@ -1,5 +1,5 @@
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import parallelChunksExercise from "../../exercises/concrete/parallelChunks";
+import parallelChunksExercise from "../../exercises/concrete/parallelChunks/exercise";
 import { it, vi, expect } from "vitest";
 import { waitForPromises } from "../../lib/waitForPromises";
 import { chunk, zip } from "lodash";

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import makeConcurrencyEnqueue from "../../exercises/concrete/concurrencyEnqueue";
+import makeConcurrencyEnqueue from "../../exercises/concrete/concurrencyEnqueue/exercise";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 const setup = () => {

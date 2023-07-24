@@ -1,5 +1,5 @@
 import { it, vi } from "vitest";
-import parallelCollectRetryExercise from "../../exercises/concrete/parallelCollectRetry";
+import parallelCollectRetryExercise from "../../exercises/concrete/parallelCollectRetry/exercise";
 
 //TODO
 const setup = () => {

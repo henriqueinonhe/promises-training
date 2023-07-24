@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import makeParallelChainExercise from "../../exercises/concrete/parallelChain";
+import makeParallelChainExercise from "../../exercises/concrete/parallelChain/exercise";
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
 import { waitForPromises } from "../../lib/waitForPromises";
 

@@ -1,5 +1,5 @@
 import { it, vi, expect } from "vitest";
-import makeSerialExercise from "../../exercises/concrete/serial";
+import makeSerialExercise from "../../exercises/concrete/serial/exercise";
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
 import { waitForPromises } from "../../lib/waitForPromises";
 
