@@ -1,21 +1,29 @@
 #!/usr/bin/env node
 
 const { execSync } = require("node:child_process");
-const { cp, rm, rename, readdir } = require("node:fs/promises");
+const { cp, rm, rename, readdir, mv } = require("node:fs/promises");
 const { resolve } = require("node:path");
 
-const run = (command) => execSync(command, { stdio: "inherit" });
+const run = (command, options) =>
+  execSync(command, { stdio: "inherit", ...options });
 
 const main = async () => {
   const sourcePath = __dirname;
-  const targetPath = resolve("./promises-training");
+  const targetPath = resolve(".");
 
-  await cp(sourcePath, targetPath);
+  await cp(sourcePath, targetPath, {
+    recursive: true,
+  });
+
+  await mv("./gitignore", ".gitignore");
+
+  run("git init");
 
   run(`npm install`);
   run(`npm install`, {
     cwd: `./src/lib/graphExercise/ui`,
   });
+
   await Promise.all(
     ["graph", "concrete", "foundation"].map(replaceWithTemplates)
   );
@@ -28,8 +36,8 @@ const replaceWithTemplates = async (category) => {
     exercises.map(async (exercise) => {
       const exercisePath = `./src/exercises/${category}/${exercise}/exercise.ts`;
       const exerciseTemplatePath = `./src/exercises/${category}/${exercise}/template.ts`;
-      await rm(exerciseTemplatePath);
-      await rename(exercisePath, exerciseTemplatePath);
+      await rm(exercisePath);
+      await rename(exerciseTemplatePath, exercisePath);
     })
   );
 };
