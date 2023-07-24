@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { execSync } = require("node:child_process");
-const { cp, rm, rename, readdir, mv } = require("node:fs/promises");
+const { cp, rm, rename, readdir } = require("node:fs/promises");
 const { resolve } = require("node:path");
 
 const run = (command, options) =>
@@ -15,7 +15,7 @@ const main = async () => {
     recursive: true,
   });
 
-  await mv("./gitignore", ".gitignore");
+  await rename("./gitignore", ".gitignore");
 
   run("git init");
 

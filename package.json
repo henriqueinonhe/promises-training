@@ -4,6 +4,7 @@
   "description": "Practical promises exercises.",
   "scripts": {
     "prepublishOnly": "node ./scripts/prepublishOnly.js",
+    "postpublish": "node ./scripts/postpublish.js",
     "check": "npx vitest"
   },
   "keywords": [
