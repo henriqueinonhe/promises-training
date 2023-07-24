@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from "vitest";
-import promiseAny from "../../exercises/foundation/promiseAny";
+import promiseAny from "../../exercises/foundation/promiseAny/exercise";
 import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
 import { waitForPromises } from "../../lib/waitForPromises";
 

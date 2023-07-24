@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import makeConcurrencyOverride from "../../exercises/concrete/concurrencyOverride";
+import makeConcurrencyOverride from "../../exercises/concrete/concurrencyOverride/exercise";
 import { match } from "ts-pattern";
 import { waitForPromises } from "../../lib/waitForPromises";
 

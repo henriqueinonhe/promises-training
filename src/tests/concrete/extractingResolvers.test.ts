@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { Router } from "../../lib/concreteExercise/Router";
 import { match } from "ts-pattern";
-import makeExtractingResolvers from "../../exercises/concrete/extractingResolvers";
+import makeExtractingResolvers from "../../exercises/concrete/extractingResolvers/exercise";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 const setup = () => {

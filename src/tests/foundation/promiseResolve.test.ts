@@ -1,5 +1,5 @@
 import { it, vi, expect } from "vitest";
-import promiseResolve from "../../exercises/foundation/promiseResolve";
+import promiseResolve from "../../exercises/foundation/promiseResolve/exercise";
 
 it("Wraps a value in a resolved promise", async () => {
   const resolve = vi.fn();

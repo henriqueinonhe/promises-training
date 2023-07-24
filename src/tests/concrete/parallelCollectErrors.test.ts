@@ -1,5 +1,5 @@
 import { describe, it, vi, expect } from "vitest";
-import parallelCollectErrorsExercise from "../../exercises/concrete/parallelCollectErrors";
+import parallelCollectErrorsExercise from "../../exercises/concrete/parallelCollectErrors/exercise";
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
 
 const setup = () => {
