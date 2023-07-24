@@ -3,7 +3,7 @@
   "version": "1.0.0-alpha.4",
   "description": "Practical promises exercises.",
   "scripts": {
-    "prepublishOnly": "./scripts/prepublishOnly.js",
+    "prepublishOnly": "node ./scripts/prepublishOnly.js",
     "check": "npx vitest"
   },
   "keywords": [
