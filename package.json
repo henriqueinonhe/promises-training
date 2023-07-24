@@ -5,7 +5,8 @@
   "scripts": {
     "prepublishOnly": "node ./scripts/prepublishOnly.js",
     "postpublish": "node ./scripts/postpublish.js",
-    "check": "npx vitest"
+    "check": "vitest",
+    "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui"
   },
   "keywords": [
     "promises",

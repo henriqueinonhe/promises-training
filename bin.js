@@ -15,6 +15,8 @@ const main = async () => {
     recursive: true,
   });
 
+  await rm("./bin.js");
+
   run(`npm install`);
   run(`npm install`, {
     cwd: `./src/lib/graphExercise/ui`,
