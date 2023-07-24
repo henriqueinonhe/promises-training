@@ -15,12 +15,6 @@ const main = async () => {
     recursive: true,
   });
 
-  await rename("./gitignore", ".gitignore");
-
-  run("git init");
-  run("git add .");
-  run(`git commit -m "Initial commit"`);
-
   run(`npm install`);
   run(`npm install`, {
     cwd: `./src/lib/graphExercise/ui`,
@@ -29,6 +23,12 @@ const main = async () => {
   await Promise.all(
     ["graph", "concrete", "foundation"].map(replaceWithTemplates)
   );
+
+  await rename("./gitignore", ".gitignore");
+
+  run("git init");
+  run("git add .");
+  run(`git commit -m "Initial commit"`);
 };
 
 const replaceWithTemplates = async (category) => {
