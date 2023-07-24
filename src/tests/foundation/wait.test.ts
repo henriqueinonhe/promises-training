@@ -1,5 +1,5 @@
 import { it, vi, expect } from "vitest";
-import waitExercise from "../../exercises/foundation/wait";
+import waitExercise from "../../exercises/foundation/wait/exercise";
 import { waitForPromises } from "../../lib/waitForPromises";
 
 const setup = async () => {
