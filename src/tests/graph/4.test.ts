@@ -1,5 +1,5 @@
-import makeExercises from "../../../exercises/graph/4/exercise";
-import { makeGraphExerciseTestCase } from "../../../lib/graphExercise/graphExerciseTestCase";
+import makeExercises from "../../exercises/graph/4/exercise";
+import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
 
 const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
 
