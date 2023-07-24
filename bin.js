@@ -18,6 +18,8 @@ const main = async () => {
   await rename("./gitignore", ".gitignore");
 
   run("git init");
+  run("git add .");
+  run(`git commit -m "Initial commit"`);
 
   run(`npm install`);
   run(`npm install`, {
