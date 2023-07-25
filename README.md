@@ -8,13 +8,19 @@ In this repository, you'll find a series of texts and exercises (that are accomp
 
 However, it is not intended as an introductory guide, so we assume that you have some familiarity with promises.
 
+## Installation
+
+`npm create promises-training@latest`
+
+## Rationale
+
 Currently, there are three exercise categories:
 
 1. Graph
 2. Concrete
 3. Foundation
 
-## Graph Exercises
+### Graph Exercises
 
 A big part of dealing with asynchronous tasks is orchestrating them so that each task starts as soon as possible, and in order to properly orchestrate these tasks we need to understand the dependency relations between them.
 
@@ -89,7 +95,7 @@ try {
 }
 ```
 
-## Concrete Exercises
+### Concrete Exercises
 
 Graph exercises are great for understanding the dependency relations between tasks, however, they don't cover the full spectrum of possible scenarios, as only tasks whose dependencies are known at compile time and fixed can be represented by a graph.
 
@@ -97,7 +103,7 @@ Therefore we have this category of concrete exercises, where you'll be presented
 
 As each exercise in this category is unique, their description is colocated with their folder.
 
-## Foundation Exercises
+### Foundation Exercises
 
 Foundation exercises are designed to help you reinforce your understanding of the foundations of promises, by reimplementing promise-related functions and, eventually, the promise itself.
 
