@@ -88,3 +88,17 @@ try {
   await createPromise("C");
 }
 ```
+
+## Concrete Exercises
+
+Graph exercises are great for understanding the dependency relations between tasks, however, they don't cover the full spectrum of possible scenarios, as only tasks whose dependencies are known at compile time and fixed can be represented by a graph.
+
+Therefore we have this category of concrete exercises, where you'll be presented with concrete scenarios that you'll have to implement.
+
+As each exercise in this category is unique, their description is colocated with their folder.
+
+## Foundation Exercises
+
+Foundation exercises are designed to help you reinforce your understanding of the foundations of promises, by reimplementing promise-related functions and, eventually, the promise itself.
+
+Descriptions are colocated with exercises.
