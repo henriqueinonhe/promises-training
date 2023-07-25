@@ -4,14 +4,87 @@ This repository is designed to provide you with a comprehensive resource to furt
 
 Promises are an integral part of asynchronous programming in JavaScript, allowing you to handle asynchronous tasks without blocking the main thread.
 
-In this repository, you'll find a series of texts and exercises (that are accompained by automated tests to check your answers) to help you reinforce your understanding of promises.
+In this repository, you'll find a series of texts and exercises (that are accompanied by automated tests to check your answers) to help you reinforce your understanding of promises.
 
 However, it is not intended as an introductory guide, so we assume that you have some familiarity with promises.
 
-<!-- Summarize the topics that will be handled -->
+Currently, there are three exercise categories:
 
-Each topic is accompanied by practical exercises that will challenge you to apply your knowledge and reinforce your learning through hands-on practice. The exercises are thoughtfully designed to simulate real-world scenarios, enabling you to develop the skills necessary to tackle complex asynchronous tasks confidently.
+1. Graph
+2. Concrete
+3. Foundation
 
-To further enhance your learning experience, we have included automated tests for each exercise. These tests will not only evaluate your solution but also provide instant feedback on your performance. By gauging your understanding and progress automatically, you can track your growth and identify areas that may require additional attention.
+## Graph Exercises
 
-Happy coding!
+A big part of dealing with asynchronous tasks is orchestrating them so that each task starts as soon as possible, and in order to properly orchestrate these tasks we need to understand the dependency relations between them.
+
+In this category, you'll be presented with a dependency graph in each exercise and then you'll orchestrate the tasks in the graph in the most efficient way possible.
+
+As the exercise is focused on the orchestration itself, tasks are created by calling `createPromise(label)`, where `label` is a string that identifies the task.
+
+Take this graph, for example:
+
+![](./assets/graph1.png)
+
+There are two tasks in this graph, `A` and `B`, and `B` depends on `A`, which is represented by the arrow that comes out from `B` and points to `A`.
+
+This means that `B` can only start after `A` has finished and `A`, as it doesn't depend on any other task, can start right away.
+
+Thus, the most efficient implementation for this graph would be:
+
+```js
+await createPromise("A");
+await createPromise("B");
+```
+
+Tasks can also depend on more than one task:
+
+![](./assets/graph2.png)
+
+In this graph, `C` depends on both `A` and `B`, so it can only start after both `A` and `B` have finished.
+
+However, both `A` and `B` don't depend on any other task, so they can start right away.
+
+The most efficient implementation for this graph would be:
+
+```js
+await Promise.all([createPromise("A"), createPromise("B")]);
+await createPromise("C");
+```
+
+Tasks can also have multiple different sets of dependencies where if any of the sets is satisfied, the task can start:
+
+![](./assets/graph3.png)
+
+In this graph, `C` depends **either** on `A` **or** on `B`, which is represented by using different colors for each dependency set.
+
+Therefore, `C` can start as soon as either `A` or `B` has finished.
+
+```js
+await Promise.any([createPromise("A"), createPromise("B")]);
+await createPromise("C");
+```
+
+Last but not least, promises have two possible outcomes: they can either be fulfilled or rejected.
+
+![](./assets/graph4.png)
+
+In this graph, we have a task `B` that depends on `A`'s fulfillment and a task `C` that depends on `A`'s rejection (represented by the dashed edge).
+
+This means that `B` can only start after `A` has been fulfilled and `C` can only start after `A` has been rejected.
+
+As only one of these outcomes is possible, either `B` or `C` will not be carried out.
+
+Corresponding implementation:
+
+```js
+try {
+  await createPromise("A");
+
+  try {
+    await createPromise("B");
+  } catch {}
+} catch {
+  await createPromise("C");
+}
+```
