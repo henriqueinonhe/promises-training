@@ -11,26 +11,25 @@ Describe exercises minimally so that they can be understood and solved.
 - [x] Concrete - Concurrency Override
 - [x] Concrete - Extracting Resolvers
 - [x] Concrete - Parallel Chain
-- [ ] Concrete - Parallel Chunks
-- [ ] Concrete - Parallel Collect Errors
-- [ ] Concrete - Parallel Collect Errors
-- [ ] Concrete - Parallel Collect Retry
-- [ ] Concrete - Parallel Max Concurrency
+- [x] Concrete - Parallel Chunks
+- [x] Concrete - Parallel Collect Errors
+- [x] Concrete - Parallel Collect Retry
+- [x] Concrete - Parallel Max Concurrency
 - [x] Concrete - Retry
 - [x] Concrete - Retry With Backoff
 - [x] Concrete - Retry With Timeout
 - [x] Concrete - Serial
-- [ ] Concrete - Serial Collect Errors
-- [ ] Foundation - Promise
-- [ ] Foundation - Promise All
-- [ ] Foundation - Promise All Settled
-- [ ] Foundation - Promise Any
-- [ ] Foundation - Promise Race
-- [ ] Foundation - Promise Reject
-- [ ] Foundation - Promise Resolve
-- [ ] Foundation - Promisify
-- [ ] Foundation - Promisify Read File
-- [ ] Foundation - Promisify Wait
+- [x] Concrete - Serial Collect Errors
+- [x] Foundation - Promise
+- [x] Foundation - Promise All
+- [x] Foundation - Promise All Settled
+- [x] Foundation - Promise Any
+- [x] Foundation - Promise Race
+- [x] Foundation - Promise Reject
+- [x] Foundation - Promise Resolve
+- [x] Foundation - Promisify
+- [x] Foundation - Promisify Read File
+- [x] Foundation - Promisify Wait
 
 ## At Least ~30 Graph Exercises In Total
 
