@@ -10,7 +10,9 @@ However, it is not intended as an introductory guide, so we assume that you have
 
 ## Installation
 
-`npm create promises-training@latest`
+```sh
+npm create promises-training@latest
+```
 
 ## Rationale
 
@@ -94,6 +96,16 @@ try {
   await createPromise("C");
 }
 ```
+
+When doing graph exercises, you'll notice that there are three functions being expored: `mixed`, `asyncAwait`, `thenCatch`.
+
+The idea is for you to provide 3 different implementations, the first one is completely free, you can mix both async/await and then/catch, the second one should only use async/await and the third one should only use then/catch.
+
+This way you'll be proficient in both styles of promise handling.
+
+Also, at the end of the file you'll notice that exports are being wrapped in a `skipExercise`, which skips tests for that specific implementation so that it doesn't litter the output.
+
+You can remove the `skipExercise` and run the tests to check your implementation.
 
 ### Concrete Exercises
 

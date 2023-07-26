@@ -1,7 +1,7 @@
 import { ExerciseContext } from "../../../lib/Exercise";
 import { skipExercise } from "../../../lib/skipExercise";
 
-export const mixed =
+const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
     const promiseA = createPromise("A");
