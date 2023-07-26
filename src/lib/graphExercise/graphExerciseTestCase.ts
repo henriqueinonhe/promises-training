@@ -63,6 +63,11 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
     description,
     async () => {
       const exercisePromise = exercise();
+      exercisePromise.catch(() => {
+        // No Op
+        // To avoid breaking the test if the exercise rejects
+        // which is expected when we're forcing rejections
+      });
 
       const [firstStep, ...followingSteps] = steps;
 
@@ -96,7 +101,13 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
       );
 
       // Making sure there are no pending promises
-      await exercisePromise;
+      try {
+        await exercisePromise;
+      } catch {
+        // No Op
+        // To avoid breaking the test if the exercise rejects
+        // which is expected when we're forcing rejections
+      }
 
       // Making sure we didn't create any more promises
       const promisesCreatedAfterExerciseFinished = difference(
