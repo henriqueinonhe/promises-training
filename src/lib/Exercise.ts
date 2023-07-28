@@ -8,7 +8,7 @@ export type MakeExercise = {
 };
 
 export type ExerciseContext = {
-  createPromise: CreatePromise;
+  createPromise: CreatePromise<string>;
   ref: Ref;
 };
 

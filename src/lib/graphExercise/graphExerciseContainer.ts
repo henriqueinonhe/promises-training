@@ -10,7 +10,7 @@ type Dependencies = {
 export const createGraphExerciseContainer = ({
   makeExercise,
 }: Dependencies) => {
-  const promiseManager = createPromiseManager();
+  const promiseManager = createPromiseManager<string>();
   const createPromise = makeCreatePromise({ promiseManager });
   const exercise = makeExercise({ createPromise, ref });
 
