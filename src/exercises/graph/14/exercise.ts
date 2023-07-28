@@ -1,5 +1,4 @@
 import { ExerciseContext } from "../../../lib/Exercise";
-import { skipExercise } from "../../../lib/skipExercise";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
@@ -7,13 +6,13 @@ const mixed =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
-
-    const d = a.then(() => createPromise("D"));
-    const e = b.then(() => createPromise("E"));
-
-    const f = d.then(() => createPromise("F"));
-    const g = Promise.all([c, e, f]).then(() => createPromise("G"));
-    const h = Promise.all([b, c, d]).then(() => createPromise("H"));
+    const d = createPromise("D");
+    const e = Promise.all([a, b]).then(() => createPromise("E"));
+    const f = c.then(() => createPromise("F"));
+    const g = Promise.any([c, d]).then(() => createPromise("G"));
+    const h = Promise.any([Promise.all([f, g]), e]).then(() =>
+      createPromise("H")
+    );
 
     await Promise.all([a, b, c, d, e, f, g, h]);
   };
@@ -24,26 +23,21 @@ const asyncAwait =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
-
-    const d = (async () => {
-      await a;
-      await createPromise("D");
-    })();
+    const d = createPromise("D");
     const e = (async () => {
-      await b;
+      await Promise.all([a, b]);
       await createPromise("E");
     })();
-
     const f = (async () => {
-      await d;
+      await c;
       await createPromise("F");
     })();
     const g = (async () => {
-      await Promise.all([c, e, f]);
+      await Promise.any([c, d]);
       await createPromise("G");
     })();
     const h = (async () => {
-      await Promise.all([b, c, d]);
+      await Promise.any([Promise.all([f, g]), e]);
       await createPromise("H");
     })();
 
@@ -56,13 +50,13 @@ const thenCatch =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
-
-    const d = a.then(() => createPromise("D"));
-    const e = b.then(() => createPromise("E"));
-
-    const f = d.then(() => createPromise("F"));
-    const g = Promise.all([c, e, f]).then(() => createPromise("G"));
-    const h = Promise.all([b, c, d]).then(() => createPromise("H"));
+    const d = createPromise("D");
+    const e = Promise.all([a, b]).then(() => createPromise("E"));
+    const f = c.then(() => createPromise("F"));
+    const g = Promise.any([c, d]).then(() => createPromise("G"));
+    const h = Promise.any([Promise.all([f, g]), e]).then(() =>
+      createPromise("H")
+    );
 
     return Promise.all([a, b, c, d, e, f, g, h]);
   };

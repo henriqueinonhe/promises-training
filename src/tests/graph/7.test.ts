@@ -1,40 +1,27 @@
 import makeExercises from "../../exercises/graph/7/exercise";
-import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
+import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
+const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTestCase("7", [
-  { created: ["A", "B"] },
-  { resolved: "A", created: ["C"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("7", [
-  { created: ["A", "B"] },
-  { resolved: "B", created: [] },
-  { resolved: "A", created: ["C", "D"] },
-  { resolved: "D", created: [] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("7", [
-  { created: ["A", "B"] },
-  { resolved: "B", created: [] },
-  { resolved: "A", created: ["C", "D"] },
-  { resolved: "D", created: [] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("7", [
-  { created: ["A", "B"] },
-  { resolved: "B", created: [] },
-  { resolved: "A", created: ["C", "D"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: [] },
+graphExerciseTests("7", [
+  {
+    label: "A",
+    dependencies: [],
+  },
+  {
+    label: "B",
+    dependencies: [],
+  },
+  {
+    label: "C",
+    dependencies: [["A"]],
+  },
+  {
+    label: "D",
+    dependencies: [["A", "B"]],
+  },
+  {
+    label: "E",
+    dependencies: [["B", "C"]],
+  },
 ]);

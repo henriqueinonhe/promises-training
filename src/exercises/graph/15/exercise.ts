@@ -1,5 +1,4 @@
 import { ExerciseContext } from "../../../lib/Exercise";
-import { skipExercise } from "../../../lib/skipExercise";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
@@ -7,15 +6,16 @@ const mixed =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
+    const d = Promise.all([a, b]).then(() => createPromise("D"));
+    const e = Promise.any([d, Promise.all([b, c])]).then(() =>
+      createPromise("E")
+    );
+    const f = Promise.all([b, c]).then(() => createPromise("F"));
+    const g = Promise.any([Promise.all([a, c]), b]).then(() =>
+      createPromise("G")
+    );
 
-    const d = a.then(() => createPromise("D"));
-    const e = b.then(() => createPromise("E"));
-
-    const f = d.then(() => createPromise("F"));
-    const g = Promise.all([c, e, f]).then(() => createPromise("G"));
-    const h = Promise.all([b, c, d]).then(() => createPromise("H"));
-
-    await Promise.all([a, b, c, d, e, f, g, h]);
+    await Promise.all([a, b, c, d, e, f, g]);
   };
 
 const asyncAwait =
@@ -24,30 +24,24 @@ const asyncAwait =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
-
     const d = (async () => {
-      await a;
+      await Promise.all([a, b]);
       await createPromise("D");
     })();
     const e = (async () => {
-      await b;
+      await Promise.any([d, Promise.all([b, c])]);
       await createPromise("E");
     })();
-
     const f = (async () => {
-      await d;
+      await Promise.all([b, c]);
       await createPromise("F");
     })();
     const g = (async () => {
-      await Promise.all([c, e, f]);
+      await Promise.any([Promise.all([a, c]), b]);
       await createPromise("G");
     })();
-    const h = (async () => {
-      await Promise.all([b, c, d]);
-      await createPromise("H");
-    })();
 
-    await Promise.all([a, b, c, d, e, f, g, h]);
+    await Promise.all([a, b, c, d, e, f, g]);
   };
 
 const thenCatch =
@@ -56,15 +50,16 @@ const thenCatch =
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
+    const d = Promise.all([a, b]).then(() => createPromise("D"));
+    const e = Promise.any([d, Promise.all([b, c])]).then(() =>
+      createPromise("E")
+    );
+    const f = Promise.all([b, c]).then(() => createPromise("F"));
+    const g = Promise.any([Promise.all([a, c]), b]).then(() =>
+      createPromise("G")
+    );
 
-    const d = a.then(() => createPromise("D"));
-    const e = b.then(() => createPromise("E"));
-
-    const f = d.then(() => createPromise("F"));
-    const g = Promise.all([c, e, f]).then(() => createPromise("G"));
-    const h = Promise.all([b, c, d]).then(() => createPromise("H"));
-
-    return Promise.all([a, b, c, d, e, f, g, h]);
+    return Promise.all([a, b, c, d, e, f, g]);
   };
 
 export default {

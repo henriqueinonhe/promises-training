@@ -30,8 +30,7 @@ const asyncAwait =
       await createPromise("F");
     };
 
-    first();
-    second();
+    await Promise.all([first(), second()]);
   };
 
 const thenCatch =

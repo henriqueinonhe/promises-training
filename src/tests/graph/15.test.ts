@@ -1,31 +1,35 @@
-import makeExercises from "../../exercises/graph/6/exercise";
+import makeExercises from "../../exercises/graph/15/exercise";
 import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
 const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTests("6", [
+graphExerciseTests("15", [
   {
     label: "A",
     dependencies: [],
   },
   {
     label: "B",
-    dependencies: [["A"]],
+    dependencies: [],
   },
   {
     label: "C",
-    dependencies: [["A"]],
+    dependencies: [],
   },
   {
     label: "D",
-    dependencies: [["A"]],
+    dependencies: [["A", "B"]],
   },
   {
     label: "E",
-    dependencies: [["B", "C"]],
+    dependencies: [["D"], ["B", "C"]],
   },
   {
     label: "F",
-    dependencies: [["C", "D"]],
+    dependencies: [["B", "C"]],
+  },
+  {
+    label: "G",
+    dependencies: [["A", "C"], ["B"]],
   },
 ]);

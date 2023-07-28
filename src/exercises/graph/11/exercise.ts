@@ -1,19 +1,19 @@
 import { ExerciseContext } from "../../../lib/Exercise";
+import { skipExercise } from "../../../lib/skipExercise";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
     const a = createPromise("A");
     const b = createPromise("B");
+    const aOrB = Promise.any([a, b]);
 
-    await Promise.any([a, b]);
+    const c = aOrB.then(() => createPromise("C"));
+    const e = aOrB.then(() => createPromise("E"));
 
-    const c = createPromise("C");
-    const e = createPromise("E");
+    const d = Promise.all([a, b]).then(() => createPromise("D"));
 
-    await Promise.all([a, b]);
-    await createPromise("D");
-    await Promise.all([c, e]);
+    await Promise.all([c, d, e]);
   };
 
 const asyncAwait =
@@ -22,21 +22,24 @@ const asyncAwait =
     const a = createPromise("A");
     const b = createPromise("B");
 
-    const any = Promise.any([a, b]);
+    const aOrB = Promise.any([a, b]);
 
     const c = (async () => {
-      await any;
+      await aOrB;
       await createPromise("C");
     })();
 
+    const d = (async () => {
+      await Promise.all([a, b]);
+      await createPromise("D");
+    })();
+
     const e = (async () => {
-      await any;
+      await aOrB;
       await createPromise("E");
     })();
 
-    await Promise.all([a, b]);
-    await createPromise("D");
-    await Promise.all([c, e]);
+    await Promise.all([a, b, c, d, e]);
   };
 
 const thenCatch =
