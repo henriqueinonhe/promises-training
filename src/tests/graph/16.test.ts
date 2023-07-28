@@ -1,38 +1,23 @@
 import makeExercises from "../../exercises/graph/16/exercise";
-import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
+import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
+const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTestCase("16", [
-  { created: ["A"] },
-  { rejected: "A", created: ["B"] },
-  { resolved: "B", created: ["C"] },
-  { rejected: "C", created: ["D"] },
-  { resolved: "D", created: [] },
-]);
-
-graphExerciseTestCase("16", [
-  { created: ["A"] },
-  { resolved: "A", created: [] },
-]);
-
-graphExerciseTestCase("16", [
-  { created: ["A"] },
-  { rejected: "A", created: ["B"] },
-  { rejected: "B", created: [] },
-]);
-
-graphExerciseTestCase("16", [
-  { created: ["A"] },
-  { rejected: "A", created: ["B"] },
-  { resolved: "B", created: ["C"] },
-  { resolved: "C", created: [] },
-]);
-
-graphExerciseTestCase("16", [
-  { created: ["A"] },
-  { rejected: "A", created: ["B"] },
-  { resolved: "B", created: ["C"] },
-  { rejected: "C", created: ["D"] },
-  { rejected: "D", created: [] },
+graphExerciseTests("16", [
+  {
+    label: "A",
+    dependencies: [],
+  },
+  {
+    label: "B",
+    dependencies: [["!A"]],
+  },
+  {
+    label: "C",
+    dependencies: [["B"]],
+  },
+  {
+    label: "D",
+    dependencies: [["!C"]],
+  },
 ]);

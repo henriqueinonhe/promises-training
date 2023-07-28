@@ -3,7 +3,7 @@ import { ExerciseContext } from "../../../lib/Exercise";
 const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    await Promise.race([createPromise("A"), createPromise("B")]);
+    await Promise.any([createPromise("A"), createPromise("B")]);
 
     await createPromise("C");
     await createPromise("D");
@@ -12,7 +12,7 @@ const mixed =
 const asyncAwait =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    await Promise.race([createPromise("A"), createPromise("B")]);
+    await Promise.any([createPromise("A"), createPromise("B")]);
 
     await createPromise("C");
     await createPromise("D");
@@ -21,7 +21,7 @@ const asyncAwait =
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    Promise.race([createPromise("A"), createPromise("B")])
+    return Promise.any([createPromise("A"), createPromise("B")])
       .then(() => createPromise("C"))
       .then(() => createPromise("D"));
   };

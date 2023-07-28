@@ -1,20 +1,23 @@
 import makeExercises from "../../exercises/graph/3/exercise";
-import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
+import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
+const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTestCase("3", [
-  { created: ["A", "B"] },
-  { resolved: "A", created: [] },
-  { resolved: "B", created: ["C"] },
-  { resolved: "C", created: ["D"] },
-  { resolved: "D", created: [] },
-]);
-
-graphExerciseTestCase("3", [
-  { created: ["A", "B"] },
-  { resolved: "B", created: [] },
-  { resolved: "A", created: ["C"] },
-  { resolved: "C", created: ["D"] },
-  { resolved: "D", created: [] },
+graphExerciseTests("3", [
+  {
+    label: "A",
+    dependencies: [],
+  },
+  {
+    label: "B",
+    dependencies: [],
+  },
+  {
+    label: "C",
+    dependencies: [["A", "B"]],
+  },
+  {
+    label: "D",
+    dependencies: [["C"]],
+  },
 ]);

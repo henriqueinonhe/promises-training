@@ -1,58 +1,27 @@
 import makeExercises from "../../exercises/graph/4/exercise";
-import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
+import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
+const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "B", created: [] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "B", created: [] },
-  { resolved: "D", created: [] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "C", created: [] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "C", created: [] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "E", created: [] },
-  { resolved: "D", created: [] },
-]);
-
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "C", created: [] },
-  { resolved: "D", created: [] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "E", created: [] },
-]);
-
-graphExerciseTestCase("4", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C", "D"] },
-  { resolved: "D", created: [] },
-  { resolved: "C", created: [] },
-  { resolved: "B", created: ["E"] },
-  { resolved: "E", created: [] },
+graphExerciseTests("4", [
+  {
+    label: "A",
+    dependencies: [],
+  },
+  {
+    label: "B",
+    dependencies: [["A"]],
+  },
+  {
+    label: "C",
+    dependencies: [["A"]],
+  },
+  {
+    label: "D",
+    dependencies: [["A"]],
+  },
+  {
+    label: "E",
+    dependencies: [["B", "C"]],
+  },
 ]);

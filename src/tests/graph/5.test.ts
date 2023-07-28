@@ -1,64 +1,31 @@
 import makeExercises from "../../exercises/graph/5/exercise";
-import { makeGraphExerciseTestCase } from "../../lib/graphExercise/graphExerciseTestCase";
+import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTests";
 
-const graphExerciseTestCase = makeGraphExerciseTestCase(makeExercises);
+const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: ["F"] },
-  { resolved: "F", created: [] },
-]);
-
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: [] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "F", created: [] },
-]);
-
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "D", created: [] },
-  { resolved: "E", created: ["F"] },
-  { resolved: "F", created: [] },
-]);
-
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "E", created: [] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "F", created: [] },
-]);
-
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "D", created: [] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: ["F"] },
-  { resolved: "F", created: [] },
-]);
-
-graphExerciseTestCase("5", [
-  { created: ["A"] },
-  { resolved: "A", created: ["B", "C"] },
-  { resolved: "C", created: ["E"] },
-  { resolved: "E", created: [] },
-  { resolved: "B", created: ["D"] },
-  { resolved: "D", created: ["F"] },
-  { resolved: "F", created: [] },
+graphExerciseTests("5", [
+  {
+    label: "A",
+    dependencies: [],
+  },
+  {
+    label: "B",
+    dependencies: [["A"]],
+  },
+  {
+    label: "C",
+    dependencies: [["A"]],
+  },
+  {
+    label: "D",
+    dependencies: [["B"]],
+  },
+  {
+    label: "E",
+    dependencies: [["C"]],
+  },
+  {
+    label: "F",
+    dependencies: [["D", "E"]],
+  },
 ]);
