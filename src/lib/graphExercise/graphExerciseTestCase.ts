@@ -40,14 +40,14 @@ export const makeGraphExerciseTestCase =
 
       test({
         steps,
-        type: "then",
+        type: "then/catch",
         makeExercise: makeThenCatchExercise,
       });
     });
   };
 
 type TestParams = {
-  type: "then" | "async/await" | "mixed";
+  type: "then/catch" | "async/await" | "mixed";
   steps: GraphExerciseStepSequence;
   makeExercise: MakeExercise;
 };

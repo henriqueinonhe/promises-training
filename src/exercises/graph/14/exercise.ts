@@ -46,7 +46,7 @@ const asyncAwait =
 
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
-  async () => {
+  () => {
     const a = createPromise("A");
     const b = createPromise("B");
     const c = createPromise("C");
