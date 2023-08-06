@@ -3,7 +3,7 @@ import { makeGraphExerciseTests } from "../../lib/graphExercise/graphExerciseTes
 
 const graphExerciseTests = makeGraphExerciseTests(makeExercises);
 
-graphExerciseTests("18", [
+graphExerciseTests("17", [
   {
     label: "A",
     dependencies: [],
@@ -18,6 +18,10 @@ graphExerciseTests("18", [
   },
   {
     label: "D",
-    dependencies: [["C"], ["!C"]],
+    dependencies: [["!A"]],
+  },
+  {
+    label: "E",
+    dependencies: [["C", "D"]],
   },
 ]);

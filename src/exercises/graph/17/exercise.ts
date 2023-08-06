@@ -1,54 +1,45 @@
 import { ExerciseContext } from "../../../lib/Exercise";
-import { skipExercise } from "../../../lib/skipExercise";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
     try {
       await createPromise("A");
+      await createPromise("B");
 
       try {
-        await createPromise("B");
+        await createPromise("D");
       } catch {
-        // No op
+        // No Op
       }
     } catch {
-      await Promise.all([createPromise("C"), createPromise("D")]);
-      await createPromise("E");
+      await createPromise("C");
     }
   };
 
 const asyncAwait =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const a = createPromise("A");
+    const a = (async () => {
+      await createPromise("A");
+    })();
     const b = (async () => {
       await a;
-      return await createPromise("B");
+      await createPromise("B");
     })();
     const c = (async () => {
       try {
-        await a;
+        await b;
       } catch {
-        return await createPromise("C");
+        await createPromise("C");
       }
     })();
     const d = (async () => {
-      try {
-        await a;
-      } catch {
-        return await createPromise("D");
-      }
-    })();
-    const e = (async () => {
-      const [cResult, dResult] = await Promise.all([c, d]);
-
-      if (cResult && dResult) {
-        await createPromise("E");
-      }
+      await b;
+      await createPromise("D");
     })();
 
-    await Promise.all([a, b, c, d, e]);
+    await Promise.all([a, b, c, d]);
   };
 
 const thenCatch =
@@ -56,15 +47,10 @@ const thenCatch =
   async () => {
     const a = createPromise("A");
     const b = a.then(() => createPromise("B"));
-    const c = a.then(() => {}).catch(() => createPromise("C"));
-    const d = a.then(() => {}).catch(() => createPromise("D"));
-    const e = Promise.all([c, d]).then(([cResult, dResult]) => {
-      if (cResult && dResult) {
-        return createPromise("E");
-      }
-    });
+    const c = b.catch(() => createPromise("C"));
+    const d = b.then(() => createPromise("D"));
 
-    return Promise.all([a, b, c, d, e]);
+    await Promise.all([a, b, c, d]);
   };
 
 export default {

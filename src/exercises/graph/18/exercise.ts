@@ -13,43 +13,42 @@ const mixed =
         // No op
       }
     } catch {
-      try {
-        await createPromise("C");
-      } finally {
-        await createPromise("D");
-      }
+      await Promise.all([createPromise("C"), createPromise("D")]);
+      await createPromise("E");
     }
   };
 
 const asyncAwait =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const a = (async () => {
-      await createPromise("A");
-    })();
+    const a = createPromise("A");
     const b = (async () => {
       await a;
-      await createPromise("B");
+      return await createPromise("B");
     })();
     const c = (async () => {
       try {
-        return await a;
+        await a;
       } catch {
         return await createPromise("C");
       }
     })();
     const d = (async () => {
       try {
-        const result = await c;
-        if (result === "C") {
-          await createPromise("D");
-        }
+        await a;
       } catch {
-        await createPromise("D");
+        return await createPromise("D");
+      }
+    })();
+    const e = (async () => {
+      const [cResult, dResult] = await Promise.all([c, d]);
+
+      if (cResult && dResult) {
+        await createPromise("E");
       }
     })();
 
-    await Promise.all([a, b, c, d]);
+    await Promise.all([a, b, c, d, e]);
   };
 
 const thenCatch =
@@ -58,15 +57,14 @@ const thenCatch =
     const a = createPromise("A");
     const b = a.then(() => createPromise("B"));
     const c = a.then(() => {}).catch(() => createPromise("C"));
-    const d = c
-      .then((result) => {
-        if (result === "C") {
-          return createPromise("D");
-        }
-      })
-      .catch(() => createPromise("D"));
+    const d = a.then(() => {}).catch(() => createPromise("D"));
+    const e = Promise.all([c, d]).then(([cResult, dResult]) => {
+      if (cResult && dResult) {
+        return createPromise("E");
+      }
+    });
 
-    return Promise.all([a, b, c, d]);
+    return Promise.all([a, b, c, d, e]);
   };
 
 export default {

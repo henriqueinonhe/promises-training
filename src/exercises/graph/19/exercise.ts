@@ -1,82 +1,72 @@
 import { ExerciseContext } from "../../../lib/Exercise";
-import { match } from "../../../lib/match";
-import { fulfilled, promiseResult, rejected } from "../../../lib/promiseResult";
 import { skipExercise } from "../../../lib/skipExercise";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const a = promiseResult(createPromise("A"));
-    const b = a.then((result) =>
-      match(result, fulfilled("A"), () => createPromise("B"))
-    );
-    const c = a.then((result) =>
-      match(result, rejected("A"), () => createPromise("C"))
-    );
-    const d = b.then((result) =>
-      match(result, fulfilled("B"), () => createPromise("D"))
-    );
-    const e = c.then((result) =>
-      match(result, rejected("C"), () => createPromise("E"))
-    );
-    const f = Promise.all([d, e]).then((results) =>
-      match(results, [rejected("D"), fulfilled("E")], () => createPromise("F"))
-    );
+    try {
+      await createPromise("A");
 
-    await Promise.all([a, b, c, d, e, f]);
+      try {
+        await createPromise("B");
+      } catch {
+        // No op
+      }
+    } catch {
+      try {
+        await createPromise("C");
+      } finally {
+        await createPromise("D");
+      }
+    }
   };
 
 const asyncAwait =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const a = promiseResult(createPromise("A"));
+    const a = (async () => {
+      await createPromise("A");
+    })();
     const b = (async () => {
-      const result = await a;
-      return await match(result, fulfilled("A"), () => createPromise("B"));
+      await a;
+      await createPromise("B");
     })();
     const c = (async () => {
-      const result = await a;
-      return await match(result, rejected("A"), () => createPromise("C"));
+      try {
+        return await a;
+      } catch {
+        return await createPromise("C");
+      }
     })();
     const d = (async () => {
-      const result = await b;
-      return await match(result, fulfilled("B"), () => createPromise("D"));
-    })();
-    const e = (async () => {
-      const result = await c;
-      return await match(result, rejected("C"), () => createPromise("E"));
-    })();
-    const f = (async () => {
-      const results = await Promise.all([d, e]);
-      return await match(results, [rejected("D"), fulfilled("E")], () =>
-        createPromise("F")
-      );
+      try {
+        const result = await c;
+        if (result === "C") {
+          await createPromise("D");
+        }
+      } catch {
+        await createPromise("D");
+      }
     })();
 
-    await Promise.all([a, b, c, d, e, f]);
+    await Promise.all([a, b, c, d]);
   };
 
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
   async () => {
-    const a = promiseResult(createPromise("A"));
-    const b = a.then((result) =>
-      match(result, fulfilled("A"), () => createPromise("B"))
-    );
-    const c = a.then((result) =>
-      match(result, rejected("A"), () => createPromise("C"))
-    );
-    const d = b.then((result) =>
-      match(result, fulfilled("B"), () => createPromise("D"))
-    );
-    const e = c.then((result) =>
-      match(result, rejected("C"), () => createPromise("E"))
-    );
-    const f = Promise.all([d, e]).then((results) =>
-      match(results, [rejected("D"), fulfilled("E")], () => createPromise("F"))
-    );
+    const a = createPromise("A");
+    const b = a.then(() => createPromise("B"));
+    const c = a.then(() => {}).catch(() => createPromise("C"));
+    const d = c
+      .then((result) => {
+        if (result === "C") {
+          return createPromise("D");
+        }
+      })
+      .catch(() => createPromise("D"));
 
-    return Promise.all([a, b, c, d, e, f]);
+    return Promise.all([a, b, c, d]);
   };
 
 export default {
