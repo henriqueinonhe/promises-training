@@ -39,7 +39,7 @@ export const makeGraphExerciseTests =
     const indexesList = Array.from({ length: indexesListLength }).map(
       (_, index) => index
     );
-    const cap = 500;
+    const cap = Infinity;
     const randomIndexesListLength = Math.min(cap, stepSequences.length);
     const randomIndexes = shuffle(indexesList).slice(
       0,
