@@ -20,7 +20,7 @@ const asyncAwait =
 
 const thenCatch =
   ({ createPromise }: ExerciseContext) =>
-  async () => {
+  () => {
     return Promise.any([createPromise("A"), createPromise("B")])
       .then(() => createPromise("C"))
       .then(() => createPromise("D"));

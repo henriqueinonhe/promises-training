@@ -3,7 +3,7 @@ import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
 import { generateAllPossibleExerciseStepSequences } from "./generateAllPossibleExerciseStepSequences";
 import { makeGraphExerciseTestCase } from "./graphExerciseTestCase";
-import { random } from "lodash";
+import { random, shuffle } from "lodash";
 
 type Dependencies = {
   makeThenCatchExercise: MakeExercise;
@@ -35,11 +35,15 @@ export const makeGraphExerciseTests =
     // kind of CLI
     // We should also cache the generated test cases
     // so that tests are deterministic
-    const stepSequencesFirstIndex = 0;
-    const stepSequencesLastIndex = stepSequences.length - 1;
-    const cap = Math.min(stepSequences.length, 500);
-    const randomIndexes = Array.from({ length: cap }).map(() =>
-      random(stepSequencesFirstIndex, stepSequencesLastIndex)
+    const indexesListLength = stepSequences.length;
+    const indexesList = Array.from({ length: indexesListLength }).map(
+      (_, index) => index
+    );
+    const cap = Infinity;
+    const randomIndexesListLength = Math.min(cap, stepSequences.length);
+    const randomIndexes = shuffle(indexesList).slice(
+      0,
+      randomIndexesListLength
     );
     const cappedStepSequences = randomIndexes.map(
       (index) => stepSequences[index]

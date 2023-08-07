@@ -38,25 +38,20 @@ Exercise order is:
 - Exercises with OR
 - Exercises with Errors
 
+UPDATE: It doesn't make sense to add more graph exercises as they become so complex that from that point on it's better to implement a more sofisticated abstraction, like a graph-based solver.
+
 ### Tasks
 
 - [x] 14
 - [x] 15
 - [x] 16
-- [ ] 17
-- [ ] 18
-- [ ] 19
-- [ ] 20
-- [ ] 21
-- [ ] 22
-- [ ] 23
-- [ ] 24
-- [ ] 25
-- [ ] 26
-- [ ] 27
-- [ ] 28
-- [ ] 29
-- [ ] 30
+- [x] 17
+- [x] 18
+- [x] 19
+- [x] 20
+- [x] 21
+- [x] 22
+- [x] 23
 
 ## Documentation For Graph Execises UI
 

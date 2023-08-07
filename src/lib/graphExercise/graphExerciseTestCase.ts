@@ -40,14 +40,14 @@ export const makeGraphExerciseTestCase =
 
       test({
         steps,
-        type: "then",
+        type: "then/catch",
         makeExercise: makeThenCatchExercise,
       });
     });
   };
 
 type TestParams = {
-  type: "then" | "async/await" | "mixed";
+  type: "then/catch" | "async/await" | "mixed";
   steps: GraphExerciseStepSequence;
   makeExercise: MakeExercise;
 };
@@ -122,7 +122,7 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
 type TestFirstStepParams = {
   firstStep: GraphExerciseFirstStep;
   steps: GraphExerciseStepSequence;
-  promiseManager: PromiseManager;
+  promiseManager: PromiseManager<string>;
 };
 
 const testFirstStep = ({
@@ -145,7 +145,7 @@ const testFirstStep = ({
 
 type TestFollowingStepParams = {
   followingStep: GraphExerciseFollowingStep;
-  promiseManager: PromiseManager;
+  promiseManager: PromiseManager<string>;
   promisesCreatedSoFarLabels: Array<string>;
   stepIndex: number;
   steps: GraphExerciseStepSequence;
@@ -161,9 +161,9 @@ const testFollowingStep = async ({
   const { created, resolved, rejected } = followingStep;
 
   if (resolved !== undefined) {
-    promiseManager.resolve(resolved);
+    promiseManager.resolve(resolved, resolved);
   } else if (rejected !== undefined) {
-    promiseManager.reject(rejected);
+    promiseManager.reject(rejected, rejected);
   }
 
   await waitForPromises();
