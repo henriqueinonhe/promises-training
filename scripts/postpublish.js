@@ -1,7 +1,11 @@
-const { rename } = require("node:fs/promises");
+const { execSync } = require("node:child_process");
+
+const run = (command, options) =>
+  execSync(command, { stdio: "inherit", ...options });
 
 const main = async () => {
-  rename("./gitignore", "./.gitignore");
+  run(`git restore "*"`);
+  run(`git clean -f .`);
 };
 
 main();
