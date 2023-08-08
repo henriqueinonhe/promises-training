@@ -72,8 +72,7 @@ Some concrete exercise tests are not up to the standard (e.g. concurrencyEnqueue
 ### Tasks
 
 - [x] Parallel Chunks
-- [ ] Parallel Collect Errors
-- [ ] Parallel Collect Retry
+- [x] Parallel Collect Retry
 - [ ] Parallel Max Concurrency
 - [ ] Serial
 - [ ] Serial Collect Errors

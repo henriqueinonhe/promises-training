@@ -5,9 +5,18 @@ import { waitForPromises } from "../../lib/waitForPromises";
 
 describe("When the list has 17 elements", () => {
   const setup = async () => {
-    const handlers = Array.from({ length: 17 }).map(() =>
-      promiseWithResolvers<string>()
+    const results = Array.from({ length: 17 }).map(
+      (_, index) => `Result${index + 1}`
     );
+
+    const handlers = results.map((result) => {
+      const { promise, resolver } = promiseWithResolvers<string>();
+
+      return {
+        promise,
+        resolver: () => resolver(result),
+      };
+    });
 
     const postData = handlers.reduce(
       (fn, { promise }) => fn.mockReturnValueOnce(promise),
@@ -18,9 +27,7 @@ describe("When the list has 17 elements", () => {
       postData,
     });
 
-    const parameters = handlers.map((_, index) => `Data${index}`);
-
-    const results = handlers.map((_, index) => `Result${index}`);
+    const parameters = handlers.map((_, index) => `Data${index + 1}`);
 
     const promise = parallelChunks(parameters);
 
@@ -48,11 +55,9 @@ describe("When the list has 17 elements", () => {
     const secondSetup = async () => {
       const previousSetupReturnValue = await setup();
 
-      const { handlers, results } = previousSetupReturnValue;
+      const { handlers } = previousSetupReturnValue;
 
-      handlers
-        .slice(0, 4)
-        .forEach(({ resolver }, index) => resolver(results[index]));
+      handlers.slice(0, 4).forEach(({ resolver }) => resolver());
 
       await waitForPromises();
 
@@ -69,9 +74,9 @@ describe("When the list has 17 elements", () => {
       const thirdSetup = async () => {
         const previousSetupReturnValue = await secondSetup();
 
-        const { handlers, results } = previousSetupReturnValue;
+        const { handlers } = previousSetupReturnValue;
 
-        handlers[4].resolver(results[4]);
+        handlers[4].resolver();
 
         await waitForPromises();
 
@@ -91,9 +96,9 @@ describe("When the list has 17 elements", () => {
         const fourthSetup = async () => {
           const previousSetupReturnValue = await thirdSetup();
 
-          const { handlers, results } = previousSetupReturnValue;
+          const { handlers } = previousSetupReturnValue;
 
-          handlers[9].resolver(results[9]);
+          handlers[9].resolver();
 
           await waitForPromises();
 
@@ -110,11 +115,9 @@ describe("When the list has 17 elements", () => {
           const fifthSetup = async () => {
             const previousSetupReturnValue = await fourthSetup();
 
-            const { handlers, results } = previousSetupReturnValue;
+            const { handlers } = previousSetupReturnValue;
 
-            handlers
-              .slice(5, 9)
-              .forEach(({ resolver }, index) => resolver(results[index + 5]));
+            handlers.slice(5, 9).forEach(({ resolver }) => resolver());
 
             await waitForPromises();
 
@@ -134,13 +137,9 @@ describe("When the list has 17 elements", () => {
             const sixthSetup = async () => {
               const previousSetupReturnValue = await fifthSetup();
 
-              const { handlers, results } = previousSetupReturnValue;
+              const { handlers } = previousSetupReturnValue;
 
-              handlers
-                .slice(10, 15)
-                .forEach(({ resolver }, index) =>
-                  resolver(results[index + 10])
-                );
+              handlers.slice(10, 15).forEach(({ resolver }) => resolver());
 
               await waitForPromises();
 
@@ -160,13 +159,9 @@ describe("When the list has 17 elements", () => {
               const seventhSetup = async () => {
                 const previousSetupReturnValue = await sixthSetup();
 
-                const { handlers, results } = previousSetupReturnValue;
+                const { handlers } = previousSetupReturnValue;
 
-                handlers
-                  .slice(15, 17)
-                  .forEach(({ resolver }, index) =>
-                    resolver(results[index + 15])
-                  );
+                handlers.slice(15, 17).forEach(({ resolver }) => resolver());
 
                 await waitForPromises();
 
