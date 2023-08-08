@@ -10,7 +10,7 @@ Means being ready to be used, however, as documentation/explanations are lacking
 - [x] More graph exercises
 - [ ] Documentation for graph execises UI
 - [ ] Basic styling for graph exercises UI
-- [ ] Improve concrete exercises tests
+- [x] Improve concrete exercises tests
 - [ ] Improve setup documentation on README
 
 ## Beta
