@@ -75,8 +75,6 @@ Some concrete exercise tests are not up to the standard (e.g. concurrencyEnqueue
 - [x] Parallel Collect Retry
 - [x] Parallel Max Concurrency
 - [x] Serial
-- [ ] Serial Collect Errors
-- [ ] Parallel Chunks
 
 ## Improve Setup Documentation On README
 
