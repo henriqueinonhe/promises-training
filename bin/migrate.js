@@ -3,6 +3,7 @@
 const { cp, execSync } = require("node:child_process");
 const { readFile, stat } = require("node:fs/promises");
 const { red, yellow } = require("kolorist");
+const { relative } = require("path");
 
 const logMessage = (message) => console.log(yellow(`\n${message}`));
 const logError = (message) => console.error(red(`\n${message}`));
@@ -47,7 +48,8 @@ const copyFiles = async () => {
     await cp(sourcePath, targetPath, {
       recursive: true,
       filter: async (_, target) => {
-        if (filesBlacklist.some((pattern) => target.match(pattern))) {
+        const relativePath = relative(targetPath, target);
+        if (filesBlacklist.some((pattern) => relativePath.match(pattern))) {
           return false;
         }
 

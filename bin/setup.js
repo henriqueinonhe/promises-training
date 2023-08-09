@@ -2,7 +2,7 @@
 
 const { execSync } = require("node:child_process");
 const { cp, rm, rename, stat, mkdir, readdir } = require("node:fs/promises");
-const { resolve } = require("node:path");
+const { resolve, relative } = require("node:path");
 const prompts = require("prompts");
 const { red, yellow } = require("kolorist");
 
@@ -51,8 +51,10 @@ const main = async () => {
 
     await cp(sourcePath, targetPath, {
       recursive: true,
-      filter: (_, target) =>
-        !filesBlacklist.some((pattern) => target.match(pattern)),
+      filter: (_, target) => {
+        const relativePath = relative(targetPath, target);
+        return !filesBlacklist.some((pattern) => relativePath.match(pattern));
+      },
     });
   } catch (error) {
     logError("\nError copying files");
