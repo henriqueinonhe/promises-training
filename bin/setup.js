@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { execSync } = require("node:child_process");
-const { cp, rm, rename, stat, lstat, mkdir } = require("node:fs/promises");
+const { cp, rm, rename, stat, mkdir, readdir } = require("node:fs/promises");
 const { resolve } = require("node:path");
 const prompts = require("prompts");
 const { red, yellow } = require("kolorist");
@@ -28,7 +28,7 @@ const main = async () => {
             return `${dir} is not a directory!`;
           }
 
-          const files = await lstat(dir);
+          const files = await readdir(dir);
           if (files.length > 0) {
             return `${dir} is not empty!`;
           }
