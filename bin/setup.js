@@ -12,6 +12,8 @@ const run = (command, options) =>
 const logMessage = (message) => console.log(yellow(`\n${message}`));
 const logError = (message) => console.error(red(`\n${message}`));
 
+const filesBlacklist = [/^bin/];
+
 const main = async () => {
   const { dir } = await prompts([
     {
@@ -49,19 +51,11 @@ const main = async () => {
 
     await cp(sourcePath, targetPath, {
       recursive: true,
+      filter: (_, target) =>
+        !filesBlacklist.some((pattern) => target.match(pattern)),
     });
   } catch (error) {
     logError("\nError copying files");
-    console.error(error);
-    return;
-  }
-
-  try {
-    logMessage("Removing unnecessary files...");
-
-    await rm(resolve(targetPath, "./bin.js"));
-  } catch (error) {
-    logError("Error removing files");
     console.error(error);
     return;
   }

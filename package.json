@@ -21,7 +21,10 @@
     "type": "git",
     "url": "git@github.com:henriqueinonhe/promises-training.git"
   },
-  "bin": "./bin.js",
+  "bin": {
+    "create-promises-training": "./bin/setup.js",
+    "migrate": "./bin/migrate.js"
+  },
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/lodash": "4.14.195",
