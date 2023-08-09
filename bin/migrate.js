@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { cp, execSync } = require("node:child_process");
-const { readFile, stat } = require("node:fs/promises");
+const { execSync } = require("node:child_process");
+const { readFile, stat, cp } = require("node:fs/promises");
 const { red, yellow } = require("kolorist");
 const { relative, resolve } = require("path");
 
