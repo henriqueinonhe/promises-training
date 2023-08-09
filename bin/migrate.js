@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { cp, exec } = require("node:child_process");
+const { cp, execSync } = require("node:child_process");
 const { readFile, stat } = require("node:fs/promises");
 const { red, yellow } = require("kolorist");
 
@@ -8,7 +8,7 @@ const logMessage = (message) => console.log(yellow(`\n${message}`));
 const logError = (message) => console.error(red(`\n${message}`));
 
 const run = (command, options) =>
-  exec(command, { stdio: "inherit", ...options });
+  execSync(command, { stdio: "inherit", ...options });
 
 const sourcePath = __dirname;
 const targetPath = resolve(".");
