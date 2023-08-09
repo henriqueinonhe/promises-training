@@ -22,7 +22,7 @@ Means being ready to be used in a semi-standalone way. All exercises will be suf
 - [ ] Complete description for exercises in a standardized way and including motivation and possibly some concrete example
 - [ ] Finish graph exercises
 - [ ] Exercise sequence by level proposal and come up with corresponding explanations
-- [ ] Implement migration script for upgrading to newer versions
+- [x] Implement migration script for upgrading to newer versions
 - [x] Polish setup process
   - Discriminate each of the steps
   - Error handling
