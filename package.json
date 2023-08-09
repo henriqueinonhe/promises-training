@@ -1,6 +1,6 @@
 {
   "name": "create-promises-training",
-  "version": "1.0.0-alpha.14",
+  "version": "1.0.0-alpha.15",
   "description": "Practical promises exercises.",
   "scripts": {
     "prepublishOnly": "node ./scripts/prepublishOnly.js",
