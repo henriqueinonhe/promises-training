@@ -3,7 +3,7 @@
 const { cp, execSync } = require("node:child_process");
 const { readFile, stat } = require("node:fs/promises");
 const { red, yellow } = require("kolorist");
-const { relative } = require("path");
+const { relative, resolve } = require("path");
 
 const logMessage = (message) => console.log(yellow(`\n${message}`));
 const logError = (message) => console.error(red(`\n${message}`));
