@@ -1,18 +1,54 @@
 # Promises Training
 
-This repository is designed to provide you with a comprehensive resource to further your understanding and practice of promises in JavaScript. If you're already familiar with promises and want to deepen your knowledge while enhancing your skills, you've come to the right place.
+Practice working with promises through a curated collection of interactive challenges.
 
-Promises are an integral part of asynchronous programming in JavaScript, allowing you to handle asynchronous tasks without blocking the main thread.
+This repository provides a platform to refine your skills, complete with automated tests to to give you instant feedback and validate your progress.
 
-In this repository, you'll find a series of texts and exercises (that are accompanied by automated tests to check your answers) to help you reinforce your understanding of promises.
+**ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING**
 
-However, it is not intended as an introductory guide, so we assume that you have some familiarity with promises.
+To use this repository, please follow the instructions on the [Installation](#installation) section.
 
 ## Installation
+
+Create an empty folder an inside it run:
 
 ```sh
 npm create promises-training@latest
 ```
+
+## Structure
+
+Exercises are located within `src/exercises` and tests within `src/tests`.
+
+You generally will only work inside the exercises folder as tests are devised in a way that they tell you exactly what went wrong without you having to look at their implementation, but if for any reason you get stuck or curious, you can peek at them.
+
+The `src/lib` folder is for internal use only, so don't bother with it.
+
+## Tests
+
+Each and every exercise is accompained by automated tests so that you can check your implementation.
+
+To run a single exercise's tests, run:
+
+```sh
+npm run check <category>/<exercise-name>
+```
+
+For example, to run the tests for the `parallelChunks` exercise, run:
+
+```sh
+npm run check concrete/parallelChunks
+```
+
+Or, to run the graph exercise number 2, run:
+
+```sh
+npm run check graph/2.test.ts
+```
+
+In this case we need to append `.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
+
+We use [Vitest](https://vitest.dev/guide/) as the test runner, so all of its CLI options are available.
 
 ## Rationale
 
