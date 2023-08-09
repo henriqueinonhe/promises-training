@@ -10,7 +10,7 @@ const logError = (message) => console.error(red(`\n${message}`));
 const run = (command, options) =>
   execSync(command, { stdio: "inherit", ...options });
 
-const sourcePath = __dirname;
+const sourcePath = resolve(__dirname, "..");
 const targetPath = resolve(".");
 
 const main = async () => {

@@ -43,7 +43,7 @@ const main = async () => {
     },
   ]);
 
-  const sourcePath = __dirname;
+  const sourcePath = resolve(__dirname, "..");
   const targetPath = resolve(dir);
 
   try {
@@ -60,45 +60,45 @@ const main = async () => {
     return;
   }
 
-  try {
-    logMessage("Installing dependencies...");
+  // try {
+  //   logMessage("Installing dependencies...");
 
-    run(`npm install`, {
-      cwd: targetPath,
-    });
-    run(`npm install`, {
-      cwd: resolve(targetPath, `./src/lib/graphExercise/ui`),
-    });
-  } catch (error) {
-    logError("Error installing dependencies");
-    console.error(error);
-    return;
-  }
+  //   run(`npm install`, {
+  //     cwd: targetPath,
+  //   });
+  //   run(`npm install`, {
+  //     cwd: resolve(targetPath, `./src/lib/graphExercise/ui`),
+  //   });
+  // } catch (error) {
+  //   logError("Error installing dependencies");
+  //   console.error(error);
+  //   return;
+  // }
 
-  try {
-    logMessage("Initializing git repository...");
+  // try {
+  //   logMessage("Initializing git repository...");
 
-    await rename(
-      resolve(targetPath, "./gitignore"),
-      resolve(targetPath, ".gitignore")
-    );
+  //   await rename(
+  //     resolve(targetPath, "./gitignore"),
+  //     resolve(targetPath, ".gitignore")
+  //   );
 
-    run("git init", {
-      cwd: targetPath,
-    });
-    run("git add .", {
-      cwd: targetPath,
-    });
-    run(`git commit -m "Initial commit"`, {
-      cwd: targetPath,
-    });
-  } catch (error) {
-    logError("Error initializing git repository");
-    console.error(error);
+  //   run("git init", {
+  //     cwd: targetPath,
+  //   });
+  //   run("git add .", {
+  //     cwd: targetPath,
+  //   });
+  //   run(`git commit -m "Initial commit"`, {
+  //     cwd: targetPath,
+  //   });
+  // } catch (error) {
+  //   logError("Error initializing git repository");
+  //   console.error(error);
 
-    await rm(".git");
-    return;
-  }
+  //   await rm(".git");
+  //   return;
+  // }
 };
 
 main();
