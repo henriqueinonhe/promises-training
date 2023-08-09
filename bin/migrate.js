@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { execSync } = require("node:child_process");
-const { readFile, stat, cp } = require("node:fs/promises");
+const { readFile, stat, cp, rename } = require("node:fs/promises");
 const { red, yellow } = require("kolorist");
 const { relative, resolve } = require("path");
 
@@ -62,6 +62,11 @@ const copyFiles = async () => {
         return !isAlreadyExistingExerciseFile;
       },
     });
+
+    await rename(
+      resolve(targetPath, "./gitignore"),
+      resolve(targetPath, ".gitignore")
+    );
   } catch (error) {
     logError("\nError copying files");
     console.error(error);
