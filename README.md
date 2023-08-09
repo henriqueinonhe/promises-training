@@ -24,6 +24,8 @@ You generally will only work inside the exercises folder as tests are devised in
 
 The `src/lib` folder is for internal use only, so don't bother with it.
 
+Also, in order to keep your repo forwards-compatible with future versions of this repository, **DO NOT** modify any file outside the `src/exercises` folder.
+
 ## Tests
 
 Each and every exercise is accompained by automated tests so that you can check your implementation.
