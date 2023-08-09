@@ -23,7 +23,7 @@ Means being ready to be used in a semi-standalone way. All exercises will be suf
 - [ ] Finish graph exercises
 - [ ] Exercise sequence by level proposal and come up with corresponding explanations
 - [ ] Implement migration script for upgrading to newer versions
-- [ ] Polish setup process
+- [x] Polish setup process
   - Discriminate each of the steps
   - Error handling
   - Retryability

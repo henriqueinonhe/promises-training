@@ -25,7 +25,10 @@
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/lodash": "4.14.195",
+    "@types/prompts": "2.4.4",
+    "kolorist": "1.8.0",
     "prettier": "2.8.8",
+    "prompts": "2.4.2",
     "typescript": "5.1.6",
     "vitest": "0.32.4"
   },

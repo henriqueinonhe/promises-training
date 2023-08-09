@@ -138,10 +138,10 @@ Currently, the setup process is very crude.
 
 ### Tasks
 
-- [ ] Discriminate each of the steps
-- [ ] Error handling
-- [ ] Retryability
-- [ ] Allow user to choose the folder to install and warn if it's not empty
+- [x] Discriminate each of the steps
+- [x] Error handling
+- [x] Retryability
+- [x] Allow user to choose the folder to install and warn if it's not empty
 
 ## SPIKE Event Loop Exercises
 
