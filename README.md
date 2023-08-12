@@ -1,20 +1,32 @@
 # Promises Training
 
-Practice working with promises through a curated collection of interactive challenges.
+Currently, promises are the de-facto way of handling asynchronous tasks in Javascript, and because of that, they're a fundamental part of any Javascript developer's knowledge.
 
-This repository provides a platform to refine your skills, complete with automated tests to to give you instant feedback and validate your progress.
+However, when we're learning promises for the first time, we only learn **enough to get by**, that is, we learn a little bit of how to use promises, (nowadays, most likely with `async/await` only), the `Promise.all` method and that's it.
+
+While this approach makes sense for beginners because it is enough to solve most problems in their daily lives, a recurring issue is that they **stop there**, that is, they never go past this initial knowledge.
+
+And it's precisely this "learn just enough to get by" posture that holds many developers at their current level, as solving more complex problems requires a deeper understanding.
+
+So, if you want to take your developer skills to the **next level**, swimming in shallow waters **won't cut it**, you **must go deeper**, you need to fully understand promises, and how they work, you need to be proficient in both `async/await` and `then/catch` styles of promise handling, and be able to orchestrate asynchronous tasks in the most efficient way possible.
+
+Also, as promises are ultimately an abstraction to handle asynchronous tasks, being able to tackle common problems related to asynchronous programming is a must.
+
+With that in mind, we created this project precisely to help you do this deep dive into promises and asynchronous programming.
+
+By providing both explanations and practical exercises surrounding these topics, this project aims to be your companion in this journey to master them.
+
+## Getting Started
 
 **ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING**
 
-To use this repository, please follow the instructions on the [Installation](#installation) section.
-
-## Installation
-
-Create an empty folder an inside it run:
+To get started, run:
 
 ```sh
 npm create promises-training@latest
 ```
+
+This will install the project in the selected folder and then you're ready to go.
 
 ## Structure
 
