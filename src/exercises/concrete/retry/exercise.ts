@@ -1,15 +1,15 @@
 type Context = {
-  postData: (data: string) => Promise<string>;
+  getData: (data: string) => Promise<string>;
 };
 
-export default ({ postData }: Context) =>
+export default ({ getData }: Context) =>
   async (data: string) => {
     let retries = 0;
     const errors: Array<unknown> = [];
 
     while (true) {
       try {
-        return await postData(data);
+        return await getData(data);
       } catch (error) {
         errors.push(error);
 

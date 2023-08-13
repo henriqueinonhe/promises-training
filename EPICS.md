@@ -100,7 +100,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [ ] Concrete - Parallel Collect Errors
 - [ ] Concrete - Parallel Collect Retry
 - [ ] Concrete - Parallel Max Concurrency
-- [ ] Concrete - Retry
+- [x] Concrete - Retry
 - [ ] Concrete - Retry With Backoff
 - [ ] Concrete - Retry With Timeout
 - [x] Concrete - Serial
