@@ -16,17 +16,41 @@ With that in mind, we created this project precisely to help you do this deep di
 
 By providing both explanations and practical exercises surrounding these topics, this project aims to be your companion in this journey to master them.
 
+_Disclaimer: This project is not intended for people who are learning promises for the first time, as it assumes that you have at least some basic knowledge of promises, what they represent and how to use them both with `async/await` and `then/catch`._
+
 ## Getting Started
 
 **ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING**
 
-To get started, run:
+First, to install the project, run:
 
 ```sh
 npm create promises-training@latest
 ```
 
-This will install the project in the selected folder and then you're ready to go.
+This project is exercise-driven, so the main goal is to solve them.
+
+Occasionally, there will be explanations along with the exercises to help you understand what needs to be done, and also some context about the problem being solved.
+
+Exercises are divided into three categories:
+
+- Graph -> Exercises that involve orchestrating tasks according to dependency graphs.
+- Concrete -> Exercises that simulate real-world problems.
+- Foundation -> Exercises based on the foundations of promises and their implementation and common helpers.
+
+Exercises are located within `src/exercises/<category>` folders, where `<category>` is one of the categories mentioned above.
+
+For **graph** exercises, the base explanations are located in this README, in the yadayadayada section, and for each exercise, there is a `graph.png` that depicts the dependency graph for that specific exercise.
+
+For **concrete** and **foundation** exercises, the explanations are located in the `README.md` inside the exercise's folder (e.g. `src/exercises/concrete/parallelChunks/README.md`).
+
+To solve an exercise, you need to edit the `src/exercises/<category>/<exercise>/exercise.ts` file.
+
+After solving an exercise, you check your solution by running:
+
+```sh
+npm run check <category>/<exercise>.test.ts
+```
 
 ## Structure
 
@@ -36,16 +60,16 @@ You generally will only work inside the exercises folder as tests are devised in
 
 The `src/lib` folder is for internal use only, so don't bother with it.
 
-Also, in order to keep your repo forwards-compatible with future versions of this repository, **DO NOT** modify any file outside the `src/exercises` folder.
+Also, to keep your installation forwards compatible with future versions, **DO NOT** modify any file outside the `src/exercises` folder.
 
 ## Tests
 
-Each and every exercise is accompained by automated tests so that you can check your implementation.
+Each exercise is accompanied by automated tests so that you can check your implementation.
 
 To run a single exercise's tests, run:
 
 ```sh
-npm run check <category>/<exercise-name>
+npm run check <category>/<exercise>
 ```
 
 For example, to run the tests for the `parallelChunks` exercise, run:
@@ -60,11 +84,11 @@ Or, to run the graph exercise number 2, run:
 npm run check graph/2.test.ts
 ```
 
-In this case we need to append `.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
+In this case, we need to append `.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
 
 We use [Vitest](https://vitest.dev/guide/) as the test runner, so all of its CLI options are available.
 
-## Rationale
+## Exercises
 
 Currently, there are three exercise categories:
 
@@ -74,7 +98,7 @@ Currently, there are three exercise categories:
 
 ### Graph Exercises
 
-A big part of dealing with asynchronous tasks is orchestrating them so that each task starts as soon as possible, and in order to properly orchestrate these tasks we need to understand the dependency relations between them.
+A big part of dealing with asynchronous tasks is orchestrating them so that each task starts as soon as possible, and to properly orchestrate these tasks we need to understand the dependency relations between them.
 
 In this category, you'll be presented with a dependency graph in each exercise and then you'll orchestrate the tasks in the graph in the most efficient way possible.
 
