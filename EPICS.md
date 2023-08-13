@@ -98,7 +98,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [x] Concrete - Parallel Chunks
 - [x] Concrete - Parallel Collect Errors
 - [x] Concrete - Parallel Collect Retry
-- [ ] Concrete - Parallel Max Concurrency
+- [x] Concrete - Parallel Max Concurrency
 - [x] Concrete - Retry
 - [x] Concrete - Retry With Backoff
 - [x] Concrete - Retry With Timeout

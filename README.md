@@ -123,6 +123,8 @@ Keep in mind that this classification is somewhat subjective, so YMMV and also y
 - Foundation
   - promise
 
+_Note: As you can see, currently, there isn't that many advanced exercises, but the idea is that new exercises will be added over time._
+
 ## Tests
 
 Each exercise is accompanied by automated tests so that you can check your implementation.
