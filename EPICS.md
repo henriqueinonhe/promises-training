@@ -104,16 +104,16 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [x] Concrete - Retry With Timeout
 - [x] Concrete - Serial
 - [x] Concrete - Serial Collect Errors
-- [ ] Foundation - Promise
-- [ ] Foundation - Promise All
-- [ ] Foundation - Promise All Settled
-- [ ] Foundation - Promise Any
-- [ ] Foundation - Promise Race
-- [ ] Foundation - Promise Reject
-- [ ] Foundation - Promise Resolve
-- [ ] Foundation - Promisify
-- [ ] Foundation - Promisify Read File
-- [ ] Foundation - Promisify Wait
+- [x] Foundation - Promise
+- [x] Foundation - Promise All
+- [x] Foundation - Promise All Settled
+- [x] Foundation - Promise Any
+- [x] Foundation - Promise Race
+- [x] Foundation - Promise Reject
+- [x] Foundation - Promise Resolve
+- [x] Foundation - Promisify
+- [x] Foundation - Promisify Read File
+- [x] Foundation - Promisify Wait
 
 ## Finish Graph Exercises
 

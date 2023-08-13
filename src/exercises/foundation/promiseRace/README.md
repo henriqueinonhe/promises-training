@@ -1,5 +1,11 @@
 # Promise Race
 
+**Level: Intermediate**
+
+We'll be reimplementing the `Promise.race` function.
+
+## Requirements
+
 Implement a function that:
 
 - Signature: `<T>(promises: Array<Promise<T>>) => Promise<Array<T>>`

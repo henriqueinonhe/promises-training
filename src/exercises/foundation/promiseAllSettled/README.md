@@ -1,5 +1,11 @@
 # Promise All Settled
 
+**Level: Intermediate**
+
+We'll be reimplementing the `Promise.allSettled` function.
+
+## Requirements
+
 Implement a function that:
 
 - Signature: `<T>(promises: Array<Promise<T>>) => Promise<Array<T>>`

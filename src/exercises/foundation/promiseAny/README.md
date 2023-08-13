@@ -1,5 +1,11 @@
 # Promise Any
 
+**Level: Intermediate**
+
+We'll be reimplementing the `Promise.any` function.
+
+## Requirements
+
 Implement a function that:
 
 - Signature: `<T>(promises: Array<Promise<T>>) => Promise<Array<T>>`

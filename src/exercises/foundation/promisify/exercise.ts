@@ -14,6 +14,7 @@ export default <T, Args extends Array<unknown>>(
   (...args) =>
     new Promise((resolve, reject) => {
       fn(...args, (err: unknown, data: T) => {
+        console.log(err, data);
         if (err !== undefined) {
           reject(err);
           return;
