@@ -18,6 +18,16 @@ By providing both explanations and practical exercises surrounding these topics,
 
 _Disclaimer: This project is not intended for people who are learning promises for the first time, as it assumes that you have at least some basic knowledge of promises, what they represent and how to use them both with `async/await` and `then/catch`._
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Levels](#levels)
+- [Tests](#tests)
+- [Exercises](#exercises)
+  - [Graph Exercises](#graph-exercises)
+  - [Concrete Exercises](#concrete-exercises)
+  - [Foundation Exercises](#foundation-exercises)
+
 ## Getting Started
 
 **ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING**
@@ -52,15 +62,65 @@ After solving an exercise, you check your solution by running:
 npm run check <category>/<exercise>.test.ts
 ```
 
-## Structure
-
-Exercises are located within `src/exercises` and tests within `src/tests`.
+Tests are located within `src/tests`.
 
 You generally will only work inside the exercises folder as tests are devised in a way that they tell you exactly what went wrong without you having to look at their implementation, but if for any reason you get stuck or curious, you can peek at them.
 
 The `src/lib` folder is for internal use only, so don't bother with it.
 
 Also, to keep your installation forwards compatible with future versions, **DO NOT** modify any file outside the `src/exercises` folder.
+
+## Levels
+
+Besides categories, exercises are also divided into levels, where exercises increase in difficulty as you progress through the levels.
+
+There are three levels:
+
+1. Beginner
+2. Intermediate
+3. Advanced
+
+Keep in mind that this classification is somewhat subjective, so YMMV and also you don't necessarily need to complete all exercises in a level to move to the next one.
+
+### Beginner
+
+- Graph -> 1 to 8
+- Concrete
+  - serial
+  - parallelChain
+  - retry
+  - serialCollectErrors
+  - parallelCollectErrors
+  - parallelChunks
+
+### Intermediate
+
+- Graph -> 1 to 17
+- Concrete
+  - retryWithTimeout
+  - retryWithBackoff
+  - parallelCollectRetry
+  - parallelMaxConcurrency
+  - concurrencyAbort
+  - concurrencyEnqueue
+  - concurrencyRollback
+  - parallelMaxConcurrencyPriority
+  - extractingResolvers
+- Foundation
+  - promiseAll
+  - promiseAllSettled
+  - promiseAny
+  - promiseRace
+  - promiseReject
+  - promiseResolve
+  - readFile
+  - wait
+
+### Advanced
+
+- Graph -> 18 and beyond
+- Foundation
+  - promise
 
 ## Tests
 
