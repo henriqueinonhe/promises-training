@@ -97,7 +97,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [x] Concrete - Parallel Chain
 - [x] Concrete - Parallel Chunks
 - [x] Concrete - Parallel Collect Errors
-- [ ] Concrete - Parallel Collect Retry
+- [x] Concrete - Parallel Collect Retry
 - [ ] Concrete - Parallel Max Concurrency
 - [x] Concrete - Retry
 - [x] Concrete - Retry With Backoff
