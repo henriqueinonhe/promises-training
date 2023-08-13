@@ -103,7 +103,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [ ] Concrete - Retry With Backoff
 - [ ] Concrete - Retry With Timeout
 - [x] Concrete - Serial
-- [ ] Concrete - Serial Collect Errors
+- [x] Concrete - Serial Collect Errors
 - [ ] Foundation - Promise
 - [ ] Foundation - Promise All
 - [ ] Foundation - Promise All Settled
