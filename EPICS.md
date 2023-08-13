@@ -94,9 +94,8 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [ ] Concrete - Concurrency Enqueue
 - [ ] Concrete - Concurrency Override
 - [ ] Concrete - Extracting Resolvers
-- [ ] Concrete - Parallel Chain
+- [x] Concrete - Parallel Chain
 - [ ] Concrete - Parallel Chunks
-- [ ] Concrete - Parallel Collect Errors
 - [ ] Concrete - Parallel Collect Errors
 - [ ] Concrete - Parallel Collect Retry
 - [ ] Concrete - Parallel Max Concurrency
