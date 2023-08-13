@@ -16,6 +16,8 @@ With that in mind, we created this project precisely to help you do this deep di
 
 By providing both explanations and practical exercises surrounding these topics, this project aims to be your companion in this journey to master them.
 
+Even if you're already a seasoned developer, you might learn a thing or two, like, for example, you might want to try solving `concrete/parallelMaxConcurrency`, `concrete/concurrencyOverride`, `concrete/extractingResolvers` and `/foundation/promise` as they present some interesting challenges.
+
 _Disclaimer: This project is not intended for people who are learning promises for the first time, as it assumes that you have at least some basic knowledge of promises, what they represent and how to use them both with `async/await` and `then/catch`._
 
 ## Table of Contents
@@ -103,8 +105,7 @@ Keep in mind that this classification is somewhat subjective, so YMMV and also y
   - parallelMaxConcurrency
   - concurrencyAbort
   - concurrencyEnqueue
-  - concurrencyRollback
-  - parallelMaxConcurrencyPriority
+  - concurrencyOverride
   - extractingResolvers
 - Foundation
   - promiseAll
