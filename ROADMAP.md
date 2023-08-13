@@ -19,7 +19,7 @@ Means being ready to be used in a semi-standalone way. All exercises will be suf
 
 ### Epics
 
-- [ ] Complete description for exercises in a standardized way and including motivation and possibly some concrete example
+- [x] Complete description for exercises in a standardized way and including motivation and possibly some concrete example
 - [x] Finish graph exercises
 - [x] Exercise sequence by level proposal and come up with corresponding explanations
 - [x] Implement migration script for upgrading to newer versions
