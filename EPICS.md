@@ -92,7 +92,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 
 - [x] Concrete - Concurrency Abort
 - [x] Concrete - Concurrency Enqueue
-- [ ] Concrete - Concurrency Override
+- [x] Concrete - Concurrency Override
 - [ ] Concrete - Extracting Resolvers
 - [x] Concrete - Parallel Chain
 - [x] Concrete - Parallel Chunks
