@@ -101,7 +101,7 @@ We need to give a motivation for each exercise, as well as a concrete example of
 - [ ] Concrete - Parallel Max Concurrency
 - [x] Concrete - Retry
 - [ ] Concrete - Retry With Backoff
-- [ ] Concrete - Retry With Timeout
+- [x] Concrete - Retry With Timeout
 - [x] Concrete - Serial
 - [x] Concrete - Serial Collect Errors
 - [ ] Foundation - Promise
