@@ -68,7 +68,7 @@ type InternalCreateExerciseParameters = {
   variant: ExerciseVariant;
   runExercise: () => Promise<unknown>;
   promise: Promise<unknown> | undefined;
-  promiseManager: PromiseManager;
+  promiseManager: PromiseManager<string>;
   records: ExerciseRecords;
 };
 
@@ -99,7 +99,7 @@ const internalCreateExercise = (params: InternalCreateExerciseParameters) => {
   };
 
   const resolve = async (label: string): Promise<Exercise> => {
-    promiseManager.resolve(label);
+    promiseManager.resolve(label, label);
     await waitForPromises();
 
     const existingPromises = records.reduce(

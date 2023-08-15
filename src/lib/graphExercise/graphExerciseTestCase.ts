@@ -65,7 +65,7 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
       const exercisePromise = exercise();
       exercisePromise.catch(() => {
         // No Op
-        // To avoid breaking the test if the exercise rejects
+        // To avoid breaking the test if the exercise rejects,
         // which is expected when we're forcing rejections
       });
 
@@ -105,7 +105,7 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
         await exercisePromise;
       } catch {
         // No Op
-        // To avoid breaking the test if the exercise rejects
+        // To avoid breaking the test if the exercise rejects,
         // which is expected when we're forcing rejections
       }
 

@@ -3,7 +3,7 @@ import { Graph } from "./Graph";
 import { GraphNode } from "./GraphNode";
 import { generateAllPossibleExerciseStepSequences } from "./generateAllPossibleExerciseStepSequences";
 import { makeGraphExerciseTestCase } from "./graphExerciseTestCase";
-import { random, shuffle } from "lodash";
+import { shuffle } from "lodash";
 
 type Dependencies = {
   makeThenCatchExercise: MakeExercise;

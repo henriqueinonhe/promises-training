@@ -3,10 +3,11 @@
   "version": "1.0.0-alpha.25",
   "description": "Practical promises exercises.",
   "scripts": {
-    "prepublishOnly": "node ./scripts/prepublishOnly.js",
-    "postpublish": "node ./scripts/postpublish.js",
+    "prepublishOnly": "ts-node ./scripts/prepublishOnly.ts",
+    "postpublish": "ts-node ./scripts/postpublish.ts",
     "check": "vitest",
-    "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui"
+    "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
+    "graph:generateTests": "ts-node ./scripts/generateGraphTests.ts"
   },
   "keywords": [
     "promises",
@@ -30,13 +31,14 @@
     "@types/lodash": "4.14.195",
     "@types/prompts": "2.4.4",
     "prettier": "2.8.8",
+    "ts-node": "^10.9.1",
     "typescript": "5.1.6",
     "vitest": "0.32.4"
   },
   "dependencies": {
     "kolorist": "1.8.0",
-    "prompts": "2.4.2",
     "lodash": "4.17.21",
+    "prompts": "2.4.2",
     "ts-pattern": "5.0.4"
   }
 }

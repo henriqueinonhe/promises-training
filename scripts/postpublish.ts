@@ -1,7 +1,10 @@
-const { execSync } = require("node:child_process");
+import { execSync } from "node:child_process";
 
-const run = (command, options) =>
+const run = (...args: Parameters<typeof execSync>) => {
+  const [command, options] = args
+
   execSync(command, { stdio: "inherit", ...options });
+}
 
 const main = async () => {
   run(`git restore "*"`);

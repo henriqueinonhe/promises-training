@@ -8,11 +8,11 @@ const main = async () => {
   );
 };
 
-const replaceWithTemplates = async (category) => {
+const replaceWithTemplates = async (category: string) => {
   const exercises = await readdir(`./src/exercises/${category}`);
 
   await Promise.all(
-    exercises.map(async (exercise) => {
+    exercises.map(async (exercise: string) => {
       const exercisePath = `./src/exercises/${category}/${exercise}/exercise.ts`;
       const exerciseTemplatePath = `./src/exercises/${category}/${exercise}/template.ts`;
       await rm(exercisePath);
