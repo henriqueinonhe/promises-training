@@ -1,6 +1,6 @@
-import { GraphRepresentation } from "../../../lib/graphExercise/graphExerciseTests";
+import { GraphRepresentation } from "../../../lib/graphExercise/generateGraphExerciseTestData";
 
-export const graph: GraphRepresentation = [
+const graph: GraphRepresentation = [
   {
     label: "A",
     dependencies: [],
@@ -26,3 +26,5 @@ export const graph: GraphRepresentation = [
     dependencies: [["D", "E"]],
   },
 ];
+
+export default graph;

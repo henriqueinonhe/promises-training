@@ -7,7 +7,7 @@
     "postpublish": "ts-node ./scripts/postpublish.ts",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
-    "graph:generateTests": "ts-node ./scripts/generateGraphTests.ts"
+    "graph:generateTests": "ts-node ./scripts/generateGraphTestsData.ts"
   },
   "keywords": [
     "promises",
@@ -39,6 +39,7 @@
     "kolorist": "1.8.0",
     "lodash": "4.17.21",
     "prompts": "2.4.2",
+    "return-exception": "1.0.2",
     "ts-pattern": "5.0.4"
   }
 }

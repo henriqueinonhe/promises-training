@@ -1,14 +1,14 @@
 import { GraphExerciseStep } from "./GraphExerciseStep";
 
-export const graphExerciseTestDescription = (
+export const geneateGraphExerciseTestDescription = (
   label: string,
   steps: Array<GraphExerciseStep>
 ) => {
-  const stepsSegment = graphExerciseTestDescriptionStepsSegment(steps);
+  const stepsSegment = generateGraphExerciseTestDescriptionStepsSegment(steps);
   return `${label} - ${stepsSegment}`;
 };
 
-export const graphExerciseTestDescriptionStepsSegment = (
+export const generateGraphExerciseTestDescriptionStepsSegment = (
   steps: Array<GraphExerciseStep>
 ) =>
   steps

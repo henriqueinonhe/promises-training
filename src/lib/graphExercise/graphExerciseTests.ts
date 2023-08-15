@@ -1,9 +1,10 @@
 import { MakeExercise } from "../Exercise";
-import { Graph } from "./Graph";
-import { GraphNode } from "./GraphNode";
-import { generateAllPossibleExerciseStepSequences } from "./generateAllPossibleExerciseStepSequences";
 import { makeGraphExerciseTestCase } from "./graphExerciseTestCase";
-import { shuffle } from "lodash";
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { returnException } from "return-exception";
+import { GraphExerciseTestData } from "./GraphExerciseTestData";
+import { GraphExercisesTestConfig } from "./GraphExerciseTestsConfig";
 
 type Dependencies = {
   makeThenCatchExercise: MakeExercise;
@@ -17,78 +18,107 @@ export const makeGraphExerciseTests =
     makeMixedExercise,
     makeThenCatchExercise,
   }: Dependencies) =>
-  (label: string, graphRepresentation: GraphRepresentation) => {
-    const graph = createGraphFromRepresentation(graphRepresentation);
-    const stepSequences = generateAllPossibleExerciseStepSequences(graph);
+  async (label: string) => {
+    const doReadTestConfig = returnException(() => readTestConfig());
+    const [testConfig, readTestConfigError] = await doReadTestConfig();
+
+    if (readTestConfigError !== undefined) {
+      return;
+    }
+
+    const doReadTestData = returnException(() => readTestData(label));
+    const [testData, readTestDataError] = await doReadTestData();
+
+    if (readTestDataError !== undefined) {
+      return;
+    }
+
     const graphExerciseTestCase = makeGraphExerciseTestCase({
       makeAsyncAwaitExercise,
       makeMixedExercise,
       makeThenCatchExercise,
     });
 
-    // We cap the number of test cases
-    // otherwise it takes way too much time
-    // TODO
-    // This number is subject to change
-    // and eventually we should pull this from
-    // a configuration file, or even have some
-    // kind of CLI
-    // We should also cache the generated test cases
-    // so that tests are deterministic
-    const indexesListLength = stepSequences.length;
-    const indexesList = Array.from({ length: indexesListLength }).map(
-      (_, index) => index
+    const stepSequences = testData.stepSequences;
+    const testCasesCap = testConfig.testCasesCap;
+    const cappedStepSequencesLength = Math.min(
+      stepSequences.length,
+      testCasesCap
     );
-    const cap = 500;
-    const randomIndexesListLength = Math.min(cap, stepSequences.length);
-    const randomIndexes = shuffle(indexesList).slice(
+    const cappedStepSequences = stepSequences.slice(
       0,
-      randomIndexesListLength
-    );
-    const cappedStepSequences = randomIndexes.map(
-      (index) => stepSequences[index]
+      cappedStepSequencesLength
     );
 
-    cappedStepSequences.forEach((steps) => {
-      graphExerciseTestCase(label, steps);
+    cappedStepSequences.forEach((sequence) => {
+      graphExerciseTestCase(label, sequence);
     });
   };
 
-type GraphRepresentation = Array<GraphRepresentationEntry>;
+const readTestConfig = async () => {
+  const configFilePath = resolve("./.data/graph/testConfig.json");
 
-type GraphRepresentationEntry = {
-  label: string;
-  dependencies: Array<Array<string>>;
-};
+  const readConfigFile = returnException(() =>
+    readFile(configFilePath, {
+      encoding: "utf-8",
+    })
+  );
+  const [serializedData, readDataFileError] = await readConfigFile();
 
-const createGraphFromRepresentation = (
-  graphRepresentation: GraphRepresentation
-): Graph => {
-  const nodes = graphRepresentation.map(createGraphNode);
-  return new Map(nodes.map((node) => [node.label, node]));
-};
+  if (readDataFileError !== undefined) {
+    console.error(
+      `Something went wrong when trying to read the graph tests config file.\nTry running 'npm run graph:generateTests'.`
+    );
 
-const createGraphNode = (entry: GraphRepresentationEntry): GraphNode => {
-  return {
-    label: entry.label,
-    dependencies: entry.dependencies.map(createGraphNodeDependencyClause),
-  };
-};
-
-const createGraphNodeDependencyClause = (dependencyClause: Array<string>) => {
-  return dependencyClause.map(createGraphNodeDependencyClauseDependency);
-};
-
-const createGraphNodeDependencyClauseDependency = (dependency: string) => {
-  if (dependency.startsWith("!")) {
-    return {
-      label: dependency.slice(1),
-      status: "rejected" as const,
-    };
+    throw readDataFileError;
   }
 
-  return {
-    label: dependency,
-    status: "resolved" as const,
-  };
+  const parseData = returnException(
+    () => JSON.parse(serializedData) as GraphExercisesTestConfig
+  );
+  const [data, parseDataError] = parseData();
+
+  if (parseDataError !== undefined) {
+    console.error(
+      `Something went wrong when trying to read the graph tests config file.\nTry running 'npm run graph:generateTests'.`
+    );
+
+    throw parseDataError;
+  }
+
+  return data;
+};
+
+const readTestData = async (label: string) => {
+  const dataFilePath = resolve(`./.data/graph/${label}.json`);
+
+  const readDataFile = returnException(() =>
+    readFile(dataFilePath, {
+      encoding: "utf-8",
+    })
+  );
+  const [serializedData, readDataFileError] = await readDataFile();
+
+  if (readDataFileError !== undefined) {
+    console.error(
+      `Something went wrong when trying to read the data file for the graph/${label} exercise.\nTry running 'npm run graph:generateTests'.`
+    );
+
+    throw readDataFileError;
+  }
+
+  const parseData = returnException(
+    () => JSON.parse(serializedData) as GraphExerciseTestData
+  );
+  const [data, parseDataError] = parseData();
+
+  if (parseDataError !== undefined) {
+    console.error(
+      `Something went wrong when trying to parse the data file for the graph/${label} exercise.\nTry running 'npm run graph:generateTests'.`
+    );
+
+    throw parseDataError;
+  }
+
+  return data;
 };

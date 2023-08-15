@@ -6,7 +6,7 @@ import {
   GraphExerciseFollowingStep,
   GraphExerciseStepSequence,
 } from "./GraphExerciseStep";
-import { graphExerciseTestDescription } from "./graphExerciseTestDescription";
+import { geneateGraphExerciseTestDescription } from "./generateGraphExerciseTestDescription";
 import { difference } from "lodash";
 import { reduceArrayAsync } from "../reduceArrayAsync";
 import { createGraphExerciseContainer } from "./graphExerciseContainer";
@@ -57,7 +57,7 @@ const test = ({ type, steps, makeExercise }: TestParams) => {
     makeExercise,
   });
 
-  const description = graphExerciseTestDescription(type, steps);
+  const description = geneateGraphExerciseTestDescription(type, steps);
 
   it.skipIf(makeExercise.skipExerciseSymbol).concurrent(
     description,
