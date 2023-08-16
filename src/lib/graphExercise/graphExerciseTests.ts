@@ -56,7 +56,7 @@ export const makeGraphExerciseTests =
   };
 
 const readTestConfig = async () => {
-  const configFilePath = resolve("./.data/graph/testConfig.json");
+  const configFilePath = resolve("./.data/graph/testsConfig.json");
 
   const readConfigFile = returnException(() =>
     readFile(configFilePath, {

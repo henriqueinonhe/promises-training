@@ -30,7 +30,7 @@ const generateConfigFile = async () => {
   };
 
   await writeFile(
-    resolve(basePath, "./.data/graph/testConfig.json"),
+    resolve(basePath, "./.data/graph/testsConfig.json"),
     JSON.stringify(config),
     {}
   );

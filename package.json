@@ -28,8 +28,8 @@
     "node": "18.x"
   },
   "bin": {
-    "create-promises-training": "./bin/setup.js",
-    "migrate": "./bin/migrate.js"
+    "create-promises-training": "./bin/setup.cjs",
+    "migrate": "./bin/migrate.cjs"
   },
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
