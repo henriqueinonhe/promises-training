@@ -3,3 +3,4 @@ node_modules
 /scripts/prepublishOnly.ts
 EPICS.md
 ROADMAP.md
+.data
