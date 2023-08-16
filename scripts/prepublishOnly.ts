@@ -1,4 +1,4 @@
-const { rm, rename, readdir } = require("node:fs/promises");
+import { rm, rename, readdir } from "node:fs/promises";
 
 const main = async () => {
   await rename("./.gitignore", "./gitignore");
