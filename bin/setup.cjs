@@ -105,7 +105,9 @@ const main = async () => {
   try {
     logMessage("Initializing graph exercises tests data...");
 
-    run("npm run graph:generateTestsData");
+    run("npm run graph:generateTests", {
+      cwd: targetPath,
+    });
   } catch (error) {
     logError("Error initializing graph exercises tests data");
     console.error(error);
