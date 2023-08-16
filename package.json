@@ -28,18 +28,19 @@
   },
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
-    "@types/lodash": "4.14.195",
     "@types/prompts": "2.4.4",
     "prettier": "2.8.8",
     "ts-node": "^10.9.1",
     "typescript": "5.1.6",
-    "vitest": "0.32.4"
+    "vitest": "0.32.4",
+    "@types/lodash": "npm:@types/lodash-es@4.17.8"
   },
   "dependencies": {
     "kolorist": "1.8.0",
-    "lodash": "4.17.21",
+    "lodash": "npm:lodash-es@4.17.21",
     "prompts": "2.4.2",
     "return-exception": "1.0.2",
     "ts-pattern": "5.0.4"
-  }
+  },
+  "type": "module"
 }
