@@ -8,7 +8,8 @@
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
     "graph:generateTests": "ts-node ./scripts/generateGraphTestsData.ts",
-    "graph:shuffleTests": "ts-node ./scripts/shuffleGraphTestData.ts"
+    "graph:shuffleTests": "ts-node ./scripts/shuffleGraphTestData.ts",
+    "graph:setTestsCap": "ts-node ./scripts/setGraphTestsCap.ts"
   },
   "keywords": [
     "promises",
