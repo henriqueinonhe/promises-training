@@ -4,7 +4,8 @@ import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExercise
 import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData";
 import { generateGraphExerciseTestData } from "../src/lib/graphExercise/generateGraphExerciseTestData";
 
-const basePath = resolve(import.meta.url.replace("file://", ""), "../..");
+const currentFilePath = new URL(import.meta.url).pathname;
+const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {
   await createDataDirIfNotExists();

@@ -7,7 +7,8 @@
     "postpublish": "ts-node ./scripts/postpublish.ts",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
-    "graph:generateTests": "ts-node ./scripts/generateGraphTestsData.ts"
+    "graph:generateTests": "ts-node ./scripts/generateGraphTestsData.ts",
+    "graph:shuffleTests": "ts-node ./scripts/shuffleGraphTestData.ts"
   },
   "keywords": [
     "promises",
@@ -21,6 +22,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:henriqueinonhe/promises-training.git"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "bin": {
     "create-promises-training": "./bin/setup.js",
