@@ -144,12 +144,18 @@ npm run check concrete/parallelChunks
 Or, to run the graph exercise number 2, run:
 
 ```sh
-npm run check graph/2.test.ts
+npm run check graph/2/test.test.ts
 ```
 
-In this case, we need to append `.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
+In this case, we need to append `/test.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
 
 We use [Vitest](https://vitest.dev/guide/) as the test runner, so all of its CLI options are available.
+
+Also, it's important to mention that graph exercises are have some peculiarities, in the sense that they are **generated automatically from the graph itself**, and because of that, some exercises have a HUGE number of tests (some exercises have over 100k tests).
+
+Of course, we don't run all of them as it would be prohibitively slow, so we only run a subset of them and it's possible to **tweak the number of tests that are run** and the also the **subset**.
+
+You may read more at the [graph exercises section](#graph-exercises).
 
 ## Exercises
 
@@ -243,6 +249,34 @@ This way you'll be proficient in both styles of promise handling.
 Also, at the end of the file you'll notice that exports are being wrapped in a `skipExercise`, which skips tests for that specific implementation so that it doesn't litter the output.
 
 You can remove the `skipExercise` and run the tests to check your implementation.
+
+#### Tests
+
+As graph exercises are based on graphs (duh), it's possible to generate **all possible tests** for a given exercise automatically, which is what we do.
+
+As one might imagine, the number of generated tests is sometimes HUGE, so we have a **cap** on the maximum number of tests that are run.
+
+Also, to prevent biases, we don't run tests in the order they were generated, but instead, we **shuffle** them.
+
+This shuffling happens right after the tests are first generated, so that tests are **deterministic**, that is, every time you run graph exercises tests, you'll be running the same **subset** of tests.
+
+However, it's possible to **tweak** both the **cap** and the **subset** of tests that are run.
+
+To tweak the cap, you can run `npm run graph:setGraphTestsCap <number>`.
+
+For example, to set the cap to 10000, run:
+
+```sh
+npm run graph:setGraphTestsCap 10000
+```
+
+To tweak the subset of tests that are run, you can run `npm run graph:shuffleGraphTestData <graph-exercise-number>`, which will reshuffle the tests for the specified graph exercise, which will then result in a different subset of tests.
+
+For example, to reshuffle the tests for graph exercise number 2, run:
+
+```sh
+npm run graph:shuffleGraphTestData 2
+```
 
 ### Concrete Exercises
 
