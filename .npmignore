@@ -1,4 +1,5 @@
 node_modules
-/scripts
+/scripts/postpublish.ts
+/scripts/prepublishOnly.ts
 EPICS.md
 ROADMAP.md
