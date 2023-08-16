@@ -78,10 +78,10 @@ const reinstallDependencies = async () => {
   try {
     logMessage("Installing dependencies...");
 
-    run(`npm install`, {
+    run(`npm ci`, {
       cwd: targetPath,
     });
-    run(`npm install`, {
+    run(`npm ci`, {
       cwd: resolve(targetPath, `./src/lib/graphExercise/ui`),
     });
   } catch (error) {
