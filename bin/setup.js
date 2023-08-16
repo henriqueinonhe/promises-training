@@ -59,7 +59,7 @@ const main = async () => {
   } catch (error) {
     logError("\nError copying files");
     console.error(error);
-    return;
+    process.exit(1);
   }
 
   try {
@@ -74,7 +74,7 @@ const main = async () => {
   } catch (error) {
     logError("Error installing dependencies");
     console.error(error);
-    return;
+    process.exit(1);
   }
 
   try {
@@ -99,7 +99,18 @@ const main = async () => {
     console.error(error);
 
     await rm(".git");
-    return;
+    process.exit(1);
+  }
+
+  try {
+    logMessage("Initializing graph exercises tests data...");
+
+    run("npm run graph:generateTestsData");
+  } catch (error) {
+    logError("Error initializing graph exercises tests data");
+    console.error(error);
+
+    process.exit(1);
   }
 };
 
