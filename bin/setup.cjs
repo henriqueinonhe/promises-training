@@ -19,7 +19,8 @@ const main = async () => {
     {
       name: "dir",
       type: "text",
-      message: "Where would you like to install promises-training?",
+      message:
+        "Which directory would you like to install promises-training? (Default: .)",
       initial: ".",
       validate: async (dir) => {
         try {

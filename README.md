@@ -1,5 +1,7 @@
 # Promises Training
 
+**WARNING: DO NOT INSTALL THIS PACKAGE AS A DEPENDENCY!** (See: [Getting Started](#getting-started))
+
 Currently, promises are the de-facto way of handling asynchronous tasks in Javascript, and because of that, they're a fundamental part of any Javascript developer's knowledge.
 
 However, when we're learning promises for the first time, we only learn **enough to get by**, that is, we learn a little bit of how to use promises, (nowadays, most likely with `async/await` only), the `Promise.all` method and that's it.
@@ -97,7 +99,7 @@ Keep in mind that this classification is somewhat subjective, so YMMV and also y
 
 ### Intermediate
 
-- Graph -> 1 to 17
+- Graph -> 9 to 17
 - Concrete
   - retryWithTimeout
   - retryWithBackoff
