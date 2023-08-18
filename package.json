@@ -27,10 +27,7 @@
   "engines": {
     "node": "18.x"
   },
-  "bin": {
-    "create-promises-training": "./bin/setup.cjs",
-    "migrate": "bin.cjs"
-  },
+  "bin": "bin.cjs",
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/prompts": "2.4.4",
