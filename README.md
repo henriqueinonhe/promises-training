@@ -31,6 +31,7 @@ _Disclaimer: This project is not intended for people who are learning promises f
   - [Graph Exercises](#graph-exercises)
   - [Concrete Exercises](#concrete-exercises)
   - [Foundation Exercises](#foundation-exercises)
+- [Upgrading](#upgrading)
 
 ## Getting Started
 
@@ -293,3 +294,13 @@ As each exercise in this category is unique, their description is colocated with
 Foundation exercises are designed to help you reinforce your understanding of the foundations of promises, by reimplementing promise-related functions and, eventually, the promise itself.
 
 Descriptions are colocated with exercises.
+
+## Upgrading
+
+To ease upgrading to newer versions we created a migration script that automatically migrates your installation to the latest version while preserving your solutions.
+
+To run the migration script, run:
+
+```sh
+npm create promises-training@latest -- --migrate
+```
