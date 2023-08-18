@@ -29,7 +29,7 @@
   },
   "bin": {
     "create-promises-training": "./bin/setup.cjs",
-    "migrate": "./bin/migrate.cjs"
+    "migrate": "bin.cjs"
   },
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
