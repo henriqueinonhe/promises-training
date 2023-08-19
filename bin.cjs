@@ -36,7 +36,7 @@ const main = async () => {
 const setup = async () => {
   const dir = await promptInstallationDir();
 
-  const sourcePath = resolve(__dirname, "..");
+  const sourcePath = resolve(__dirname, ".");
   const targetPath = resolve(dir);
 
   await copyFiles({ sourcePath, targetPath });
@@ -158,7 +158,7 @@ const initializeGraphTestsData = async ({ targetPath }) => {
 };
 
 const migrate = async () => {
-  const sourcePath = resolve(__dirname, "..");
+  const sourcePath = resolve(__dirname, ".");
   const targetPath = resolve(".");
 
   await checkIsPromisesTrainingRepo({ targetPath });
