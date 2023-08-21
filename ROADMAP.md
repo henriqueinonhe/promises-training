@@ -8,8 +8,8 @@ Means being ready to be used, however, as documentation/explanations are lacking
 
 - [x] Minimal description for exercises
 - [x] More graph exercises
-- [ ] Documentation for graph execises UI
-- [ ] Basic styling for graph exercises UI
+- [x] Documentation for graph execises UI
+- [x] Basic styling for graph exercises UI
 - [x] Improve concrete exercises tests
 - [x] Improve setup documentation on README
 
