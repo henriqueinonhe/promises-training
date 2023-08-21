@@ -29,6 +29,8 @@ _Disclaimer: This project is not intended for people who are learning promises f
 - [Tests](#tests)
 - [Exercises](#exercises)
   - [Graph Exercises](#graph-exercises)
+    - [UI](#ui)
+    - [Tests](#tests-1)
   - [Concrete Exercises](#concrete-exercises)
   - [Foundation Exercises](#foundation-exercises)
 - [Upgrading](#upgrading)
@@ -252,6 +254,44 @@ This way you'll be proficient in both styles of promise handling.
 Also, at the end of the file you'll notice that exports are being wrapped in a `skipExercise`, which skips tests for that specific implementation so that it doesn't litter the output.
 
 You can remove the `skipExercise` and run the tests to check your implementation.
+
+#### UI
+
+To aid you in debugging your implementation, we created a UI that allows you to simulate different execution "paths".
+
+To open the UI, run:
+
+```sh
+npm run graph:ui
+```
+
+The UI is served as a web app and it looks like this.
+
+![](./assets/graphUI1.png)
+
+Now let's explore each section:
+
+![](./assets/graphUI2.png)
+
+The sidebar on the left allows you to select the exercise you want to debug.
+
+![](./assets/graphUI3.png)
+
+This top section allows you to select the implementation you want to debug.
+
+![](./assets/graphUI4.png)
+
+The right sidebar lets you control the exercise's execution flow by resolving/rejecting promises.
+
+As promises are created, new entries are added to the sidebar.
+
+![](./assets/graphUI5.png)
+
+This section at the center shows the records of the promises that were created and resolved/rejected at each step.
+
+![](./assets/graphUI6.png)
+
+This section at the bottom shows a summary of the promises that were resolved/rejected at each step, in order.
 
 #### Tests
 
