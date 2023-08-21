@@ -1,6 +1,7 @@
 # Promises Training
 
-**WARNING: DO NOT INSTALL THIS PACKAGE AS A DEPENDENCY!** (See: [Getting Started](#getting-started))
+> [!WARNING]  
+> DO NOT INSTALL THIS PACKAGE AS A DEPENDENCY! (See: [Getting Started](#getting-started))
 
 Currently, promises are the de-facto way of handling asynchronous tasks in Javascript, and because of that, they're a fundamental part of any Javascript developer's knowledge.
 
@@ -20,7 +21,8 @@ By providing both explanations and practical exercises surrounding these topics,
 
 Even if you're already a seasoned developer, you might learn a thing or two, like, for example, you might want to try solving `concrete/parallelMaxConcurrency`, `concrete/concurrencyOverride`, `concrete/extractingResolvers` and `/foundation/promise` as they present some interesting challenges.
 
-_Disclaimer: This project is not intended for people who are learning promises for the first time, as it assumes that you have at least some basic knowledge of promises, what they represent and how to use them both with `async/await` and `then/catch`._
+> [!IMPORTANT]
+> This project is not intended for people who are learning promises for the first time, as it assumes that you have at least some basic knowledge of promises, what they represent and how to use them both with `async/await` and `then/catch`.
 
 ## Table of Contents
 
@@ -37,7 +39,8 @@ _Disclaimer: This project is not intended for people who are learning promises f
 
 ## Getting Started
 
-**ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING**
+> [!WARNING]  
+> ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING
 
 First, to install the project, run:
 
@@ -45,7 +48,8 @@ First, to install the project, run:
 npm create promises-training@latest
 ```
 
-This project is exercise-driven, so the main goal is to solve them.
+> [!NOTE]
+> This project is exercise-driven, so the main goal is to solve them.
 
 Occasionally, there will be explanations along with the exercises to help you understand what needs to be done, and also some context about the problem being solved.
 
@@ -55,9 +59,12 @@ Exercises are divided into three categories:
 - Concrete -> Exercises that simulate real-world problems.
 - Foundation -> Exercises based on the foundations of promises and their implementation and common helpers.
 
+> [!IMPORTANT]
+> There isn't an specific order for categories, you can start from any of them and switch to another one even before finishing the other one completely. Howerer, the exercises have different [levels](#levels) that will be discussed next.
+
 Exercises are located within `src/exercises/<category>` folders, where `<category>` is one of the categories mentioned above.
 
-For **graph** exercises, the base explanations are located in this README, in the yadayadayada section, and for each exercise, there is a `graph.png` that depicts the dependency graph for that specific exercise.
+For **graph** exercises, the base explanations are located in this README, in the [graph section](#graph-exercises), and for each exercise, there is a `graph.png` that depicts the dependency graph for that specific exercise.
 
 For **concrete** and **foundation** exercises, the explanations are located in the `README.md` inside the exercise's folder (e.g. `src/exercises/concrete/parallelChunks/README.md`).
 
@@ -128,11 +135,12 @@ Keep in mind that this classification is somewhat subjective, so YMMV and also y
 - Foundation
   - promise
 
-_Note: As you can see, currently, there isn't that many advanced exercises, but the idea is that new exercises will be added over time._
+> [!NOTE]
+> As you can see, currently, there aren't that many advanced exercises, but the idea is that new exercises will be added over time.
 
 ## Tests
 
-Each exercise is accompanied by automated tests so that you can check your implementation.
+Each exercise is accompanied by automated tests so that you can check your solution.
 
 To run a single exercise's tests, run:
 
@@ -152,15 +160,16 @@ Or, to run the graph exercise number 2, run:
 npm run check graph/2/test.test.ts
 ```
 
-In this case, we need to append `/test.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`.
+> [!NOTE]
+> In the previous example, we needed to append `/test.test.ts` to the exercise's file otherwise it would also run for other graph exercises starting with `2`, for example: exercises from 2 to 29.
 
 We use [Vitest](https://vitest.dev/guide/) as the test runner, so all of its CLI options are available.
 
-Also, it's important to mention that graph exercises are have some peculiarities, in the sense that they are **generated automatically from the graph itself**, and because of that, some exercises have a HUGE number of tests (some exercises have over 100k tests).
+Also, it's important to mention that graph exercises have some peculiarities, in the sense that they are **generated automatically from the graph itself**, and because of that, some exercises have a HUGE number of tests (some exercises have over 100k tests).
 
 Of course, we don't run all of them as it would be prohibitively slow, so we only run a subset of them and it's possible to **tweak the number of tests that are run** and the also the **subset**.
 
-You may read more at the [graph exercises section](#graph-exercises).
+You may read more in the [graph exercises section](#graph-exercises).
 
 ## Exercises
 
@@ -208,11 +217,11 @@ await Promise.all([createPromise("A"), createPromise("B")]);
 await createPromise("C");
 ```
 
-Tasks can also have multiple different sets of dependencies where if any of the sets is satisfied, the task can start:
+Tasks can also have multiple different sets of dependencies where, if any of the sets is satisfied, then the task can start:
 
 ![](./assets/graph3.png)
 
-In this graph, `C` depends **either** on `A` **or** on `B`, which is represented by using different colors for each dependency set.
+In this graph, `C` depends **either** on `A` **or** on `B`, which is represented by using different colors for each dependency set. The colors themselves don't have any specific meaning, they are used like this just so the dependencies are distinguished from one another.
 
 Therefore, `C` can start as soon as either `A` or `B` has finished.
 
@@ -225,7 +234,10 @@ Last but not least, promises have two possible outcomes: they can either be fulf
 
 ![](./assets/graph4.png)
 
-In this graph, we have a task `B` that depends on `A`'s fulfillment and a task `C` that depends on `A`'s rejection (represented by the dashed edge).
+In this graph, we have task `B` which depends on `A`'s fulfillment and task `C` which depends on `A`'s rejection.
+
+> [!IMPORTANT]  
+> Dashed edges are used to represent promise rejections.
 
 This means that `B` can only start after `A` has been fulfilled and `C` can only start after `A` has been rejected.
 
@@ -245,19 +257,23 @@ try {
 }
 ```
 
-When doing graph exercises, you'll notice that there are three functions being expored: `mixed`, `asyncAwait`, `thenCatch`.
+When doing graph exercises, you'll notice that three functions are being exported: `mixed`, `asyncAwait`, `thenCatch`.
 
-The idea is for you to provide 3 different implementations, the first one is completely free, you can mix both async/await and then/catch, the second one should only use async/await and the third one should only use then/catch.
+The idea is for you to provide 3 different implementations:
+
+- `mixed`: this one is completely free, you can mix both async/await and then/catch,
+- `asyncAwait`: in this one you should only use async/await
+- `thenCatch`: in this one you should only use then/catch.
 
 This way you'll be proficient in both styles of promise handling.
 
-Also, at the end of the file you'll notice that exports are being wrapped in a `skipExercise`, which skips tests for that specific implementation so that it doesn't litter the output.
+Also, at the end of the file, you'll notice that exports are being wrapped in a `skipExercise`, which skips tests for that specific implementation so that it doesn't litter the output.
 
-You can remove the `skipExercise` and run the tests to check your implementation.
+As you implement a solution for each of those three, remove the `skipExercise` call for the implementation you want the tests to run. For example: if you already implemented the `mixed` solution, remove the `skipExercise` from it but keep the ones for `asyncAwait` and `thenCatch` until you implement them.
 
 #### UI
 
-To aid you in debugging your implementation, we created a UI that allows you to simulate different execution "paths".
+To aid you in debugging your implementation for the graph exercises, we created a UI that allows you to simulate different execution "paths".
 
 To open the UI, run:
 
@@ -299,7 +315,7 @@ As graph exercises are based on graphs (duh), it's possible to generate **all po
 
 As one might imagine, the number of generated tests is sometimes HUGE, so we have a **cap** on the maximum number of tests that are run.
 
-Also, to prevent biases, we don't run tests in the order they were generated, but instead, we **shuffle** them.
+Also, to prevent biases, we don't run tests in the order they were generated, instead, we **shuffle** them.
 
 This shuffling happens right after the tests are first generated, so that tests are **deterministic**, that is, every time you run graph exercises tests, you'll be running the same **subset** of tests.
 
