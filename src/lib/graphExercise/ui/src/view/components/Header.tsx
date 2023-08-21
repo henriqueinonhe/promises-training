@@ -7,13 +7,17 @@ export const Header = () => {
 
   const text = exercise
     ? `Exercise ${exercise.id} - ${displayableExerciseVariant(
-        exercise.variant
+        exercise.variant,
       )}`
     : "Select an exercise";
 
   return (
-    <header className={styles.container}>
-      <h1>{text}</h1>
-    </header>
+    <>
+      <header className={styles.container}>
+        <h1>{text}</h1>
+      </header>
+
+      <div className={styles.spacing} />
+    </>
   );
 };

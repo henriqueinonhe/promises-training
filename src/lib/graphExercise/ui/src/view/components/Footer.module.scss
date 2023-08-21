@@ -1,4 +1,24 @@
 .container {
   display: flex;
   justify-content: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  font-size: 32px;
+  background-color: white;
+  border-top: 1px solid var(--borderColor);
+  align-items: center;
+  height: 80px;
+}
+
+.resolved {
+  color: green;
+}
+
+.rejected {
+  color: red;
+}
+
+.spacing {
+  height: 80px;
 }

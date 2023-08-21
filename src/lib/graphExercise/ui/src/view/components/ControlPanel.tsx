@@ -29,25 +29,46 @@ const BareControlPanel = () => {
   return (
     <>
       <div>
-        <button disabled={exerciseHasStarted} onClick={() => startExercise()}>
+        <button
+          className={styles.startButton}
+          disabled={exerciseHasStarted}
+          onClick={() => startExercise()}
+        >
           Start
         </button>
-        <button onClick={() => resetExercise()}>Reset</button>
+
+        <button className={styles.resetButton} onClick={() => resetExercise()}>
+          Reset
+        </button>
       </div>
 
       <ul>
         {entries.map((entry) => (
-          <li key={entry.label}>
+          <li key={entry.label} className={styles.entry}>
             <span>{entry.label}</span>
+
             <button
               disabled={entry.status !== "pending"}
               onClick={() => resolvePromise(entry.label)}
+              className={[
+                styles.resolveButton,
+                entry.status === "resolved" && styles.resolved,
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               Resolve
             </button>
+
             <button
               disabled={entry.status !== "pending"}
               onClick={() => rejectPromise(entry.label)}
+              className={[
+                styles.rejectButton,
+                entry.status === "rejected" && styles.rejected,
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               Reject
             </button>

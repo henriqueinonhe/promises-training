@@ -11,6 +11,8 @@
     "postinstall": "node ./scripts/setupImportsFile.js"
   },
   "dependencies": {
+    "@types/lodash": "4.14.197",
+    "lodash": "4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "1.63.6",
@@ -26,6 +28,7 @@
     "eslint": "^8.44.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "prettier": "3.0.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
   }

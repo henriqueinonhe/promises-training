@@ -1,11 +1,25 @@
 .container {
   padding: 20px;
+  max-width: 900px;
+  margin: auto;
 }
 
 .record {
   display: flex;
+  margin-top: 8px;
+  font-size: 24px;
 }
 
-.segment {
+@mixin segment {
   margin-right: 12px;
+}
+
+.resolvedSegment {
+  @include segment;
+  color: green;
+}
+
+.rejectedSegment {
+  @include segment;
+  color: red;
 }

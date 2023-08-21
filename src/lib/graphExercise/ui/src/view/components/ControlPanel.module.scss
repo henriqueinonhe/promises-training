@@ -1,3 +1,38 @@
 .container {
   width: 250px;
 }
+
+@mixin button {
+  padding: 8px 12px;
+}
+
+.startButton {
+  @include button;
+}
+
+.resetButton {
+  @include button;
+  margin-left: 8px;
+}
+
+.entry {
+  margin-top: 12px;
+}
+
+.resolveButton {
+  @include button;
+  margin-left: 8px;
+
+  &.resolved {
+    background-color: rgb(185, 255, 185);
+  }
+}
+
+.rejectButton {
+  @include button;
+  margin-left: 8px;
+
+  &.rejected {
+    background-color: rgb(255, 180, 180);
+  }
+}

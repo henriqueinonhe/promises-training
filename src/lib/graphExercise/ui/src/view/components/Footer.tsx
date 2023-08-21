@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useExercise } from "../../application/useExercise";
 import { ExerciseFollowingRecord } from "../../domain/ExerciseRecord";
 import styles from "./Footer.module.scss";
@@ -11,15 +12,31 @@ export const Footer = () => {
 
   const records = exercise.records;
   const followingRecords = records.slice(1) as Array<ExerciseFollowingRecord>;
-  const stepSequence = followingRecords
-    .map((record) => {
-      if (record.resolved) {
-        return record.resolved;
-      }
+  const formatRecord = (record: ExerciseFollowingRecord) => {
+    if (record.resolved) {
+      return <span className={styles.resolved}>{record.resolved}</span>;
+    }
 
-      return `!${record.rejected!}`;
-    })
-    .join(" -> ");
+    return <span className={styles.rejected}>!{record.rejected!}</span>;
+  };
 
-  return <footer className={styles.container}>{stepSequence}</footer>;
+  const initRecords = followingRecords.slice(0, followingRecords.length - 1);
+  const lastRecord = followingRecords[followingRecords.length - 1];
+
+  return (
+    <>
+      <footer className={styles.container}>
+        {initRecords.map((record) => (
+          <Fragment key={record.rejected ?? record.resolved}>
+            {formatRecord(record)}
+            &nbsp;{`→`}&nbsp;
+          </Fragment>
+        ))}
+
+        {lastRecord && formatRecord(lastRecord)}
+      </footer>
+
+      <div className={styles.spacing} />
+    </>
+  );
 };

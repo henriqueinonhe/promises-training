@@ -1,4 +1,13 @@
 .container {
+  position: fixed;
+  width: 100%;
   text-align: center;
-  margin-top: 20px;
+  padding: 14px;
+  z-index: var(--headerZIndex);
+  background-color: white;
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.spacing {
+  height: 66px;
 }

@@ -11,10 +11,15 @@ export const RecordsDisplay = () => {
       {records.map((record, index) => (
         <li className={styles.record} key={index}>
           {record.resolved && (
-            <div className={styles.segment}>Resolved: {record.resolved}</div>
+            <div className={styles.resolvedSegment}>
+              Resolved: {record.resolved}
+            </div>
           )}
+
           {record.rejected && (
-            <div className={styles.segment}>Rejected: {record.rejected}</div>
+            <div className={styles.rejectedSegment}>
+              Rejected: {record.rejected}
+            </div>
           )}
 
           {record.created.length !== 0 && (
