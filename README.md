@@ -385,3 +385,13 @@ Yes, as long as you credit the project, make it clear that the project is **free
 > Can I use this project for my paid online course?
 
 Yes, as long as you credit the project, make it clear that the project is **freely accessible** independently of the online course, make it clear that you're charging for your time and not for the project itself, make it clear that the project is not part of your own material and make it clear that we do not endorse you or your services.
+
+> Can I create a fork of this project and use it for my own purposes?
+
+No, you can't. You can only use this project as is, without any modifications. This is necessary to prevent people from creating forks and then charging for them.
+
+> Can I create an online course based on this project?
+
+No, you can't, because we don't want people creating "wrappers" around this project and then charging for them.
+
+If you have any questions regarding the license, or want to talk about a specific use case, feel free to reach me at henriqueinonhe@gmail.com.
