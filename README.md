@@ -36,6 +36,7 @@ Even if you're already a seasoned developer, you might learn a thing or two, lik
   - [Concrete Exercises](#concrete-exercises)
   - [Foundation Exercises](#foundation-exercises)
 - [Upgrading](#upgrading)
+- [License](#license)
 
 ## Getting Started
 
@@ -360,3 +361,27 @@ To run the migration script, run:
 ```sh
 npm create promises-training@latest -- --migrate
 ```
+
+## License
+
+This project is licensed under [CC-BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+
+The goal behind this project is to be a FREE learning resource and for it to remain free and accessible forever.
+
+Here is a Q&A of some common questions regarding the license:
+
+> Can I use this project for self or group study?
+
+Yes, please do.
+
+> Can I use this project in an internal company training?
+
+Yes, as long as you credit the project and make it clear that the project is **freely accessible** independently of the training.
+
+> Can I use this project for my paid mentoring/workshop sessions?
+
+Yes, as long as you credit the project, make it clear that the project is **freely accessible** independently of the mentoring/workshop, make it clear that you're charging for your time and not for the project itself, make it clear that the project is not part of your own material and make it clear that we do not endorse you or your services.
+
+> Can I use this project for my paid online course?
+
+Yes, as long as you credit the project, make it clear that the project is **freely accessible** independently of the online course, make it clear that you're charging for your time and not for the project itself, make it clear that the project is not part of your own material and make it clear that we do not endorse you or your services.
