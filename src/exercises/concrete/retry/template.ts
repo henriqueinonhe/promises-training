@@ -1,6 +1,6 @@
 type Context = {
-  postData: (data: string) => Promise<string>;
+  getData: (data: string) => Promise<string>;
 };
 
-export default ({ postData }: Context) =>
+export default ({ getData }: Context) =>
   async (data: string) => {};

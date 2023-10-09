@@ -2,7 +2,7 @@
 
 **Level: Intermediate**
 
-When dealing with asyncrhonous tasks we need to be aware of the fact that we might have more than one task of the same "kind" running at the same time, that is, **concurrently**, and that might lead to some problems.
+When dealing with asynchronous tasks we need to be aware of the fact that we might have more than one task of the same "kind" running at the same time, that is, **concurrently**, and that might lead to some problems.
 
 A particularly common case is when we have a user interface that deals with pagination and the user selects different pages very quickly, thus firing multiple concurrent requests.
 
@@ -19,5 +19,7 @@ In this exercise, we're going to implement a function that calls an async functi
 Implement a function that:
 
 - Signature: `(input: string) => Promise<string>`
-- Calls `fetchData` (async) with the `input` and calls `setData` (sync) with the result
+- Calls `fetchFirstData` (async) with the `input`
+- Calls `fetchSecondData` (async) with `fetchFirstData` result
+- Calls `setData` (sync) with `fetchSecondData` result
 - Whenever the function is called while it is already running, the previous call should be aborted
