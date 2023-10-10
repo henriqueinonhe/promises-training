@@ -3,7 +3,7 @@ import serialCollectErrorsExercise from "../../exercises/concrete/serialCollectE
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
 import { waitForPromises } from "../../lib/waitForPromises";
 
-const setup = () => {
+const setup = async () => {
   const {
     resolver: resolver1,
     rejecter: rejecter1,
@@ -40,6 +40,8 @@ const setup = () => {
 
   const promise = serialCollectErrors(parameters);
 
+  await waitForPromises();
+
   return {
     postData,
     resolver1,
@@ -57,7 +59,8 @@ const setup = () => {
 };
 
 it("Requests are made serially", async () => {
-  const { postData, resolver1, rejecter2, rejecter3, resolver4 } = setup();
+  const { postData, resolver1, rejecter2, rejecter3, resolver4 } =
+    await setup();
 
   expect(postData).toHaveBeenCalledTimes(1);
   expect(postData).toHaveBeenCalledWith("Data1");
@@ -80,7 +83,7 @@ it("Requests are made serially", async () => {
 
 describe("When there are some errors and some successes", () => {
   const secondSetup = async () => {
-    const setupReturnValue = setup();
+    const setupReturnValue = await setup();
 
     const { promise, resolver1, rejecter2, rejecter3, resolver4 } =
       setupReturnValue;

@@ -1,8 +1,9 @@
 import { describe, it, vi, expect } from "vitest";
 import parallelCollectErrorsExercise from "../../exercises/concrete/parallelCollectErrors/exercise";
 import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
+import { waitForPromises } from "../../lib/waitForPromises";
 
-const setup = () => {
+const setup = async () => {
   const {
     resolver: resolver1,
     rejecter: rejecter1,
@@ -39,6 +40,8 @@ const setup = () => {
 
   const promise = parallelCollectErrors(parameters);
 
+  await waitForPromises();
+
   return {
     postData,
     resolver1,
@@ -55,8 +58,8 @@ const setup = () => {
   };
 };
 
-it("Requests are made in parallel", () => {
-  const { postData } = setup();
+it("Requests are made in parallel", async () => {
+  const { postData } = await setup();
 
   expect(postData).toHaveBeenCalledTimes(4);
   expect(postData).toHaveBeenCalledWith("Data1");
@@ -67,7 +70,7 @@ it("Requests are made in parallel", () => {
 
 describe("When there are some errors and some successes", () => {
   const secondSetup = async () => {
-    const setupReturnValue = setup();
+    const setupReturnValue = await setup();
 
     const { promise, resolver1, rejecter2, rejecter3, resolver4 } =
       setupReturnValue;
