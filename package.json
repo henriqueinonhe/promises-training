@@ -1,6 +1,6 @@
 {
   "name": "create-promises-training",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "Practical promises exercises.",
   "scripts": {
     "prepublishOnly": "ts-node ./scripts/prepublishOnly.ts",
