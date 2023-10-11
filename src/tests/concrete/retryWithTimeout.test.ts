@@ -2,36 +2,35 @@ import { describe, expect, it, vi } from "vitest";
 import retryWithTimeoutExercise from "../../exercises/concrete/retryWithTimeout/exercise";
 
 type SetupParams = {
-  failures: number;
-  timeoutOnRetry?: number;
+  outcome: "Succeed" | "Fail";
+  outcomeOnRetry: number;
 };
 
-const setup = async ({ failures, timeoutOnRetry }: SetupParams) => {
-  const errors = Array.from({ length: failures }).map(
-    (_, index) => `Error${index + 1}`
-  );
+const setup = async ({ outcome, outcomeOnRetry }: SetupParams) => {
+  const errors = Array.from({
+    length: outcome === "Succeed" ? outcomeOnRetry - 1 : outcomeOnRetry,
+  }).map((_, index) => `Error${index + 1}`);
   const postDataReturnValue = "Data";
-  const postData = errors
-    .reduce((fn, error) => fn.mockRejectedValueOnce(error), vi.fn())
-    .mockResolvedValue(postDataReturnValue);
+  const postData = (() => {
+    const postDataFailures = errors.reduce(
+      (fn, error) => fn.mockRejectedValueOnce(error),
+      vi.fn()
+    );
 
-  const now = (() => {
-    if (timeoutOnRetry !== undefined) {
-      const times = Array.from({ length: timeoutOnRetry - 1 }).map(
-        (_, index) => index
-      );
-      return times
-        .reduce(
-          (fn, time) =>
-            fn.mockReturnValueOnce(time).mockReturnValueOnce(time + 1),
-          vi.fn()
-        )
-        .mockReturnValueOnce(timeoutOnRetry)
-        .mockReturnValueOnce(3000);
+    if (outcome === "Succeed") {
+      return postDataFailures.mockResolvedValueOnce(postDataReturnValue);
     }
 
-    return vi.fn().mockReturnValue(0);
+    return postDataFailures;
   })();
+
+  const now = vi.fn().mockImplementation(() => {
+    if (postData.mock.calls.length < outcomeOnRetry) {
+      return 0;
+    }
+
+    return 3000;
+  });
 
   const retryExercise = retryWithTimeoutExercise({
     postData,
@@ -64,26 +63,30 @@ const setup = async ({ failures, timeoutOnRetry }: SetupParams) => {
 
 describe("When request suceeds on first try", () => {
   type SecondSetupParams = {
-    timeoutOnRetry?: number;
+    outcomeOnRetry: number;
   };
-  const secondSetup = ({ timeoutOnRetry }: SecondSetupParams = {}) =>
-    setup({ failures: 0, timeoutOnRetry });
+  const secondSetup = ({ outcomeOnRetry }: SecondSetupParams) =>
+    setup({ outcome: "Succeed", outcomeOnRetry });
 
   it("postData is called only once", async () => {
-    const { postDataInput, postData } = await secondSetup();
+    const { postDataInput, postData } = await secondSetup({
+      outcomeOnRetry: 1,
+    });
 
     expect(postData).toHaveBeenCalledOnce();
     expect(postData).toHaveBeenCalledWith(postDataInput);
   });
 
   it("Resolves to postData return value", async () => {
-    const { postDataReturnValue, retryReturnValue } = await secondSetup();
+    const { postDataReturnValue, retryReturnValue } = await secondSetup({
+      outcomeOnRetry: 1,
+    });
 
     expect(postDataReturnValue).toBe(retryReturnValue);
   });
 
   describe("And it takes more time than the timeout threshold", () => {
-    const thirdSetup = () => secondSetup({ timeoutOnRetry: 0 });
+    const thirdSetup = () => secondSetup({ outcomeOnRetry: 0 });
 
     it("Still suceeds", async () => {
       const { retryReturnValue } = await thirdSetup();
@@ -94,7 +97,7 @@ describe("When request suceeds on first try", () => {
 });
 
 describe("When request fails a few times and then suceeds", () => {
-  const secondSetup = () => setup({ failures: 2 });
+  const secondSetup = () => setup({ outcome: "Succeed", outcomeOnRetry: 3 });
 
   it("postData is called that number of times", async () => {
     const { postDataInput, postData } = await secondSetup();
@@ -111,7 +114,7 @@ describe("When request fails a few times and then suceeds", () => {
 });
 
 describe("When request times out while retrying", () => {
-  const secondSetup = () => setup({ failures: 2, timeoutOnRetry: 1 });
+  const secondSetup = () => setup({ outcome: "Fail", outcomeOnRetry: 2 });
 
   it("Rejects to postData thrown aggregated errors", async () => {
     const { errors, retryThrownError } = await secondSetup();
