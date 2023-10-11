@@ -200,7 +200,7 @@ const copyMigrationFiles = async ({ sourcePath, targetPath }) => {
         }
 
         const isAlreadyExistingExerciseFile =
-          target.match(/^src\/exercises.*\.ts$/) &&
+          relativePath.match(/^src\/exercises.*\.ts$/) &&
           (await stat(target)
             .then(() => true)
             .catch(() => false));
