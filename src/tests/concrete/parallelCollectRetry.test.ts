@@ -236,10 +236,10 @@ describe("When the list has 8 elements", () => {
                 [errors[4][0], errors[4][1], errors[4][2], errors[4][3]],
               ];
 
-              expect(promise).rejects.toEqual(
+              await expect(promise).rejects.toEqual(
                 expect.arrayContaining(actualErrors)
               );
-              expect(promise).rejects.toHaveLength(3);
+              await expect(promise).rejects.toHaveLength(3);
             });
           });
         });

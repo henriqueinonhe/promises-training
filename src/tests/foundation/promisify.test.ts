@@ -47,7 +47,7 @@ const testSuite = (secondSetup: () => any) => {
 
         const { promise, result } = fourthSetupReturnValue;
 
-        expect(promise).resolves.toBe(result);
+        await expect(promise).resolves.toBe(result);
       });
     });
 
@@ -67,7 +67,7 @@ const testSuite = (secondSetup: () => any) => {
 
         const { promise, error } = fourthSetupReturnValue;
 
-        expect(promise).rejects.toBe(error);
+        await expect(promise).rejects.toBe(error);
       });
     });
   });
