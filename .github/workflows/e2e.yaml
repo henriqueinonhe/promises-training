@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  - pull_request
+  - workflow_dispatch
+
+# Pushing new commits to the same branch
+# will cancel any previous runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get Node Version
+        id: get-node-version
+        # All of this is to get the node version from package.json
+        # and remove the leading and trailing quotes, otherwise it
+        # breaks the github action that consumes this data
+        run: echo node-version=$(cat package.json | jq ".engines.node" | sed 's/^"\(.*\)"$/\1/') >> $GITHUB_OUTPUT
+
+      - name: Get Node Modules Cache Key
+        id: get-node-modules-cache-key
+        run: echo cache-key=${{ hashFiles('yarn.lock') }}-test >> $GITHUB_OUTPUT
+
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
+          path: node_modules
+          lookup-only: true
+
+      - name: Install Dependencies
+        if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
+        run: npm install
+
+    outputs:
+      node-version: ${{ steps.get-node-version.outputs.node-version }}
+      node-modules-cache-key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
+
+  e2e:
+    needs:
+      - setup
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ needs.setup.outputs.node-version }}
+
+      - name: Restore Node Modules
+        uses: actions/cache/restore@v3
+        with:
+          key: ${{ needs.setup.outputs.node-modules-cache-key }}
+          path: node_modules
+          fail-on-cache-miss: true
+
+      - name: Run E2E Tests
+        run: npm run e2e

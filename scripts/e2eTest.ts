@@ -15,6 +15,14 @@ const main = async () => {
   run("npm pack");
   await mkdir("e2e");
   await extractPackage();
+  if (process.env.CI === "true") {
+    run(`git config --global user.email "you@example.com"`, {
+      cwd: "e2e",
+    });
+    run(`git config --global user.name "Your Name"`, {
+      cwd: "e2e",
+    });
+  }
   run("echo ./installation | node ./package/bin.cjs", {
     cwd: "e2e",
   });
