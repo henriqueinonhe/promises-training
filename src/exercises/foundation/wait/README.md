@@ -14,3 +14,5 @@ Implement a function that:
 
 - Signature: `(ms: number) => Promise<void>`
 - Returns a promise that resolves after `ms` milliseconds
+
+**IMPORTANT**: Use the `setTimeout` that's provided as a function argument because this is what makes tests work.

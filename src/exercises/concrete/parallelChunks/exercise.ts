@@ -6,7 +6,7 @@ type Context = {
 
 export default ({ postData }: Context) =>
   async (list: Array<string>) => {
-    const subLists = chunk(list, 5);
+    const subLists = chunk(list, 5) as Array<Array<string>>;
 
     const result = await subLists.reduce((promise, subList) => {
       return promise.then(async (previousResults) => {
