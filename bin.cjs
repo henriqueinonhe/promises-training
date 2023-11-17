@@ -79,7 +79,7 @@ const promptInstallationDir = async () => {
 };
 
 const copyFiles = async ({ sourcePath, targetPath }) => {
-  const filesBlacklist = [/^bin/];
+  const filesBlacklist = [/^bin/, /^ROADMAP.md$/, /^EPICS.md$/];
 
   try {
     logMessage("Copying files...");
