@@ -2,6 +2,7 @@ import { describe, it, vi, expect } from "vitest";
 import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
 import promiseAll from "../../exercises/foundation/promiseAll/exercise";
 import { waitForPromises } from "../../lib/waitForPromises";
+import { permutations } from "../../lib/permutations";
 
 describe("When some promise rejects", () => {
   it("Returns a promise that rejects WITHOUT WAITING for other promises to finish", async () => {
@@ -44,41 +45,75 @@ describe("When some promise rejects", () => {
 });
 
 describe("When all promises resolve", () => {
-  it("Returns a promise that resolves to an array of resolved values in the same order as the input array", async () => {
-    const { createPromise, promiseManager } =
-      createFoundationExerciseContainer<string>();
+  const test = async (inputLength: number) => {
+    describe(`And the input array has length ${inputLength}`, () => {
+      const labelList = Array.from({ length: inputLength }, (_, i) =>
+        (i + 1).toString()
+      );
+      const resolutionOrderList: Array<Array<number>> = permutations(
+        labelList.map((_, i) => i)
+      );
 
-    const resolve = vi.fn();
-    const reject = vi.fn();
+      for (const resolutionOrder of resolutionOrderList) {
+        const labelResolutionOrder = resolutionOrder.map(
+          (index) => labelList[index]
+        );
 
-    const promise = promiseAll([
-      createPromise("A"),
-      createPromise("B"),
-      createPromise("C"),
-      createPromise("D"),
-    ]).then(resolve, reject);
+        describe(`And promises resolve with order ${labelResolutionOrder.join(
+          ", "
+        )}`, () => {
+          const setup = () => {
+            const { createPromise, promiseManager } =
+              createFoundationExerciseContainer<string>();
 
-    promiseManager.resolve("B", "B");
-    await waitForPromises();
-    expect(resolve).not.toHaveBeenCalled();
-    expect(reject).not.toHaveBeenCalled();
+            const resolve = vi.fn();
+            const reject = vi.fn();
 
-    promiseManager.resolve("C", "C");
-    await waitForPromises();
-    expect(resolve).not.toHaveBeenCalled();
-    expect(reject).not.toHaveBeenCalled();
+            const resultingPromise = promiseAll(
+              labelList.map((label) => createPromise(label))
+            ).then(resolve, reject);
 
-    promiseManager.resolve("A", "A");
-    await waitForPromises();
-    expect(resolve).not.toHaveBeenCalled();
-    expect(reject).not.toHaveBeenCalled();
+            return {
+              createPromise,
+              promiseManager,
+              resolve,
+              reject,
+              resultingPromise,
+            };
+          };
 
-    promiseManager.resolve("D", "D");
-    await waitForPromises();
-    expect(resolve).toHaveBeenCalledWith(["A", "B", "C", "D"]);
-    expect(resolve).toHaveBeenCalledTimes(1);
-    expect(reject).not.toHaveBeenCalled();
+          it("Returns a promise that resolves to an array of resolved values in the same order as the input array", async () => {
+            const { promiseManager, reject, resolve, resultingPromise } =
+              setup();
 
-    await promise;
-  });
+            for (const index of resolutionOrder.slice(
+              0,
+              resolutionOrder.length - 1
+            )) {
+              const label = labelList[index];
+              promiseManager.resolve(label, label);
+              await waitForPromises();
+
+              expect(resolve).not.toHaveBeenCalled();
+              expect(reject).not.toHaveBeenCalled();
+            }
+
+            const lastLabel =
+              labelList[resolutionOrder[resolutionOrder.length - 1]];
+            promiseManager.resolve(lastLabel, lastLabel);
+            await waitForPromises();
+
+            expect(resolve).toHaveBeenCalledWith(labelList);
+            expect(resolve).toHaveBeenCalledTimes(1);
+
+            await resultingPromise;
+          });
+        });
+      }
+    });
+  };
+
+  Array.from({ length: 5 })
+    .map((_, i) => i + 1)
+    .forEach(test);
 });
