@@ -15,3 +15,5 @@ It would be too cumbersome to detail each and every specification here, and this
 That said, what we want is a `readFile` function that instead of accepting a callback as its last argument, returns a promise that resolves when `readFile` is successful, and rejects when `readFile` fails.
 
 Also, aside from the callback, all the arguments that are passed to `readFile` should be passed to the promise-based version of `readFile`, in the same order.
+
+**IMPORTANT**: Use the `readFile` that's provided as a function argument because this is what makes tests work.

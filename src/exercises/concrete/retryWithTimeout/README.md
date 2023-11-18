@@ -15,3 +15,5 @@ Implement a function that:
 - Returns the result of `postData`
 - If `postData` fails, retry it
 - If when retrying, the total elapsed time exceeds 2 seconds, throws an array of the errors `postData` has thrown, in the order they were thrown
+
+**IMPORTANT**: Use the `now` that's provided as a function argument because this is what makes tests work. Refrain from using `Date.now`, as this is not compatible with tests.
