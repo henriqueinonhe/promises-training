@@ -4,8 +4,9 @@ import { resolve } from "node:path";
 import { argv } from "node:process";
 import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExerciseTestsConfig";
 import { writeFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
-const currentFilePath = new URL(import.meta.url).pathname;
+const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {

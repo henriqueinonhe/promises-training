@@ -5,8 +5,9 @@ import { checkGraphExercisesTestsDataExists } from "../src/lib/graphExercise/che
 import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData";
 import { shuffle } from "lodash";
 import { red } from "kolorist";
+import { fileURLToPath } from "node:url";
 
-const currentFilePath = new URL(import.meta.url).pathname;
+const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {
