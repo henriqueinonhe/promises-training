@@ -11,8 +11,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup:
-    runs-on: ubuntu-22.04
+  e2e:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,9 +28,14 @@ jobs:
         # breaks the github action that consumes this data
         run: echo node-version=$(cat package.json | jq ".engines.node" | sed 's/^"\(.*\)"$/\1/') >> $GITHUB_OUTPUT
 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.get-node-version.outputs.node-version }}
+
       - name: Get Node Modules Cache Key
         id: get-node-modules-cache-key
-        run: echo cache-key=${{ hashFiles('yarn.lock') }}-test >> $GITHUB_OUTPUT
+        run: echo cache-key=${{ matrix.os }}-${{ hashFiles('package-lock.json') }} >> $GITHUB_OUTPUT
 
       - name: Cache Node Modules
         id: cache-node-modules
@@ -40,27 +49,10 @@ jobs:
         if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
         run: npm install
 
-    outputs:
-      node-version: ${{ steps.get-node-version.outputs.node-version }}
-      node-modules-cache-key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
-
-  e2e:
-    needs:
-      - setup
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ needs.setup.outputs.node-version }}
-
       - name: Restore Node Modules
         uses: actions/cache/restore@v3
         with:
-          key: ${{ needs.setup.outputs.node-modules-cache-key }}
+          key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
           path: node_modules
           fail-on-cache-miss: true
 
