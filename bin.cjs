@@ -35,6 +35,7 @@ const main = async () => {
 
 const setup = async () => {
   const dir = await promptInstallationDir();
+  await createDirIfNotExists(dir);
 
   const sourcePath = resolve(__dirname, ".");
   const targetPath = resolve(dir);
@@ -67,8 +68,6 @@ const promptInstallationDir = async () => {
 
           return true;
         } catch (error) {
-          await mkdir(dir);
-
           return true;
         }
       },
@@ -78,6 +77,14 @@ const promptInstallationDir = async () => {
   return dir;
 };
 
+const createDirIfNotExists = async (dir) => {
+  try {
+    await stat(dir);
+  } catch (error) {
+    await mkdir(dir);
+  }
+};
+
 const copyFiles = async ({ sourcePath, targetPath }) => {
   const filesBlacklist = [
     /^bin/,
@@ -85,6 +92,7 @@ const copyFiles = async ({ sourcePath, targetPath }) => {
     /^EPICS.md$/,
     /^scripts\/postpublish.ts$/,
     /^scripts\/prepublishOnly.ts$/,
+    /^scripts\/e2eTest.ts$/,
   ];
 
   try {
