@@ -3,8 +3,9 @@ import { resolve } from "node:path";
 import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExerciseTestsConfig";
 import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData";
 import { generateGraphExerciseTestData } from "../src/lib/graphExercise/generateGraphExerciseTestData";
+import { fileURLToPath } from "node:url";
 
-const currentFilePath = new URL(import.meta.url).pathname;
+const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {
