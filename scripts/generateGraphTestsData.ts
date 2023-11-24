@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExerciseTestsConfig";
 import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData";
 import { generateGraphExerciseTestData } from "../src/lib/graphExercise/generateGraphExerciseTestData";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
@@ -48,7 +48,9 @@ const generateSingleTestDataFile = async (dirName: string) => {
     basePath,
     `./src/tests/graph/${dirName}/graph.ts`
   );
-  const graphRepresentation = (await import(graphFilePath)).default;
+  const graphRepresentation = (
+    await import(pathToFileURL(graphFilePath).toString())
+  ).default;
   const stepSequences = generateGraphExerciseTestData(graphRepresentation);
 
   const data: GraphExerciseTestData = {
