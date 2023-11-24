@@ -3,14 +3,14 @@
   "version": "1.0.2-1",
   "description": "Practical promises exercises.",
   "scripts": {
-    "prepublishOnly": "ts-node ./scripts/prepublishOnly.ts",
-    "postpublish": "ts-node ./scripts/postpublish.ts",
-    "e2e": "ts-node ./scripts/e2eTest.ts",
+    "prepublishOnly": "node --no-warnings --loader ts-node/esm ./scripts/prepublishOnly.ts",
+    "postpublish": "node --no-warnings --loader ts-node/esm ./scripts/postpublish.ts",
+    "e2e": "node --no-warnings --loader ts-node/esm ./scripts/e2eTest.ts",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
-    "graph:generateTests": "ts-node ./scripts/generateGraphTestsData.ts",
-    "graph:shuffleTests": "ts-node ./scripts/shuffleGraphTestData.ts",
-    "graph:setTestsCap": "ts-node ./scripts/setGraphTestsCap.ts"
+    "graph:generateTests": "node --no-warnings --loader ts-node/esm ./scripts/generateGraphTestsData.ts",
+    "graph:shuffleTests": "node --no-warnings --loader ts-node/esm ./scripts/shuffleGraphTestData.ts",
+    "graph:setTestsCap": "node --no-warnings --loader ts-node/esm ./scripts/setGraphTestsCap.ts"
   },
   "keywords": [
     "promises",
@@ -26,7 +26,7 @@
     "url": "git@github.com:henriqueinonhe/promises-training.git"
   },
   "engines": {
-    "node": "18.x"
+    "node": ">=20.x"
   },
   "bin": "bin.cjs",
   "license": "CC-BY-NC-ND-4.0",
