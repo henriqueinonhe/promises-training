@@ -1,6 +1,6 @@
 {
   "name": "create-promises-training",
-  "version": "1.0.2-3",
+  "version": "1.0.2-4",
   "description": "Practical promises exercises.",
   "scripts": {
     "tsNode": "node --no-warnings --loader ts-node/esm",
