@@ -110,6 +110,8 @@
     "src/lib/graphExercise/ui",
     "src/exercises",
     "**/*.test.ts",
-    "e2e"
+    "e2e",
+    "vitest.config.ts",
+    "vitest.setup.ts"
   ]
 }
