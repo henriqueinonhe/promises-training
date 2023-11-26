@@ -8,16 +8,14 @@ const main = async () => {
   const option = argv[2];
 
   if (option === "--migrate") {
-    execSync(`npm run migrate ${resolve(".")}`, {
+    execSync(`npm run --prefix ${__dirname} migrate ${resolve(".")}`, {
       stdio: "inherit",
-      cwd: __dirname,
     });
     process.exit(0);
   }
 
-  execSync(`npm run setup ${resolve(".")}`, {
+  execSync(`npm run --prefix ${__dirname} setup ${resolve(".")}`, {
     stdio: "inherit",
-    cwd: __dirname,
   });
   process.exit(0);
 };
