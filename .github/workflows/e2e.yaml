@@ -11,15 +11,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  e2e:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+  get-node-version:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get Node Version
         id: get-node-version
@@ -28,33 +24,29 @@ jobs:
         # breaks the github action that consumes this data
         run: echo node-version=$(cat package.json | jq ".engines.node" | sed 's/^"\(.*\)"$/\1/') >> $GITHUB_OUTPUT
 
+    outputs:
+      node-version: ${{ steps.get-node-version.outputs.node-version }}
+
+  e2e:
+    needs:
+      - get-node-version
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.get-node-version.outputs.node-version }}
-
-      - name: Get Node Modules Cache Key
-        id: get-node-modules-cache-key
-        run: echo cache-key=${{ matrix.os }}-${{ hashFiles('package-lock.json') }} >> $GITHUB_OUTPUT
-
-      - name: Cache Node Modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
-          path: node_modules
-          lookup-only: true
+          node-version: ${{ needs.get-node-version.outputs.node-version }}
+          cache: "npm"
 
       - name: Install Dependencies
-        if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
-        run: npm install
-
-      - name: Restore Node Modules
-        uses: actions/cache/restore@v3
-        with:
-          key: ${{ steps.get-node-modules-cache-key.outputs.cache-key }}
-          path: node_modules
-          fail-on-cache-miss: true
+        run: npm ci
 
       - name: Run E2E Tests
         run: npm run e2e

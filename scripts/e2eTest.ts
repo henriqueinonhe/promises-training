@@ -1,4 +1,4 @@
-import { execSync } from "node:child_process";
+import { execSync, spawn } from "node:child_process";
 import tar from "tar";
 import { mkdir, readFile, readdir, copyFile, rm } from "fs/promises";
 
@@ -10,11 +10,15 @@ const run = (...args: Parameters<typeof execSync>) => {
 
 const main = async () => {
   run("npm run prepublishOnly");
+
   // Simulates publishing to npm
   // and includes only the files that would be published
   run("npm pack");
+
   await mkdir("e2e");
+
   await extractPackage();
+
   if (process.env.CI === "true") {
     run(`git config --global user.email "you@example.com"`, {
       cwd: "e2e",
@@ -23,16 +27,19 @@ const main = async () => {
       cwd: "e2e",
     });
   }
-  run("echo ./installation | ./package/bin.js", {
-    cwd: "e2e",
-  });
+
+  await install();
+
   run("npm run postpublish");
+
   await Promise.all(
     ["graph", "concrete", "foundation"].map(copyExerciseAnswers)
   );
+
   run("npm run check -- --run", {
     cwd: "e2e/installation",
   });
+
   rm("e2e", { recursive: true, force: true });
 };
 
@@ -47,6 +54,27 @@ const extractPackage = async () => {
   await tar.extract({
     file: tarballName,
     cwd: `e2e`,
+  });
+};
+
+const install = async () => {
+  // For some reason piping stuff with echo
+  // doesn't work properly with Windows
+
+  const process = spawn("node ./package/bin.js", {
+    stdio: ["pipe", "inherit", "inherit"],
+    cwd: "e2e",
+    shell: true,
+  });
+
+  await new Promise((resolve) => {
+    process.on("spawn", resolve);
+  });
+
+  process.stdin.write("installation\n");
+
+  await new Promise((resolve) => {
+    process.on("exit", resolve);
   });
 };
 
