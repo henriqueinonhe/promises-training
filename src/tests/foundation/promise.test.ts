@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import MyPromise from "../../exercises/foundation/promise/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import MyPromise from "../../exercises/foundation/promise/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 type SetupParams = {};
 

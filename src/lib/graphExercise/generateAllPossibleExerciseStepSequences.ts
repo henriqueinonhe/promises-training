@@ -1,6 +1,6 @@
-import { Fiber, isHaltedFiber } from "./Fiber";
-import { Graph } from "./Graph";
-import { GraphExerciseStepSequence } from "./GraphExerciseStep";
+import { Fiber, isHaltedFiber } from "./Fiber.js";
+import { Graph } from "./Graph.js";
+import { GraphExerciseStepSequence } from "./GraphExerciseStep.js";
 
 export const generateAllPossibleExerciseStepSequences = (graph: Graph) => {
   const queue = spawnStartingFibers(graph);

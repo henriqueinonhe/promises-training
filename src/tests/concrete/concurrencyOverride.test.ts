@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import makeConcurrencyOverride from "../../exercises/concrete/concurrencyOverride/exercise";
+import makeConcurrencyOverride from "../../exercises/concrete/concurrencyOverride/exercise.js";
 import { match } from "ts-pattern";
-import { waitForPromises } from "../../lib/waitForPromises";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = () => {
   const firstCallInput = "firstCallInput";

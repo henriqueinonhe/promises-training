@@ -1,5 +1,5 @@
-import { useExercise } from "../../application/useExercise";
-import { getExercisePromisesStatus } from "../../domain/getExercisePromisesStatus";
+import { useExercise } from "../../application/useExercise.js";
+import { getExercisePromisesStatus } from "../../domain/getExercisePromisesStatus.js";
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {

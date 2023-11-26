@@ -1,6 +1,6 @@
 import { it, vi, expect } from "vitest";
-import waitExercise from "../../exercises/foundation/wait/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import waitExercise from "../../exercises/foundation/wait/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = async () => {
   let timeoutCallback!: () => void;

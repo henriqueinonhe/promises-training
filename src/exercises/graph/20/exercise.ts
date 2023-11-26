@@ -1,7 +1,11 @@
-import { ExerciseContext } from "../../../lib/Exercise";
-import { match } from "../../../lib/match";
-import { fulfilled, promiseResult, rejected } from "../../../lib/promiseResult";
-import { skipExercise } from "../../../lib/skipExercise";
+import { ExerciseContext } from "../../../lib/Exercise.js";
+import { match } from "../../../lib/match.js";
+import {
+  fulfilled,
+  promiseResult,
+  rejected,
+} from "../../../lib/promiseResult.js";
+import { skipExercise } from "../../../lib/skipExercise.js";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>

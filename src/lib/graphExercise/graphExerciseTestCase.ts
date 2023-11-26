@@ -1,16 +1,16 @@
-import { MakeExercise } from "../Exercise";
-import { PromiseManager } from "../PromiseManager";
+import { MakeExercise } from "../Exercise.js";
+import { PromiseManager } from "../PromiseManager.js";
 import { it, expect, describe } from "vitest";
 import {
   GraphExerciseFirstStep,
   GraphExerciseFollowingStep,
   GraphExerciseStepSequence,
-} from "./GraphExerciseStep";
-import { geneateGraphExerciseTestDescription } from "./generateGraphExerciseTestDescription";
+} from "./GraphExerciseStep.js";
+import { geneateGraphExerciseTestDescription } from "./generateGraphExerciseTestDescription.js";
 import { difference } from "lodash";
-import { reduceArrayAsync } from "../reduceArrayAsync";
-import { createGraphExerciseContainer } from "./graphExerciseContainer";
-import { waitForPromises } from "../waitForPromises";
+import { reduceArrayAsync } from "../reduceArrayAsync.js";
+import { createGraphExerciseContainer } from "./graphExerciseContainer.js";
+import { waitForPromises } from "../waitForPromises.js";
 
 type Dependencies = {
   makeThenCatchExercise: MakeExercise;

@@ -1,4 +1,4 @@
-import { Exercise } from "../domain/Exercise";
+import { Exercise } from "../domain/Exercise.js";
 import { match } from "ts-pattern";
 
 export const displayableExerciseVariant = (variant: Exercise["variant"]) => {

@@ -1,13 +1,13 @@
 import { resolve, relative } from "node:path";
 import { readFile, stat, rename } from "node:fs/promises";
-import { logError, logMessage } from "../src/lib/cli/logger";
-import { run } from "../src/lib/cli/run";
+import { logError, logMessage } from "../src/lib/cli/logger.js";
+import { run } from "../src/lib/cli/run.js";
 import { copy } from "fs-extra";
 import { fileURLToPath } from "node:url";
 import { argv } from "node:process";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
-const basePath = resolve(currentFilePath, "../..");
+const basePath = resolve(currentFilePath, "../../..");
 
 const main = async () => {
   const processDir = argv[2];

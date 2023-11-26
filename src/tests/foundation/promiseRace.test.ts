@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
-import { waitForPromises } from "../../lib/waitForPromises";
-import promiseRace from "../../exercises/foundation/promiseRace/exercise";
+import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
+import promiseRace from "../../exercises/foundation/promiseRace/exercise.js";
 
 describe("When some promise resolves", () => {
   it("Returns a promise that resolves to the first resolved value", async () => {

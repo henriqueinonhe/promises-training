@@ -1,12 +1,12 @@
-import { ExerciseProvider } from "../../application/ExerciseProvider";
+import { ExerciseProvider } from "../../application/ExerciseProvider.js";
 import styles from "./App.module.scss";
-import { useExercise } from "../../application/useExercise";
-import { Header } from "./Header";
-import { ExerciseSelector } from "./ExerciseSelector";
-import { RecordsDisplay } from "./RecordsDisplay";
-import { ControlPanel } from "./ControlPanel";
-import { VariantSelector } from "./VariantSelector";
-import { Footer } from "./Footer";
+import { useExercise } from "../../application/useExercise.js";
+import { Header } from "./Header.js";
+import { ExerciseSelector } from "./ExerciseSelector.js";
+import { RecordsDisplay } from "./RecordsDisplay.js";
+import { ControlPanel } from "./ControlPanel.js";
+import { VariantSelector } from "./VariantSelector.js";
+import { Footer } from "./Footer.js";
 
 function App() {
   const { exercise } = useExercise();

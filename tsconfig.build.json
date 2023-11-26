@@ -107,8 +107,9 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "exclude": [
+    "src/lib/graphExercise/ui",
+    "src/exercises",
     "**/*.test.ts",
-    "src/lib/graphExercise/ui/**",
-    "src/exercises/**/template.ts"
+    "e2e"
   ]
 }

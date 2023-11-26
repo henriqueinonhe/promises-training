@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import makeConcurrencyEnqueue from "../../exercises/concrete/concurrencyEnqueue/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import makeConcurrencyEnqueue from "../../exercises/concrete/concurrencyEnqueue/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = () => {
   const resolvers: Array<() => void> = [];

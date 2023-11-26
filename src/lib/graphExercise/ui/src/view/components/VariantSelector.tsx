@@ -1,4 +1,4 @@
-import { useExercise } from "../../application/useExercise";
+import { useExercise } from "../../application/useExercise.js";
 import styles from "./VariantSelector.module.scss";
 
 export const VariantSelector = () => {

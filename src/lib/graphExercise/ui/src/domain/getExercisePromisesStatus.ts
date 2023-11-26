@@ -1,4 +1,4 @@
-import { Exercise } from "./Exercise";
+import { Exercise } from "./Exercise.js";
 
 export const getExercisePromisesStatus = (
   exercise: Pick<Exercise, "records">

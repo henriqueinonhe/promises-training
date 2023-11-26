@@ -1,4 +1,4 @@
-import { GraphExerciseStep } from "./GraphExerciseStep";
+import { GraphExerciseStep } from "./GraphExerciseStep.js";
 
 export const geneateGraphExerciseTestDescription = (
   label: string,

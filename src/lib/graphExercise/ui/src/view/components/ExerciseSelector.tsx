@@ -1,5 +1,5 @@
-import { useExercise } from "../../application/useExercise";
-import { exerciseIds } from "../../domain/Exercise";
+import { useExercise } from "../../application/useExercise.js";
+import { exerciseIds } from "../../domain/Exercise.js";
 import styles from "./ExerciseSelector.module.scss";
 
 export const ExerciseSelector = () => {

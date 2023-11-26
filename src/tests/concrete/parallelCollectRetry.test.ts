@@ -1,7 +1,7 @@
 import { it, vi, describe, expect } from "vitest";
-import parallelCollectRetryExercise from "../../exercises/concrete/parallelCollectRetry/exercise";
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import { waitForPromises } from "../../lib/waitForPromises";
+import parallelCollectRetryExercise from "../../exercises/concrete/parallelCollectRetry/exercise.js";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 describe("When the list has 8 elements", () => {
   const setup = async () => {

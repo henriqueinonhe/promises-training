@@ -1,4 +1,4 @@
-import { GraphRepresentation } from "../../../lib/graphExercise/generateGraphExerciseTestData";
+import { GraphRepresentation } from "../../../lib/graphExercise/generateGraphExerciseTestData.js";
 
 const graph: GraphRepresentation = [
   {

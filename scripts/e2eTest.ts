@@ -23,7 +23,7 @@ const main = async () => {
       cwd: "e2e",
     });
   }
-  run("echo ./installation | ./package/bin.cjs", {
+  run("echo ./installation | ./package/bin.js", {
     cwd: "e2e",
   });
   run("npm run postpublish");

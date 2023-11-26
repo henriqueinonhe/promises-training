@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { Router } from "../../lib/concreteExercise/Router";
+import { Router } from "../../lib/concreteExercise/Router.js";
 import { match } from "ts-pattern";
-import makeExtractingResolvers from "../../exercises/concrete/extractingResolvers/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import makeExtractingResolvers from "../../exercises/concrete/extractingResolvers/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = () => {
   const onRouteChangeStartHandlers: Set<() => void> = new Set();

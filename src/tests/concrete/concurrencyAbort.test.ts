@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import makeConcurrencyAbort from "../../exercises/concrete/concurrencyAbort/exercise";
+import makeConcurrencyAbort from "../../exercises/concrete/concurrencyAbort/exercise.js";
 
 const setup = () => {
   const resolvers: Array<(data: string) => void> = [];

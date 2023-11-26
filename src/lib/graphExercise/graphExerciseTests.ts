@@ -1,10 +1,10 @@
-import { MakeExercise } from "../Exercise";
-import { makeGraphExerciseTestCase } from "./graphExerciseTestCase";
+import { MakeExercise } from "../Exercise.js";
+import { makeGraphExerciseTestCase } from "./graphExerciseTestCase.js";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { returnException } from "return-exception";
-import { GraphExerciseTestData } from "./GraphExerciseTestData";
-import { GraphExercisesTestConfig } from "./GraphExerciseTestsConfig";
+import { GraphExerciseTestData } from "./GraphExerciseTestData.js";
+import { GraphExercisesTestConfig } from "./GraphExerciseTestsConfig.js";
 
 type Dependencies = {
   makeThenCatchExercise: MakeExercise;

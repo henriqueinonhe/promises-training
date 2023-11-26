@@ -1,7 +1,7 @@
 import { it, vi, expect, describe } from "vitest";
-import makeSerialExercise from "../../exercises/concrete/serial/exercise";
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import { waitForPromises } from "../../lib/waitForPromises";
+import makeSerialExercise from "../../exercises/concrete/serial/exercise.js";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 describe("When the list has 4 elements", () => {
   const setup = async () => {

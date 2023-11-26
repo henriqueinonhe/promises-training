@@ -1,6 +1,6 @@
-import { ExerciseContext } from "../../../lib/Exercise";
-import { promiseResult } from "../../../lib/promiseResult";
-import { skipExercise } from "../../../lib/skipExercise";
+import { ExerciseContext } from "../../../lib/Exercise.js";
+import { promiseResult } from "../../../lib/promiseResult.js";
+import { skipExercise } from "../../../lib/skipExercise.js";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>
