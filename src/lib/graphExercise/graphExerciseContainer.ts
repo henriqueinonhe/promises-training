@@ -1,7 +1,7 @@
-import { MakeExercise } from "../Exercise";
-import { createPromiseManager } from "../PromiseManager";
-import { makeCreatePromise } from "../createPromise";
-import { ref } from "../ref";
+import { MakeExercise } from "../Exercise.js";
+import { createPromiseManager } from "../PromiseManager.js";
+import { makeCreatePromise } from "../createPromise.js";
+import { ref } from "../ref.js";
 
 type Dependencies = {
   makeExercise: MakeExercise;

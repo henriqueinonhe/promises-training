@@ -1,4 +1,4 @@
-import { ExerciseContext } from "../../../lib/Exercise";
+import { ExerciseContext } from "../../../lib/Exercise.js";
 
 const mixed =
   ({ createPromise }: ExerciseContext) =>

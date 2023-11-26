@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import makeParallelChainExercise from "../../exercises/concrete/parallelChain/exercise";
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import { waitForPromises } from "../../lib/waitForPromises";
+import makeParallelChainExercise from "../../exercises/concrete/parallelChain/exercise.js";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = () => {
   const list = Array.from({ length: 10 }).map((_, index) => `data-${index}`);

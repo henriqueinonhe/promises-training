@@ -1,4 +1,4 @@
-import { PromiseManager } from "./PromiseManager";
+import { PromiseManager } from "./PromiseManager.js";
 
 type Dependencies<T> = {
   promiseManager: PromiseManager<T>;

@@ -1,8 +1,8 @@
 import { describe, it, vi, expect } from "vitest";
-import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
-import promiseAll from "../../exercises/foundation/promiseAll/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
-import { permutations } from "../../lib/permutations";
+import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer.js";
+import promiseAll from "../../exercises/foundation/promiseAll/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
+import { permutations } from "../../lib/permutations.js";
 
 describe("When some promise rejects", () => {
   it("Returns a promise that rejects WITHOUT WAITING for other promises to finish", async () => {

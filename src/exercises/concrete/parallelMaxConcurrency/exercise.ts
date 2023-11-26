@@ -1,4 +1,4 @@
-import { promiseWithResolvers } from "../../../lib/promiseWithResolvers";
+import { promiseWithResolvers } from "../../../lib/promiseWithResolvers.js";
 
 type Context = {
   postData: (data: string) => Promise<string>;

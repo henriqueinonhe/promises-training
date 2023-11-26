@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import * as Exercises from "../imports";
+import * as Exercises from "../imports.js";
 import { match } from "ts-pattern";
 import { ValuesType } from "utility-types";
-import { createGraphExerciseContainer } from "../../../graphExerciseContainer";
-import { waitForPromises } from "../../../../waitForPromises";
-import { PromiseManager } from "../../../../PromiseManager";
-import { ExerciseFollowingRecord, ExerciseRecords } from "./ExerciseRecord";
+import { createGraphExerciseContainer } from "../../../graphExerciseContainer.js";
+import { waitForPromises } from "../../../../waitForPromises.js";
+import { PromiseManager } from "../../../../PromiseManager.js";
+import { ExerciseFollowingRecord, ExerciseRecords } from "./ExerciseRecord.js";
 import { xor } from "lodash";
 
 const exerciseKeys = Object.keys(Exercises);

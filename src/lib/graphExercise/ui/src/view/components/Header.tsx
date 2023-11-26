@@ -1,5 +1,5 @@
-import { useExercise } from "../../application/useExercise";
-import { displayableExerciseVariant } from "../displayableExerciseVariant";
+import { useExercise } from "../../application/useExercise.js";
+import { displayableExerciseVariant } from "../displayableExerciseVariant.js";
 import styles from "./Header.module.scss";
 
 export const Header = () => {
@@ -7,7 +7,7 @@ export const Header = () => {
 
   const text = exercise
     ? `Exercise ${exercise.id} - ${displayableExerciseVariant(
-        exercise.variant,
+        exercise.variant
       )}`
     : "Select an exercise";
 

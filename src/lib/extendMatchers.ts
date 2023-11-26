@@ -5,7 +5,7 @@ import {
   GraphExerciseStep,
   GraphExerciseStepSequence,
   isGraphExerciseFirstStep,
-} from "./graphExercise/GraphExerciseStep";
+} from "./graphExercise/GraphExerciseStep.js";
 
 type ToHaveBeenCreatedAtStepParams = {
   steps: GraphExerciseStepSequence;

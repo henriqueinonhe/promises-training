@@ -1,6 +1,6 @@
-import { CreatePromise } from "./createPromise";
-import { Ref } from "./ref";
-import { skipExerciseSymbol } from "./skipExercise";
+import { CreatePromise } from "./createPromise.js";
+import { Ref } from "./ref.js";
+import { skipExerciseSymbol } from "./skipExercise.js";
 
 export type MakeExercise = {
   (context: ExerciseContext): Exercise;

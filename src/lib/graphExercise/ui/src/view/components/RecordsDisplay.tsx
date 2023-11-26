@@ -1,4 +1,4 @@
-import { useExercise } from "../../application/useExercise";
+import { useExercise } from "../../application/useExercise.js";
 import styles from "./RecordsDisplay.module.scss";
 
 export const RecordsDisplay = () => {

@@ -1,7 +1,7 @@
 import { shuffle } from "lodash";
-import { generateAllPossibleExerciseStepSequences } from "./generateAllPossibleExerciseStepSequences";
-import { Graph } from "./Graph";
-import { GraphNode } from "./GraphNode";
+import { generateAllPossibleExerciseStepSequences } from "./generateAllPossibleExerciseStepSequences.js";
+import { Graph } from "./Graph.js";
+import { GraphNode } from "./GraphNode.js";
 
 export const generateGraphExerciseTestData = (
   graphRepresentation: GraphRepresentation

@@ -4,13 +4,13 @@ import { rm, rename, stat, mkdir, readdir } from "node:fs/promises";
 import { copy } from "fs-extra";
 import { resolve, relative } from "node:path";
 import prompts from "prompts";
-import { logError, logMessage } from "../src/lib/cli/logger";
-import { run } from "../src/lib/cli/run";
+import { logError, logMessage } from "../src/lib/cli/logger.js";
+import { run } from "../src/lib/cli/run.js";
 import { fileURLToPath } from "node:url";
 import { argv } from "node:process";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
-const basePath = resolve(currentFilePath, "../..");
+const basePath = resolve(currentFilePath, "../../..");
 
 const main = async () => {
   const processDir = argv[2];

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import parallelMaxConcurrencyExercise from "../../exercises/concrete/parallelMaxConcurrency/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import parallelMaxConcurrencyExercise from "../../exercises/concrete/parallelMaxConcurrency/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 describe("When the list has 8 elements", () => {
   const setup = async () => {

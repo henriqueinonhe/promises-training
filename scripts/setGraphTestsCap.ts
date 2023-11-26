@@ -1,13 +1,13 @@
 import { red } from "kolorist";
-import { checkGraphExercisesTestsDataExists } from "../src/lib/graphExercise/checkGraphExercisesTestsDataExists";
+import { checkGraphExercisesTestsDataExists } from "../src/lib/graphExercise/checkGraphExercisesTestsDataExists.js";
 import { resolve } from "node:path";
 import { argv } from "node:process";
-import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExerciseTestsConfig";
+import { GraphExercisesTestConfig } from "../src/lib/graphExercise/GraphExerciseTestsConfig.js";
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
-const basePath = resolve(currentFilePath, "../..");
+const basePath = resolve(currentFilePath, "../../..");
 
 const main = async () => {
   try {

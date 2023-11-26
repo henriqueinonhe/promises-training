@@ -1,7 +1,7 @@
 import { it, vi, expect } from "vitest";
-import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer";
-import promiseAllSettled from "../../exercises/foundation/promiseAllSettled/exercise";
-import { waitForPromises } from "../../lib/waitForPromises";
+import { createFoundationExerciseContainer } from "../../lib/foundationExercise/foundationExerciseContainer.js";
+import promiseAllSettled from "../../exercises/foundation/promiseAllSettled/exercise.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 it("Waits for all promises to settle and resolves to array of results", async () => {
   const { createPromise, promiseManager } =

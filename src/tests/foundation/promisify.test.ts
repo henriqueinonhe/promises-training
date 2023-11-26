@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import promisify from "../../exercises/foundation/promisify/exercise";
+import promisify from "../../exercises/foundation/promisify/exercise.js";
 
 const setup = () => {
   const original = vi.fn();

@@ -1,14 +1,14 @@
 import { argv } from "node:process";
 import { lstat, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { checkGraphExercisesTestsDataExists } from "../src/lib/graphExercise/checkGraphExercisesTestsDataExists";
-import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData";
+import { checkGraphExercisesTestsDataExists } from "../src/lib/graphExercise/checkGraphExercisesTestsDataExists.js";
+import { GraphExerciseTestData } from "../src/lib/graphExercise/GraphExerciseTestData.js";
 import { shuffle } from "lodash";
 import { red } from "kolorist";
 import { fileURLToPath } from "node:url";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
-const basePath = resolve(currentFilePath, "../..");
+const basePath = resolve(currentFilePath, "../../..");
 
 const main = async () => {
   try {

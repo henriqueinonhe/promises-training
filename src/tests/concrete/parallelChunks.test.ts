@@ -1,7 +1,7 @@
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import parallelChunksExercise from "../../exercises/concrete/parallelChunks/exercise";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import parallelChunksExercise from "../../exercises/concrete/parallelChunks/exercise.js";
 import { it, vi, expect, describe } from "vitest";
-import { waitForPromises } from "../../lib/waitForPromises";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 describe("When the list has 17 elements", () => {
   const setup = async () => {

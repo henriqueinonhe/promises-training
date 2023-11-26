@@ -1,7 +1,7 @@
 import { describe, it, vi, expect } from "vitest";
-import parallelCollectErrorsExercise from "../../exercises/concrete/parallelCollectErrors/exercise";
-import { promiseWithResolvers } from "../../lib/promiseWithResolvers";
-import { waitForPromises } from "../../lib/waitForPromises";
+import parallelCollectErrorsExercise from "../../exercises/concrete/parallelCollectErrors/exercise.js";
+import { promiseWithResolvers } from "../../lib/promiseWithResolvers.js";
+import { waitForPromises } from "../../lib/waitForPromises.js";
 
 const setup = async () => {
   const {

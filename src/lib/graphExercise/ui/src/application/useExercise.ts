@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ExerciseContext } from "./ExerciseProvider";
-import { Exercise, createExercise } from "../domain/Exercise";
+import { ExerciseContext } from "./ExerciseProvider.js";
+import { Exercise, createExercise } from "../domain/Exercise.js";
 import { omit } from "lodash";
 
 export const useExercise = () => {

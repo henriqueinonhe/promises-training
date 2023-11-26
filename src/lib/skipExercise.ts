@@ -1,4 +1,4 @@
-import { MakeExercise } from "./Exercise";
+import { MakeExercise } from "./Exercise.js";
 
 export const skipExercise = (makeExercise: MakeExercise) => {
   makeExercise.skipExerciseSymbol = skipExerciseSymbol;

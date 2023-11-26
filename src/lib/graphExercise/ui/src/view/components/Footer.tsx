@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import { useExercise } from "../../application/useExercise";
-import { ExerciseFollowingRecord } from "../../domain/ExerciseRecord";
+import { useExercise } from "../../application/useExercise.js";
+import { ExerciseFollowingRecord } from "../../domain/ExerciseRecord.js";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {

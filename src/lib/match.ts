@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-import { promiseResult } from "./promiseResult";
+import { promiseResult } from "./promiseResult.js";
 
 export const match = <T>(
   actualResult: unknown,

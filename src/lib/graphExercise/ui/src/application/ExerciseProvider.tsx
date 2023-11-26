@@ -1,4 +1,4 @@
-import { Exercise } from "../domain/Exercise";
+import { Exercise } from "../domain/Exercise.js";
 import {
   createContext,
   ReactNode,

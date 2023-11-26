@@ -1,5 +1,5 @@
-import { createPromiseManager } from "../PromiseManager";
-import { makeCreatePromise } from "../createPromise";
+import { createPromiseManager } from "../PromiseManager.js";
+import { makeCreatePromise } from "../createPromise.js";
 
 export const createFoundationExerciseContainer = <T>() => {
   const promiseManager = createPromiseManager<T>();

@@ -3,17 +3,17 @@
   "version": "1.0.2-9",
   "description": "Practical promises exercises.",
   "scripts": {
-    "tsNode": "node --no-warnings --loader ts-node/esm",
-    "prepublishOnly": "npm run tsNode ./scripts/prepublishOnly.ts",
-    "postpublish": "npm run tsNode ./scripts/postpublish.ts",
-    "e2e": "npm run tsNode ./scripts/e2eTest.ts",
-    "setup": "npm run tsNode ./scripts/setup.ts",
-    "migrate": "npm run tsNode ./scripts/migrate.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build && node ./build/scripts/prepublishOnly.js",
+    "postpublish": "npm run build && node ./build/scripts/postpublish.js",
+    "e2e": "npm run build && node ./build/scripts/e2eTest.js",
+    "setup": "npm run build && node ./build/scripts/setup.js",
+    "migrate": "npm run build && node ./build/scripts/migrate.js",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
-    "graph:generateTests": "npm run tsNode ./scripts/generateGraphTestsData.ts",
-    "graph:shuffleTests": "npm run tsNode ./scripts/shuffleGraphTestData.ts",
-    "graph:setTestsCap": "npm run tsNode ./scripts/setGraphTestsCap.ts"
+    "graph:generateTests": "npm run build && node ./build/scripts/generateGraphTestsData.js",
+    "graph:shuffleTests": "npm run build && node ./build/scripts/shuffleGraphTestData.js",
+    "graph:setTestsCap": "npm run build && node ./build/scripts/setGraphTestsCap.js"
   },
   "keywords": [
     "promises",
@@ -31,7 +31,7 @@
   "engines": {
     "node": ">=20.x"
   },
-  "bin": "bin.cjs",
+  "bin": "bin.js",
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
     "@types/fs-extra": "11.0.4",
@@ -40,17 +40,16 @@
     "@types/tar": "6.1.9",
     "prettier": "2.8.8",
     "tar": "6.2.0",
-    "vitest": "0.32.4"
-  },
-  "dependencies": {
+    "vitest": "0.32.4",
     "typescript": "5.1.6",
-    "fs-extra": "11.1.1",
-    "ts-node": "10.9.1",
-    "kolorist": "1.8.0",
     "lodash": "npm:lodash-es@4.17.21",
-    "prompts": "2.4.2",
     "return-exception": "1.0.2",
     "ts-pattern": "5.0.4"
+  },
+  "dependencies": {
+    "fs-extra": "11.1.1",
+    "kolorist": "1.8.0",
+    "prompts": "2.4.2"
   },
   "type": "module"
 }

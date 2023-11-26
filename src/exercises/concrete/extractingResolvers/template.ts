@@ -1,4 +1,4 @@
-import { Router } from "../../../lib/concreteExercise/Router";
+import { Router } from "../../../lib/concreteExercise/Router.js";
 
 type Context = {
   router: Router;
