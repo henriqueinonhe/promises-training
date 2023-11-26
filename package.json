@@ -33,16 +33,17 @@
   },
   "bin": "bin.js",
   "license": "CC-BY-NC-ND-4.0",
-  "devDependencies": {},
+  "devDependencies": {
+    "tar": "6.2.0",
+    "prettier": "2.8.8",
+    "vitest": "0.32.4"
+  },
   "dependencies": {
     "ts-pattern": "5.0.4",
     "@types/fs-extra": "11.0.4",
     "@types/lodash": "npm:@types/lodash-es@4.17.8",
     "@types/prompts": "2.4.4",
     "@types/tar": "6.1.9",
-    "prettier": "2.8.8",
-    "tar": "6.2.0",
-    "vitest": "0.32.4",
     "typescript": "5.1.6",
     "lodash": "npm:lodash-es@4.17.21",
     "return-exception": "1.0.2",
