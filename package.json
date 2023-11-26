@@ -4,13 +4,14 @@
   "description": "Practical promises exercises.",
   "scripts": {
     "prepublishOnly": "node --no-warnings --loader ts-node/esm ./scripts/prepublishOnly.ts",
-    "postpublish": "node --no-warnings --loader ts-node/esm ./scripts/postpublish.ts",
-    "e2e": "node --no-warnings --loader ts-node/esm ./scripts/e2eTest.ts",
+    "postpublish": "npm run tsNode ./scripts/postpublish.ts",
+    "e2e": "npm run tsNode ./scripts/e2eTest.ts",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
-    "graph:generateTests": "node --no-warnings --loader ts-node/esm ./scripts/generateGraphTestsData.ts",
-    "graph:shuffleTests": "node --no-warnings --loader ts-node/esm ./scripts/shuffleGraphTestData.ts",
-    "graph:setTestsCap": "node --no-warnings --loader ts-node/esm ./scripts/setGraphTestsCap.ts"
+    "graph:generateTests": "npm run tsNode ./scripts/generateGraphTestsData.ts",
+    "graph:shuffleTests": "npm run tsNode ./scripts/shuffleGraphTestData.ts",
+    "graph:setTestsCap": "npm run tsNode ./scripts/setGraphTestsCap.ts",
+    "tsNode": "node --no-warnings --loader ts-node/esm"
   },
   "keywords": [
     "promises",
