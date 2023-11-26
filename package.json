@@ -1,6 +1,6 @@
 {
   "name": "create-promises-training",
-  "version": "1.0.2-13",
+  "version": "1.0.2-14",
   "description": "Practical promises exercises.",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
