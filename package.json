@@ -7,6 +7,8 @@
     "prepublishOnly": "npm run tsNode ./scripts/prepublishOnly.ts",
     "postpublish": "npm run tsNode ./scripts/postpublish.ts",
     "e2e": "npm run tsNode ./scripts/e2eTest.ts",
+    "setup": "npm run tsNode ./scripts/setup.ts",
+    "migrate": "npm run tsNode ./scripts/migrate.ts",
     "check": "vitest",
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
     "graph:generateTests": "npm run tsNode ./scripts/generateGraphTestsData.ts",

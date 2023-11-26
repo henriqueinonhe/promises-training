@@ -8,27 +8,17 @@ const main = async () => {
   const option = argv[2];
 
   if (option === "--migrate") {
-    execSync(
-      `node --no-warnings --loader ts-node/esm ${resolve(
-        __dirname,
-        "scripts/migrate.ts"
-      )}`,
-      {
-        stdio: "inherit",
-      }
-    );
+    execSync(`npm run migrate ${resolve(".")}`, {
+      stdio: "inherit",
+      cwd: __dirname,
+    });
     process.exit(0);
   }
 
-  execSync(
-    `node --no-warnings --loader ts-node/esm ${resolve(
-      __dirname,
-      "scripts/setup.ts"
-    )} `,
-    {
-      stdio: "inherit",
-    }
-  );
+  execSync(`npm run setup ${resolve(".")}`, {
+    stdio: "inherit",
+    cwd: __dirname,
+  });
   process.exit(0);
 };
 
