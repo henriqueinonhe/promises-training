@@ -3,6 +3,7 @@
   "version": "1.0.2-3",
   "description": "Practical promises exercises.",
   "scripts": {
+    "tsNode": "node --no-warnings --loader ts-node/esm",
     "prepublishOnly": "node --no-warnings --loader ts-node/esm ./scripts/prepublishOnly.ts",
     "postpublish": "npm run tsNode ./scripts/postpublish.ts",
     "e2e": "npm run tsNode ./scripts/e2eTest.ts",
@@ -10,8 +11,7 @@
     "graph:ui": "npm run dev --prefix ./src/lib/graphExercise/ui",
     "graph:generateTests": "npm run tsNode ./scripts/generateGraphTestsData.ts",
     "graph:shuffleTests": "npm run tsNode ./scripts/shuffleGraphTestData.ts",
-    "graph:setTestsCap": "npm run tsNode ./scripts/setGraphTestsCap.ts",
-    "tsNode": "node --no-warnings --loader ts-node/esm"
+    "graph:setTestsCap": "npm run tsNode ./scripts/setGraphTestsCap.ts"
   },
   "keywords": [
     "promises",
@@ -32,9 +32,11 @@
   "bin": "bin.cjs",
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
+    "@types/fs-extra": "11.0.4",
     "@types/lodash": "npm:@types/lodash-es@4.17.8",
     "@types/prompts": "2.4.4",
     "@types/tar": "6.1.9",
+    "fs-extra": "11.1.1",
     "prettier": "2.8.8",
     "tar": "6.2.0",
     "ts-node": "10.9.1",

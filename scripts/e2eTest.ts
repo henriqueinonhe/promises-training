@@ -23,24 +23,13 @@ const main = async () => {
       cwd: "e2e",
     });
   }
-  run("echo ./installation | node ./package/bin.cjs", {
+  run("echo ./installation | ./package/bin.cjs", {
     cwd: "e2e",
   });
-  // We run it here to get the exercises answers back
-  // BTW this is very fragile but it works because
-  // e2e is a git repo by now and thus it won't be remove
-  // by the postpublish script
-  // I know this is very ugly and eventually I will
-  // refactor this, but for now whatever
   run("npm run postpublish");
   await Promise.all(
     ["graph", "concrete", "foundation"].map(copyExerciseAnswers)
   );
-  // We would usually use the `--run` flag,
-  // however, for some reason this causes a problem
-  // with way too many files open
-  // So we'll use the watch mode and manually quit
-  // from it
   run("npm run check -- --run", {
     cwd: "e2e/installation",
   });
