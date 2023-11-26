@@ -4,13 +4,16 @@ import { logError, logMessage } from "../src/lib/cli/logger";
 import { run } from "../src/lib/cli/run";
 import { copy } from "fs-extra";
 import { fileURLToPath } from "node:url";
+import { argv } from "node:process";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {
+  const processDir = argv[2];
+
   const sourcePath = basePath;
-  const targetPath = basePath;
+  const targetPath = resolve(processDir);
 
   await checkIsPromisesTrainingRepo({ targetPath });
   await copyMigrationFiles({ sourcePath, targetPath });

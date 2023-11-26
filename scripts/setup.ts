@@ -7,16 +7,19 @@ import prompts from "prompts";
 import { logError, logMessage } from "../src/lib/cli/logger";
 import { run } from "../src/lib/cli/run";
 import { fileURLToPath } from "node:url";
+import { argv } from "node:process";
 
 const currentFilePath = fileURLToPath(new URL(import.meta.url));
 const basePath = resolve(currentFilePath, "../..");
 
 const main = async () => {
-  const dir = await promptInstallationDir();
-  await createDirIfNotExists(dir);
+  const processDir = argv[2];
 
+  const dir = await promptInstallationDir();
   const sourcePath = basePath;
-  const targetPath = resolve(dir);
+  const targetPath = resolve(processDir, dir);
+
+  await createDirIfNotExists(targetPath);
 
   await copyFiles({ sourcePath, targetPath });
   await installDependencies({ targetPath });
