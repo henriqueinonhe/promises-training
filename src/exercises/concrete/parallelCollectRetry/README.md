@@ -2,7 +2,7 @@
 
 **Level: Intermediate**
 
-This exercise is similar to the `concrete/parallelCollectRetry` exercise, but now, instead of returning errors, we're going to retry the calls that failed.
+This exercise is similar to the `concrete/parallelCollectErrors` exercise, but now, instead of returning errors, we're going to retry the calls that failed.
 
 However, we won't retry them individually, but rather, we'll do that in batches, where each batch will be the list of calls that failed in the previous batch.
 
