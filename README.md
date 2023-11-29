@@ -35,13 +35,15 @@ Even if you're already a seasoned developer, you might learn a thing or two, lik
     - [Tests](#tests-1)
   - [Concrete Exercises](#concrete-exercises)
   - [Foundation Exercises](#foundation-exercises)
+- [Solutions](#solutions)
 - [Upgrading](#upgrading)
 - [License](#license)
 
 ## Getting Started
 
 > [!WARNING]  
-> ATTENTION: DO NOT CLONE THIS REPO UNLESS YOU'RE CONTRIBUTING
+> ATTENTION: THIS REPO IS NOT MEANT TO BE CLONED UNLESS YOU'RE CONTRIBUTING
+> IF YOU'RE AN END USER, PLEASE FOLLOW THE INSTRUCTIONS BELOW
 
 First, to install the project, run:
 
@@ -58,7 +60,7 @@ Exercises are divided into three categories:
 
 - Graph -> Exercises that involve orchestrating tasks according to dependency graphs.
 - Concrete -> Exercises that simulate real-world problems.
-- Foundation -> Exercises based on the foundations of promises and their implementation and common helpers.
+- Foundation -> Exercises based on the foundations of promises and their implementation, and common helpers.
 
 > [!IMPORTANT]
 > There isn't an specific order for categories, you can start from any of them and switch to another one even before finishing the other one completely. Howerer, the exercises have different [levels](#levels) that will be discussed next.
@@ -71,7 +73,7 @@ For **concrete** and **foundation** exercises, the explanations are located in t
 
 To solve an exercise, you need to edit the `src/exercises/<category>/<exercise>/exercise.ts` file.
 
-After solving an exercise, you check your solution by running:
+After solving an exercise, you may check your solution by running:
 
 ```sh
 npm run check <category>/<exercise>.test.ts
@@ -79,9 +81,9 @@ npm run check <category>/<exercise>.test.ts
 
 Tests are located within `src/tests`.
 
-You generally will only work inside the exercises folder as tests are devised in a way that they tell you exactly what went wrong without you having to look at their implementation, but if for any reason you get stuck or curious, you can peek at them.
+Generally, you will only work inside the exercises folder as tests are devised in a way that they tell you exactly what went wrong without having to look at their implementation, but if for any reason you get stuck or curious, you may peek at them.
 
-The `src/lib` folder is for internal use only, so don't bother with it.
+The `src/lib` folder is intended for internal use only, so don't bother with it.
 
 Also, to keep your installation forwards compatible with future versions, **DO NOT** modify any file outside the `src/exercises` folder.
 
@@ -351,6 +353,14 @@ As each exercise in this category is unique, their description is colocated with
 Foundation exercises are designed to help you reinforce your understanding of the foundations of promises, by reimplementing promise-related functions and, eventually, the promise itself.
 
 Descriptions are colocated with exercises.
+
+## Solutions
+
+Solutions to the exercises can be found in this repo, e.g. https://github.com/henriqueinonhe/promises-training/blob/master/src/exercises/concrete/concurrencyAbort/exercise.ts .
+
+However, we recommend that you only check the solutions after you've solved the exercise yourself, as the goal is for you to learn by solving the exercises.
+
+Also, keep in mind that currently the solutions presented are **not necessarily the best ones**, which means that even if your solutions don't resemble the ones you'll find here at all, it doesn't mean that they're bad.
 
 ## Upgrading
 
