@@ -76,7 +76,7 @@ To solve an exercise, you need to edit the `src/exercises/<category>/<exercise>/
 After solving an exercise, you may check your solution by running:
 
 ```sh
-npm run check <category>/<exercise>.test.ts
+npm run check <category>/<exercise>
 ```
 
 Tests are located within `src/tests`.
