@@ -2,7 +2,7 @@
 
 **Level: Intermediate**
 
-When retrying failed operations we usually don't want to retry them indefinitelly, so we might want to use some criteria to decide when we stop retrying.
+When retrying failed operations we usually don't want to retry them indefinitely, so we might want to use some criteria to decide when to stop retrying.
 
 In the `concrete/retry` exercise we used the amount of retries as the criteria for when to stop, but now we'll use the **elapsed time**, that is, we'll have a timeout.
 
