@@ -2,7 +2,7 @@
 
 **Level: Beginner**
 
-This exercise is very similar to the `concrete/serial` one, however, in this case we'll consider the possibility that calls to `postData` might fail, and when they do, we'll collect their and return them.
+This exercise is very similar to the `concrete/serial` one, however, in this case we'll consider the possibility that calls to `postData` might fail, and when they do, we'll collect their errors and return them.
 
 ## Requirements
 
