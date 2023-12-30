@@ -244,7 +244,7 @@ In this graph, we have task `B` which depends on `A`'s fulfillment and task `C` 
 
 This means that `B` can only start after `A` has been fulfilled and `C` can only start after `A` has been rejected.
 
-As only one of these outcomes is possible, either `B` or `C` will not be carried out.
+As only one of these outcomes is possible, either `B` or `C` will be carried out.
 
 Corresponding implementation:
 
