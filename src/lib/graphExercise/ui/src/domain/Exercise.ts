@@ -120,7 +120,7 @@ const internalCreateExercise = (params: InternalCreateExerciseParameters) => {
   };
 
   const reject = async (label: string): Promise<Exercise> => {
-    promiseManager.reject(label);
+    promiseManager.reject(label, label);
     await waitForPromises();
 
     const existingPromises = records.reduce(
