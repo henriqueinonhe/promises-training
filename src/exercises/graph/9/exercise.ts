@@ -47,7 +47,7 @@ const asyncAwait =
       await createPromise("H");
     })();
 
-    await Promise.all([a, b, c, d, e, f, g, h]);
+    await Promise.all([g, h]);
   };
 
 const thenCatch =
