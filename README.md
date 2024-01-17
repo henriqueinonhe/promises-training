@@ -63,7 +63,7 @@ Exercises are divided into three categories:
 - Foundation -> Exercises based on the foundations of promises and their implementation, and common helpers.
 
 > [!IMPORTANT]
-> There isn't an specific order for categories, you can start from any of them and switch to another one even before finishing the other one completely. Howerer, the exercises have different [levels](#levels) that will be discussed next.
+> There isn't an specific order for categories, you can start from any of them and switch to another one even before finishing the other one completely. However, the exercises have different [levels](#levels) that will be discussed next.
 
 Exercises are located within `src/exercises/<category>` folders, where `<category>` is one of the categories mentioned above.
 
