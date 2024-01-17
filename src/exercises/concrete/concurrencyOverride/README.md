@@ -10,7 +10,7 @@ Because the order that these requests complete is **not necessarily** the same a
 
 In this kind of situation, what we usually do is, whenever a new request comes in, the new request overrides the previous one, so that we only have one request running at a time.
 
-In Javascript promises are **not cancellable**, but while we can't cancel de promise itself, we can abort **whatever runs after the promise completes**, which is what we are going to do here.
+In Javascript promises are **not cancellable**, but while we can't cancel the promise itself, we can abort **whatever runs after the promise completes**, which is what we are going to do here.
 
 In this exercise, we're going to implement a function that calls an async function with a given input, but, whenever it is called while it is already running, we're going to abort the previous call.
 
