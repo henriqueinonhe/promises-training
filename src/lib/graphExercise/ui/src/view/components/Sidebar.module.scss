@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: var(--header-height) calc(100% - var(--header-height));
+}
+
+.header {
+  padding-left: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  align-self: center;
+  color: var(--color-text);
+}

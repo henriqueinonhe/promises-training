@@ -1,9 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
-  position: fixed;
   width: 100%;
-  bottom: 0;
   font-size: 32px;
   background-color: white;
   border-top: 1px solid var(--borderColor);
@@ -17,8 +15,4 @@
 
 .rejected {
   color: red;
-}
-
-.spacing {
-  height: 80px;
 }

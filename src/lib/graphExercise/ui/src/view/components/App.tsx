@@ -2,24 +2,20 @@ import { ExerciseProvider } from "../../application/ExerciseProvider.js";
 import styles from "./App.module.scss";
 import { useExercise } from "../../application/useExercise.js";
 import { Header } from "./Header.js";
-import { ExerciseSelector } from "./ExerciseSelector.js";
 import { RecordsDisplay } from "./RecordsDisplay.js";
 import { ControlPanel } from "./ControlPanel.js";
 import { VariantSelector } from "./VariantSelector.js";
 import { Footer } from "./Footer.js";
+import { Sidebar } from "./Sidebar.js";
 
 function App() {
   const { exercise } = useExercise();
 
   return (
-    <>
-      <Header />
-
+    <div className={styles.container}>
+      <Sidebar />
       <main className={styles.main}>
-        <div className={styles.leftSidebar}>
-          <ExerciseSelector />
-        </div>
-
+        <Header />
         <div className={styles.center}>
           {exercise && (
             <>
@@ -33,10 +29,9 @@ function App() {
         <div>
           <ControlPanel />
         </div>
+        <Footer />
       </main>
-
-      <Footer />
-    </>
+    </div>
   );
 }
 

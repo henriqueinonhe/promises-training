@@ -1,12 +1,11 @@
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 100%;
+  height: 100%;
+}
+
 .main {
   display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.leftSidebar {
-}
-
-.center {
-  width: 100%;
+  flex-direction: column;
 }

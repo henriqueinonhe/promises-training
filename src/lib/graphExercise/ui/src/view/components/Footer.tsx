@@ -35,8 +35,6 @@ export const Footer = () => {
 
         {lastRecord && formatRecord(lastRecord)}
       </footer>
-
-      <div className={styles.spacing} />
     </>
   );
 };
