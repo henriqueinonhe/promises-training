@@ -1,18 +1,61 @@
 .container {
   grid-area: variant-selector;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  background-color: var(--color-background);
+  color: var(--color-gray-900);
+  font-weight: var(--font-weight-bold);
+
+  > fieldset {
+    display: flex;
+    justify-content: center;
+
+    gap: 0.5rem;
+    border: 0;
+  }
 }
 
-.list {
-  display: flex;
-}
+.input-group {
+  display: grid;
+  grid-template-columns: 1rem auto;
+  gap: 0.3rem;
+  align-items: center;
 
-.listItem {
-  margin-left: 12px;
-}
+  padding: 1rem;
 
-.button {
-  padding: 6px 12px;
+  > input[type="radio"] {
+    display: grid;
+    place-content: center;
+
+    margin: 0;
+    width: 1rem;
+    height: 1rem;
+
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    border: 0.15rem solid var(--color-primary);
+    border-radius: 50%;
+    font: inherit;
+
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 50%;
+      box-shadow: inset 1rem 1rem var(--color-primary);
+      transform: scale(0);
+      transition: 100ms transform ease-in-out;
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+
+  > label {
+    cursor: pointer;
+  }
 }
