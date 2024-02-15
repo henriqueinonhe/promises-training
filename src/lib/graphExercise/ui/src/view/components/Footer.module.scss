@@ -1,24 +1,21 @@
 .container {
   display: flex;
   justify-content: center;
-  position: fixed;
   width: 100%;
-  bottom: 0;
   font-size: 32px;
-  background-color: white;
-  border-top: 1px solid var(--borderColor);
+  background-color: var(--color-background);
   align-items: center;
-  height: 80px;
+  height: var(--footer-height);
+}
+
+.arrow {
+  color: var(--color-gray-600);
 }
 
 .resolved {
-  color: green;
+  color: var(--color-success);
 }
 
 .rejected {
-  color: red;
-}
-
-.spacing {
-  height: 80px;
+  color: var(--color-error);
 }

@@ -7,20 +7,40 @@ export const ExerciseSelector = () => {
 
   return (
     <nav className={styles.container}>
-      <h2>Exercises</h2>
-
-      <ul>
+      <ol className={styles.list}>
         {exerciseIds.map((exerciseId) => (
-          <li key={exerciseId}>
-            <button
-              className={styles.button}
-              onClick={() => selectExercise(exerciseId)}
-            >
-              {exerciseId}
-            </button>
-          </li>
+          <ExerciseItem
+            key={exerciseId}
+            exerciseId={exerciseId}
+            selectExercise={selectExercise}
+            isActive={exerciseId === exercise?.id}
+          />
         ))}
-      </ul>
+      </ol>
     </nav>
+  );
+};
+
+type ExerciseItemProps = {
+  exerciseId: string;
+  selectExercise: (id: string) => void;
+  isActive: boolean;
+};
+
+export const ExerciseItem = ({
+  exerciseId,
+  selectExercise,
+  isActive,
+}: ExerciseItemProps) => {
+  return (
+    <li key={exerciseId}>
+      <button
+        className={`${styles.button} ${isActive ? styles.active : ""}`}
+        onClick={() => selectExercise(exerciseId)}
+      >
+        <span className={styles.circle}></span>
+        <p>Exercise - {exerciseId}</p>
+      </button>
+    </li>
   );
 };

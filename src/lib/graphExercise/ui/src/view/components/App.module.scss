@@ -1,12 +1,28 @@
-.main {
-  display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
+.container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 100%;
+  height: 100%;
 }
 
-.leftSidebar {
+.main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: var(--header-height) 1fr auto;
 }
 
 .center {
-  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "variant-selector variant-selector"
+    "control-panel records-display";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+
+  border-radius: 0.5rem;
+  border: 1px solid var(--page-border-color);
+
+  color: hsl(222deg 22% 5% / 1);
+
+  overflow-y: scroll;
 }

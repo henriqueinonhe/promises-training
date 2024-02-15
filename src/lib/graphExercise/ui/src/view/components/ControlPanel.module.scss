@@ -1,38 +1,120 @@
 .container {
-  width: 250px;
+  grid-area: control-panel;
+  background: hsl(0deg 0% 95% / 1);
+  border-radius: 0.5rem 0 0 0.5rem;
+  padding: 1rem;
 }
 
 @mixin button {
-  padding: 8px 12px;
-}
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
 
-.startButton {
-  @include button;
-}
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold);
 
-.resetButton {
-  @include button;
-  margin-left: 8px;
-}
+  background-color: hsl(240deg 95% 62% / 1);
+  color: var(--color-text);
 
-.entry {
-  margin-top: 12px;
-}
+  border: 0;
+  border-radius: 0.5rem;
 
-.resolveButton {
-  @include button;
-  margin-left: 8px;
+  transform: scale(0.99);
+  transform-origin: center center;
 
-  &.resolved {
-    background-color: rgb(185, 255, 185);
+  transition:
+    transform 150ms ease-in,
+    color 150ms ease-in,
+    background-color 150ms ease-in;
+
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    background-color: var(--color-gray-800);
+
+    &:hover {
+      transform: scale(0.99);
+      opacity: 1;
+      cursor: not-allowed;
+    }
   }
 }
 
-.rejectButton {
-  @include button;
-  margin-left: 8px;
+.exerciseActions {
+  display: flex;
+  gap: 1rem;
+  padding-left: 2.5rem;
 
-  &.rejected {
-    background-color: rgb(255, 180, 180);
+  .startButton {
+    @include button;
+  }
+
+  .resetButton {
+    @include button;
+  }
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  padding: 1rem 0;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1fr;
+  grid-template-rows: 2.5rem;
+  gap: 0.5rem;
+
+  .label {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-gray-50);
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+  }
+
+  .resolveButton {
+    @include button;
+
+    &:hover {
+      color: var(--color-success);
+      background-color: var(--color-success-background);
+    }
+
+    &:disabled {
+      background-color: var(--color-gray-800);
+      color: var(--color-text);
+    }
+
+    &.resolved {
+      color: var(--color-success);
+      background-color: var(--color-success-background);
+    }
+  }
+
+  .rejectButton {
+    @include button;
+
+    &:hover {
+      color: var(--color-error);
+      background-color: var(--color-error-background);
+    }
+
+    &:disabled {
+      background-color: var(--color-gray-800);
+      color: var(--color-text);
+    }
+
+    &.rejected {
+      color: var(--color-error);
+      background-color: var(--color-error-background);
+    }
   }
 }

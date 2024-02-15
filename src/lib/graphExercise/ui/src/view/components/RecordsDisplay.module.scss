@@ -1,25 +1,20 @@
 .container {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  grid-area: records-display;
+  background: hsl(0deg 0% 95% / 1);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem;
 }
 
 .record {
   display: flex;
-  margin-top: 8px;
-  font-size: 24px;
-}
-
-@mixin segment {
-  margin-right: 12px;
+  font-size: 1.75rem;
+  gap: 1rem;
 }
 
 .resolvedSegment {
-  @include segment;
-  color: green;
+  color: var(--color-success);
 }
 
 .rejectedSegment {
-  @include segment;
-  color: red;
+  color: var(--color-error);
 }

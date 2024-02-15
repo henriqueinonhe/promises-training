@@ -1,13 +1,14 @@
 .container {
-  position: fixed;
-  width: 100%;
-  text-align: center;
-  padding: 14px;
-  z-index: var(--headerZIndex);
-  background-color: white;
-  border-bottom: 1px solid var(--borderColor);
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.spacing {
-  height: 66px;
+  height: var(--header-height);
+
+  color: var(--color-text);
+
+  > h1 {
+    font-size: 1.75rem;
+    font-weight: var(--font-weight-bold);
+  }
 }

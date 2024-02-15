@@ -1,0 +1,61 @@
+@use "reset";
+
+:root {
+  --borderColor: #b8b8b8;
+  --color-background: #0d0f12;
+  --color-gray-50: hsl(210deg 19% 10% / 1);
+  --color-gray-100: hsl(210deg 15% 20% / 1);
+  --color-gray-200: hsl(210deg 15% 25% / 1);
+  --color-gray-300: hsl(210deg 10% 40% / 1);
+  --color-gray-400: hsl(210deg 9% 45% / 1);
+  --color-gray-500: hsl(210deg 8% 50% / 1);
+  --color-gray-600: hsl(210deg 12% 55% / 1);
+  --color-gray-700: hsl(210deg 14% 66% / 1);
+  --color-gray-800: hsl(210deg 20% 77% / 1);
+  --color-gray-900: hsl(210deg 25% 88% / 1);
+  --color-gray-1000: hsl(210deg 25% 96% / 1);
+  --color-primary: hsl(225deg 100% 75% / 1);
+  --color-text: hsl(210deg 10% 90% / 1);
+
+  --color-error: hsl(340deg 95% 39% / 1);
+  --color-error-light: hsl(343deg 92% 50% / 1);
+  --color-error-background: hsl(340deg 95% 43% / 0.1);
+  --color-success: hsl(145deg 100% 27% / 1);
+  --color-success-background: hsl(145deg 100% 40% / 0.1);
+  
+  --page-border-color: hsl(210deg 15% 6% / 1);
+  
+  --font-weight-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-light: 400;
+
+  --header-height: 3.5rem;
+  --footer-height: 4rem;
+}
+
+html {
+  scrollbar-color: var(--color-gray-300) var(--color-background);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--color-gray-300);
+  border: 2px solid var(--color-gray-50, var(--color-background));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-500);
+}
