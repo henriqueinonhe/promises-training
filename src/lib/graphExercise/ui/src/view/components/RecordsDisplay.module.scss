@@ -1,5 +1,7 @@
 .container {
   grid-area: records-display;
+  background: hsl(0deg 0% 95% / 1);
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .record {

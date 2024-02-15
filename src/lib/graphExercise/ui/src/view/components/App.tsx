@@ -15,8 +15,8 @@ function App() {
         <Header />
         <div className={styles.center}>
           <VariantSelector />
-          <RecordsDisplay />
           <ControlPanel />
+          <RecordsDisplay />
         </div>
         <Footer />
       </main>

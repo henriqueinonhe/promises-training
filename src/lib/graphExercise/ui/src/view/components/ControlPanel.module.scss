@@ -1,6 +1,7 @@
 .container {
   grid-area: control-panel;
-  width: 250px;
+  background: hsl(0deg 0% 95% / 1);
+  border-radius: 0.5rem 0 0 0.5rem;
 }
 
 @mixin button {

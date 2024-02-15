@@ -19,10 +19,9 @@
   grid-template-rows: auto 1fr;
   grid-template-columns: auto 1fr;
 
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid var(--page-border-color);
 
-  background: hsl(0deg 0% 95% / 1);
   color: hsl(222deg 22% 5% / 1);
 
   overflow-y: scroll;
