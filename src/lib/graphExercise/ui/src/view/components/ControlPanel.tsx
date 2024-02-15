@@ -3,6 +3,10 @@ import { getExercisePromisesStatus } from "../../domain/getExercisePromisesStatu
 import styles from "./ControlPanel.module.scss";
 
 export const ControlPanel = () => {
+  const { exercise } = useExercise();
+
+  if (!exercise) return null;
+
   return (
     <div className={styles.container}>
       <BareControlPanel />
@@ -19,16 +23,14 @@ const BareControlPanel = () => {
     resetExercise,
   } = useExercise();
 
-  if (!exercise) {
-    return null;
-  }
+  if (!exercise) return null;
 
   const entries = getExercisePromisesStatus(exercise);
   const exerciseHasStarted = exercise.records.length !== 0;
 
   return (
     <>
-      <div>
+      <div className={styles.exerciseActions}>
         <button
           className={styles.startButton}
           disabled={exerciseHasStarted}
@@ -42,10 +44,10 @@ const BareControlPanel = () => {
         </button>
       </div>
 
-      <ul>
+      <ul className={styles.entries}>
         {entries.map((entry) => (
           <li key={entry.label} className={styles.entry}>
-            <span>{entry.label}</span>
+            <span className={styles.label}>{entry.label}</span>
 
             <button
               disabled={entry.status !== "pending"}
