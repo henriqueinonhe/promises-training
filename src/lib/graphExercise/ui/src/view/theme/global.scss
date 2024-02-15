@@ -17,11 +17,20 @@
   --color-primary: hsl(225deg 100% 75% / 1);
   --color-text: hsl(210deg 10% 90% / 1);
 
+  --color-error: hsl(340deg 95% 39% / 1);
+  --color-error-light: hsl(343deg 92% 50% / 1);
+  --color-error-background: hsl(340deg 95% 43% / 0.1);
+  --color-success: hsl(145deg 100% 27% / 1);
+  --color-success-background: hsl(145deg 100% 40% / 0.1);
+  
+  --page-border-color: hsl(210deg 15% 6% / 1);
+  
   --font-weight-bold: 600;
   --font-weight-medium: 500;
   --font-weight-light: 400;
 
   --header-height: 3.5rem;
+  --footer-height: 4rem;
 }
 
 html {

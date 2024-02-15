@@ -6,6 +6,24 @@
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: var(--header-height) 1fr auto;
+}
+
+.center {
+  display: grid;
+  grid-template-areas:
+    "variant-selector variant-selector"
+    "control-panel records-display";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+
+  border-radius: 8px;
+  border: 1px solid var(--page-border-color);
+
+  background: hsl(0deg 0% 95% / 1);
+  color: hsl(222deg 22% 5% / 1);
+
+  overflow-y: scroll;
 }

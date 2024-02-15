@@ -3,16 +3,19 @@
   justify-content: center;
   width: 100%;
   font-size: 32px;
-  background-color: white;
-  border-top: 1px solid var(--borderColor);
+  background-color: var(--color-background);
   align-items: center;
-  height: 80px;
+  height: var(--footer-height);
+}
+
+.arrow {
+  color: var(--color-gray-600);
 }
 
 .resolved {
-  color: green;
+  color: var(--color-success);
 }
 
 .rejected {
-  color: red;
+  color: var(--color-error);
 }

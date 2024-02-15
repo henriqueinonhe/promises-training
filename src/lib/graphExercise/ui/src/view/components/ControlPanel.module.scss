@@ -1,4 +1,5 @@
 .container {
+  grid-area: control-panel;
   width: 250px;
 }
 
@@ -24,7 +25,8 @@
   margin-left: 8px;
 
   &.resolved {
-    background-color: rgb(185, 255, 185);
+    color: var(--color-success);
+    background-color: var(--color-success-background);
   }
 }
 
@@ -33,6 +35,7 @@
   margin-left: 8px;
 
   &.rejected {
-    background-color: rgb(255, 180, 180);
+    color: var(--color-error);
+    background-color: var(--color-error-background);
   }
 }

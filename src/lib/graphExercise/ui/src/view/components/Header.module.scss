@@ -1,2 +1,14 @@
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: var(--header-height);
+
+  color: var(--color-text);
+
+  > h1 {
+    font-size: 1.75rem;
+    font-weight: var(--font-weight-bold);
+  }
 }

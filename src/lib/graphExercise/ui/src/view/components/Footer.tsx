@@ -29,7 +29,7 @@ export const Footer = () => {
         {initRecords.map((record) => (
           <Fragment key={record.rejected ?? record.resolved}>
             {formatRecord(record)}
-            &nbsp;{`→`}&nbsp;
+            <span className={styles.arrow}>&nbsp;{`→`}&nbsp;</span>
           </Fragment>
         ))}
 

@@ -22,12 +22,9 @@ function App() {
               <VariantSelector />
 
               <RecordsDisplay />
+              <ControlPanel />
             </>
           )}
-        </div>
-
-        <div>
-          <ControlPanel />
         </div>
         <Footer />
       </main>

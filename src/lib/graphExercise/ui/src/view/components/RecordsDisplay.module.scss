@@ -1,12 +1,9 @@
 .container {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+  grid-area: records-display;
 }
 
 .record {
   display: flex;
-  margin-top: 8px;
   font-size: 24px;
 }
 
@@ -16,10 +13,10 @@
 
 .resolvedSegment {
   @include segment;
-  color: green;
+  color: var(--color-success);
 }
 
 .rejectedSegment {
   @include segment;
-  color: red;
+  color: var(--color-error);
 }
