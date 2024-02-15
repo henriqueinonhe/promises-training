@@ -4,7 +4,9 @@ import styles from "./RecordsDisplay.module.scss";
 export const RecordsDisplay = () => {
   const { exercise } = useExercise();
 
-  const records = exercise!.records;
+  if (!exercise) return null;
+
+  const records = exercise.records;
 
   return (
     <ol className={styles.container}>
