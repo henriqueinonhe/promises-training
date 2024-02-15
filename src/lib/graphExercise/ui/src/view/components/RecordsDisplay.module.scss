@@ -2,23 +2,19 @@
   grid-area: records-display;
   background: hsl(0deg 0% 95% / 1);
   border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem;
 }
 
 .record {
   display: flex;
-  font-size: 24px;
-}
-
-@mixin segment {
-  margin-right: 12px;
+  font-size: 1.75rem;
+  gap: 1rem;
 }
 
 .resolvedSegment {
-  @include segment;
   color: var(--color-success);
 }
 
 .rejectedSegment {
-  @include segment;
   color: var(--color-error);
 }
