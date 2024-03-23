@@ -8,6 +8,6 @@ This exercise is very similar to the `concrete/serial` one, however, in this cas
 
 Implement a function that:
 
-- Signature: `(list: Array<string>) => Promise<Array<string>>`
+- Signature: `(list: Array<string>) => Promise<{ successes: Array<string>; errors: Array<unknown> }>`
 - Calls `postData` with each element in `list` in series
 - Returns an object with keys `successes` and `errors`, where `successes` is the list of results of `postData` and `errors` is the list of errors thrown by `postData`
