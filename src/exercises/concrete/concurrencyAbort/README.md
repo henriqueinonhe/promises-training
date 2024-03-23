@@ -10,6 +10,6 @@ A concrete example where we employ this strategy is to **deduplicate** calls tha
 
 Implement a function that:
 
-- Signature: `(input: string) => Promise<string>`
+- Signature: `(input: string) => Promise<void>`
 - Calls `fetchData` (async) with the `input` and calls `setData` (sync) with the result
 - Whenever the function is called while it is already running, the latest call should be aborted

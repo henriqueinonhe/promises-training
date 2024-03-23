@@ -18,7 +18,7 @@ In this exercise, we're going to implement a function that calls an async functi
 
 Implement a function that:
 
-- Signature: `(input: string) => Promise<string>`
+- Signature: `(input: string) => Promise<void>`
 - Calls `fetchFirstData` (async) with the `input`
 - Calls `fetchSecondData` (async) with `fetchFirstData` result
 - Calls `setData` (sync) with `fetchSecondData` result
